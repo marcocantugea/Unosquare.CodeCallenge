@@ -3,6 +3,8 @@ using WarehouseServices.Contractor;
 using WarehouseServices.Services;
 using WarehouseCoreLib.Interfaces;
 using WarehouseModels.Models;
+using WarehouseModels.Interfaces;
+using WarehouseModels.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ var connectionString = builder.Configuration.GetConnectionString("warehousedb");
 builder.Services.AddDbContext<WarehouseCoreLib.DataAccess.WarehouseDbContext>(options=>
         options.UseSqlServer(connectionString, sqlServerOptions => sqlServerOptions.MigrationsAssembly("WarehouseCoreLib")));
 builder.Services.AddScoped<IWarehouseService, CompaniesServices>();
+builder.Services.AddScoped<IValidation<Company>, CompanyValidations>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -26,3 +29,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+public partial class Program { }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tests;
-using WarehouseCoreLib.Repositories;
+using WarehouseRepositories.Repositories;
 using WarehouseModels.Models;
 
 namespace WarehouseTestingUnit.WarehouseCoreLib.Repositories

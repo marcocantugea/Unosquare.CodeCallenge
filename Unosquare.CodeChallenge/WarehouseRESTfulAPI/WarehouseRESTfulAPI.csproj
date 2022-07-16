@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WarehouseServices\WarehouseServices.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="WarehouseTestingUnit" />
+	</ItemGroup>
+
 </Project>

@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarehouseCoreLib.DataAccess;
-using WarehouseCoreLib.Repositories;
 using WarehouseModels.Models;
 using WarehouseServices.Contractor;
 using WarehouseCoreLib.Base;
+using WarehouseRepositories.Repositories;
 
 namespace WarehouseServices.Services
 {
     public class CompaniesServices : Service<Company>, IWarehouseService
     {
+        private CompanyRepository repository;
 
         public CompaniesServices(WarehouseDbContext context)
         {
@@ -28,6 +29,23 @@ namespace WarehouseServices.Services
         public Company getCompany(int id)
         {
             return repository.getById(id);
+        }
+
+        public void addCompany(Company company)
+        {
+            repository.add(company);
+            repository.save();
+        }
+
+        public void deleteCompany(Company company)
+        {
+            repository.delete(company);
+            repository.save();
+        }
+
+        public Company getCompanyByName(string name)
+        {
+            return repository.getCompanyByName(name);
         }
     }
 }

@@ -7,11 +7,15 @@ using WarehouseCoreLib.Base;
 using WarehouseCoreLib.Interfaces;
 using WarehouseModels.Models;
 
-namespace WarehouseCoreLib.Repositories
+namespace WarehouseRepositories.Repositories
 {
     public class CompanyRepository : Repository<Company>
     {
        
+        public Company getCompanyByName(string name)
+        {
+            return dbcontext.Companies.Where(company => company.Name == name).First();
+        }
 
     }
 }

@@ -1,0 +1,85 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using WarehouseServices.Services;
+using WarehouseModels.Models;
+using WarehouseServices.Contractor;
+using System.Text;
+using WarehouseModels.Interfaces;
+using WarehouseModels.Validations;
+using System.Text.Json;
+
+namespace WarehouseRESTfulAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class company : ControllerBase
+    {
+        private CompaniesServices companyService;
+
+        public company(IWarehouseService companyservice)
+        {
+            companyService = (CompaniesServices)companyservice;
+        }
+
+
+        [HttpGet("{id}")]
+        public IActionResult getCompany([FromRoute] string id)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(id)) return this.BadRequest();
+                var valueBytes = System.Convert.FromBase64String(id);
+                int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
+                return this.Ok(companyService.getCompany(idCompany));
+            }
+            catch (Exception)
+            {
+
+                return this.Problem("invalid id", null, 500);
+            }
+        }
+
+        [HttpGet("search")]
+        public string  searchCompany([FromQuery] string name= "")
+        {
+            if (string.IsNullOrEmpty(name)) return null;
+            return JsonSerializer.Serialize(companyService.getCompanyByName(name));
+        }
+
+        [HttpPost]
+        public IActionResult addCompany([FromBody] Company newCompany, [FromServices] IValidation<Company> validation)
+        {
+            CompanyValidations modelValidator = (CompanyValidations)validation;
+
+            try
+            {
+                modelValidator.Validate(newCompany);
+            }
+            catch (Exception e)
+            {
+                return this.Problem(e.Message.ToString(), null, 500);
+            }
+            
+            companyService.addCompany(newCompany);
+            return this.Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult deleteCompany([FromRoute] string id)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(id)) return this.BadRequest();
+                var valueBytes = System.Convert.FromBase64String(id);
+                int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
+                companyService.deleteCompany(new Company() { Id = idCompany });
+                return this.Ok();
+            }
+            catch (Exception)
+            {
+                return this.Problem("invalid id", null, 500);
+            }
+            
+        }
+    }
+}
