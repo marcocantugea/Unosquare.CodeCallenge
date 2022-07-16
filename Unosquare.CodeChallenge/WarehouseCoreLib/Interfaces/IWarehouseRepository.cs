@@ -22,9 +22,9 @@ namespace WarehouseCoreLib.Interfaces
         public void saveAsync(IModel model);
 
         public IModel getById(int id);
-        public IModel getByIdAsync(int id);
+        public Task<IModel> getByIdAsync(int id);
         public IEnumerable<IModel> findAll(int limit=0);
-        public IEnumerable<IModel> findAllAsync(int limit = 0);
+        public Task<IEnumerable<IModel>> findAllAsync();
 
     }
 }

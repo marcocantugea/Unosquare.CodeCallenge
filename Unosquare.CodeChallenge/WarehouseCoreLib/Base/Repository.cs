@@ -37,22 +37,23 @@ namespace WarehouseCoreLib.Base
 
         public IEnumerable<IModel> findAll(int limit = 0)
         {
-            throw new NotImplementedException();
+            if(limit==0) return dbcontext.Set<IModel>();
+            return dbcontext.Set<IModel>().Take(limit);
         }
 
-        public IEnumerable<IModel> findAllAsync(int limit = 0)
+        public async Task<IEnumerable<IModel>> findAllAsync()
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => dbcontext.Set<IModel>()); 
         }
 
         public IModel getById(int id)
         {
-            throw new NotImplementedException();
+            return dbcontext.Find<IModel>(id);
         }
 
-        public IModel getByIdAsync(int id)
+        public async Task<IModel> getByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dbcontext.FindAsync<IModel>(id);
         }
 
         public void save()
