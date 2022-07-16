@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WarehouseCoreLib\WarehouseCoreLib.csproj" />
     <ProjectReference Include="..\WarehouseModels\WarehouseModels.csproj" />
+    <ProjectReference Include="..\WarehouseServices\WarehouseServices.csproj" />
   </ItemGroup>
 
 </Project>
