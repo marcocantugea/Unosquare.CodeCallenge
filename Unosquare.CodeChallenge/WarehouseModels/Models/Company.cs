@@ -7,7 +7,7 @@ using WarehouseModels.Interfaces;
 
 namespace WarehouseModels.Models
 {
-    public class Company : ICompany
+    public class Company : ICompany, IModel
     {
         private int _id;
         private string _name;

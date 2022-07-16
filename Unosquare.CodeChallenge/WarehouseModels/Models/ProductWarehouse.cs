@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarehouseModels.Interfaces;
 
 namespace WarehouseModels.Models
 {
-    public class ProductWarehouse
+    public class ProductWarehouse : IModel
     {
         [ForeignKey("Products")]
         public int productId { get; set; }
