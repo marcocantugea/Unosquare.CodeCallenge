@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
 using WarehouseModels.Interfaces;
 using WarehouseModels.Models;
 using WarehouseModels.Validations;
@@ -38,6 +40,29 @@ namespace WarehouseRESTfulAPI.Controllers
 
             productService.addProduct(model);
             return this.Ok();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult getProduct([FromRoute] string id)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(id)) return this.BadRequest();
+                var valueBytes = System.Convert.FromBase64String(id);
+                int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
+                return this.Ok(JsonSerializer.Serialize(productService.getProduct(productId)));
+            }
+            catch (Exception)
+            {
+
+                return this.Problem("invalid id", null, 500);
+            }
+        }
+
+        [HttpGet("list")]
+        public IActionResult getProducts()
+        {
+            return this.Ok(JsonSerializer.Serialize(productService.getProducts()));
         }
     }
 }

@@ -26,5 +26,28 @@ namespace WarehouseServices.Services
             repository.add(model);
             repository.save();
         }
+
+        public Product getProduct(int id)
+        {
+            return repository.getPoduct(id);
+        }
+
+        public IEnumerable<Product> getProducts()
+        {
+            return repository.getProducts();
+        }
+
+        public void addProducts(IEnumerable<Product> products)
+        {
+            try
+            {
+                repository.addProducts(products);
+                repository.save();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

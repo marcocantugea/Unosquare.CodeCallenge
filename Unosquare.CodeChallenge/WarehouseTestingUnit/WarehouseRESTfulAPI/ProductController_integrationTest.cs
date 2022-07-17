@@ -45,5 +45,80 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 
             Assert.Equal(HttpStatusCode.OK, responsePost.StatusCode);
         }
+
+        [Fact]
+        public async void test_addProducts_addItemsSuccess()
+        {
+            var client = _factory.CreateClient();
+            List<Product> products = new List<Product>();
+
+            Product newProduct1 = new Product()
+            {
+                name = "Toy test 1",
+                description = "Toy test 1",
+                ageRestriction = 1,
+                companyId = 2,
+                imageIurl = "",
+                price = 1.50m,
+                storeid = 1
+            };
+            Product newProduct2 = new Product()
+            {
+                name = "Toy test 2",
+                description = "Toy test 2",
+                ageRestriction = 1,
+                companyId = 2,
+                imageIurl = "",
+                price = 1.50m,
+                storeid = 1
+            };
+            Product newProduct3 = new Product()
+            {
+                name = "Toy test 3",
+                description = "Toy test 3",
+                ageRestriction = 1,
+                companyId = 2,
+                imageIurl = "",
+                price = 1.50m,
+                storeid = 1
+            };
+
+            Product newProduct4 = new Product()
+            {
+                name = "Toy test 4",
+                description = "Toy test 4",
+                ageRestriction = 1,
+                companyId = 2,
+                imageIurl = "",
+                price = 1.50m,
+                storeid = 1
+            };
+            
+            products.Add(newProduct1);
+            products.Add(newProduct2);
+            products.Add(newProduct3);
+            products.Add(newProduct4);
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize(products));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/products", content);
+
+            Assert.Equal(HttpStatusCode.NoContent, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_getProduct_GetProductObj()
+        {
+            var client = _factory.CreateClient();
+            var responseGet = await client.GetAsync("api/product/MQ==");
+            var responseJson = await responseGet.Content.ReadAsStringAsync();
+            Product product = JsonSerializer.Deserialize<Product>(responseJson);
+
+            _output.WriteLine(responseJson);
+
+            Assert.Equal(HttpStatusCode.OK, responseGet.StatusCode);
+            Assert.Equal(1, product.id);
+            
+        }
     }
 }
