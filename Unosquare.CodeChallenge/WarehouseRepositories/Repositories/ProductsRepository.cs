@@ -69,5 +69,16 @@ namespace WarehouseRepositories.Repositories
         {
             dbcontext.Products.AddRange(products);
         }
+
+        public void updateProducts(IEnumerable<Product> products)
+        {
+            dbcontext.Products.UpdateRange(products);
+            save();
+        }
+
+        public IEnumerable<Product> Search(Func<Product,bool> predicate)
+        {
+            return dbcontext.Products.Where(predicate).ToList();
+        }
     }
 }

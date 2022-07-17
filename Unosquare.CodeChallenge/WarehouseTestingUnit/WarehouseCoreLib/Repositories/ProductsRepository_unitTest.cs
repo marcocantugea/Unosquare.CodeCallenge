@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using Tests;
 using WarehouseModels.Models;
 using WarehouseRepositories.Repositories;
+using Assert = NUnit.Framework.Assert;
 
 namespace WarehouseTestingUnit.WarehouseCoreLib.Repositories
 {
@@ -65,6 +67,17 @@ namespace WarehouseTestingUnit.WarehouseCoreLib.Repositories
             repo.save();
 
             Assert.True(true);
+        }
+
+        [Fact]
+        public void test_search_getAllProductsStore()
+        {
+            ProductsRepository repo = new ProductsRepository();
+            repo.dbcontext = WarehouseHelper.createDBContext();
+            List<Product> productsFound = repo.Search(prop => prop.storeid == 1).ToList();
+
+            Assert.IsNotEmpty(productsFound);
+            Assert.Greater(productsFound.Count, 1);
         }
     }
 }

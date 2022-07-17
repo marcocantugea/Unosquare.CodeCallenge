@@ -36,7 +36,6 @@ namespace WarehouseRESTfulAPI.Controllers
                 products.Add(ProductRequestModel.getModel(productRequested));
             }
 
-
             ProductValidations validations = (ProductValidations)validation; 
             foreach (Product product in products) {
                 try

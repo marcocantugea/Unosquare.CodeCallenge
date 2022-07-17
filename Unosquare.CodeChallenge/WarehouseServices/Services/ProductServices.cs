@@ -49,5 +49,16 @@ namespace WarehouseServices.Services
                 throw;
             }
         }
+
+        public void updateProduct(Product product)
+        {
+            repository.update(product);
+            repository.save();
+        }
+
+        public void updateProducts(IEnumerable<Product> products)
+        {
+            repository.updateProducts(products);
+        }
     }
 }
