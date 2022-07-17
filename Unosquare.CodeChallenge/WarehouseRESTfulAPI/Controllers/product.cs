@@ -64,5 +64,43 @@ namespace WarehouseRESTfulAPI.Controllers
         {
             return this.Ok(JsonSerializer.Serialize(productService.getProducts()));
         }
+
+        [HttpPut("{id}")]
+        public IActionResult updateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(id)) return this.BadRequest();
+                var valueBytes = System.Convert.FromBase64String(id);
+                int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
+                Product productToUpdate = ProductRequestModel.getModel(productUpdate);
+                productToUpdate.id=productId;
+                productService.updateProduct(productToUpdate);
+            }
+            catch (Exception)
+            {
+
+                return this.Problem("invalid id", null, 500);
+            }
+
+            return this.NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult deleteProduct([FromRoute]string id)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(id)) return this.BadRequest();
+                var valueBytes = System.Convert.FromBase64String(id);
+                int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
+                productService.deleteProduct(productId);
+            }
+            catch (Exception)
+            {
+                return this.Problem("invalid id", null, 500);
+            }
+            return this.NoContent();
+        }
     }
 }

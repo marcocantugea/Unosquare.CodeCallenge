@@ -60,5 +60,11 @@ namespace WarehouseServices.Services
         {
             repository.updateProducts(products);
         }
+
+        public void deleteProduct(int id)
+        {
+            repository.deleteProduct(id);
+            repository.save();
+        }
     }
 }

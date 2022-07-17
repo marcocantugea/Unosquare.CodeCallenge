@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Linq;
 using System.Threading.Tasks;
 using WarehouseModels.Models;
 using Xunit.Abstractions;
@@ -119,6 +120,61 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             Assert.Equal(HttpStatusCode.OK, responseGet.StatusCode);
             Assert.Equal(1, product.id);
             
+        }
+
+        [Fact]
+        public async void test_updateProduct_updateProductInfo()
+        {
+            Product productToUpdate = new Product()
+            {
+                name = "Toy test 5",
+                description = "Toy test 5",
+                ageRestriction = 1,
+                companyId = 2,
+                imageIurl = "",
+                price = 1.50m,
+                storeid = 1
+            };
+
+            var client = _factory.CreateClient();
+            HttpContent content = new StringContent(JsonSerializer.Serialize(productToUpdate));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responseUpdate = await client.PutAsync("api/product/MQ==",content);
+
+            Assert.Equal(HttpStatusCode.NoContent, responseUpdate.StatusCode);
+        }
+
+
+        [Fact]
+        public async void test_deleteProduct_deleteProductSuccess()
+        {
+            Product newProduct = new Product()
+            {
+                name = "Toy test 6",
+                description = "Toy test 6",
+                ageRestriction = 1,
+                companyId = 2,
+                imageIurl = "",
+                price = 1.50m,
+                storeid = 1
+            };
+
+            var client = _factory.CreateClient();
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            var responseAllOrdes = await client.GetAsync("api/products");
+            var responseJson = await responseAllOrdes.Content.ReadAsStringAsync();
+            List<Product> products = JsonSerializer.Deserialize<List<Product>>(responseJson);
+
+            var valueBytes = Encoding.UTF8.GetBytes(products.Last().id.ToString());
+            string idbase = Convert.ToBase64String(valueBytes);
+
+            var responseUpdate = await client.DeleteAsync("api/product/"+ idbase);
+
+            Assert.Equal(HttpStatusCode.NoContent, responseUpdate.StatusCode);
         }
     }
 }

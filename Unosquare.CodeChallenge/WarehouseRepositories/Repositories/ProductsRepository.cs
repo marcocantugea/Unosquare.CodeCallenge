@@ -80,5 +80,10 @@ namespace WarehouseRepositories.Repositories
         {
             return dbcontext.Products.Where(predicate).ToList();
         }
+
+        public void deleteProduct(int id)
+        {
+            dbcontext.Products.Remove(getById(id));
+        }
     }
 }
