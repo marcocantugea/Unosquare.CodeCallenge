@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WarehouseServices.Contractor;
 using WarehouseServices.Services;
-using WarehouseCoreLib.Interfaces;
 using WarehouseModels.Models;
 using WarehouseModels.Interfaces;
 using WarehouseModels.Validations;
@@ -14,8 +13,14 @@ var connectionString = builder.Configuration.GetConnectionString("warehousedb");
 // Add services to the container.
 builder.Services.AddDbContext<WarehouseCoreLib.DataAccess.WarehouseDbContext>(options=>
         options.UseSqlServer(connectionString, sqlServerOptions => sqlServerOptions.MigrationsAssembly("WarehouseCoreLib")));
-builder.Services.AddScoped<IWarehouseService, CompaniesServices>();
+
+// Warehouse Services activation
+builder.Services.AddScoped<IWarehouseService<CompaniesServices>, CompaniesServices>();
+builder.Services.AddScoped<IWarehouseService<ProductServices>, ProductServices>();
+// Validations
 builder.Services.AddScoped<IValidation<Company>, CompanyValidations>();
+builder.Services.AddScoped<IValidation<Product>, ProductValidations>();
+
 builder.Services.AddControllers();
 
 var app = builder.Build();

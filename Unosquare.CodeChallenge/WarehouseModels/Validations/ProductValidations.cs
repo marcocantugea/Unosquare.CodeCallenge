@@ -8,7 +8,7 @@ using WarehouseModels.Models;
 
 namespace WarehouseModels.Validations
 {
-    public class ProductValidatons : IValidation<Product>
+    public class ProductValidations : IValidation<Product>
     {
         public void Validate(Product model)
         {

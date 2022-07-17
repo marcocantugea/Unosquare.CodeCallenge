@@ -11,7 +11,7 @@ using WarehouseRepositories.Repositories;
 
 namespace WarehouseServices.Services
 {
-    public class CompaniesServices : Service<Company>, IWarehouseService
+    public class CompaniesServices : Service<Company>, IWarehouseService<CompaniesServices>
     {
         private CompanyRepository repository;
 

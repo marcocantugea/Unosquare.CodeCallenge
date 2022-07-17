@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseServices.Contractor
 {
-    public interface IWarehouseService
+    public interface IWarehouseService<T>
     {
     }
 }

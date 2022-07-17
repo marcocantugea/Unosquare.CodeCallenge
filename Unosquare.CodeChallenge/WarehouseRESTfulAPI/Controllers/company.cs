@@ -16,7 +16,7 @@ namespace WarehouseRESTfulAPI.Controllers
     {
         private CompaniesServices companyService;
 
-        public company(IWarehouseService companyservice)
+        public company(IWarehouseService<CompaniesServices> companyservice)
         {
             companyService = (CompaniesServices)companyservice;
         }
