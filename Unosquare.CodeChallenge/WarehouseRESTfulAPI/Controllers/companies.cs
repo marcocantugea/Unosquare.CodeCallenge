@@ -4,6 +4,7 @@ using WarehouseServices.Services;
 using WarehouseModels.Models;
 using WarehouseServices.Contractor;
 using System.Text;
+using System.Text.Json;
 
 namespace WarehouseRESTfulAPI.Controllers
 {
@@ -18,11 +19,11 @@ namespace WarehouseRESTfulAPI.Controllers
             companyService = (CompaniesServices)companyservice;
         }
 
-
         [HttpGet]
-        public IEnumerable<Company> getAllCompanies()
+        public IActionResult getAllCompanies()
         {
-            return companyService.getAllCompanies();
+            this.Response.Headers.ContentType = "application/json";
+            return  this.Ok(companyService.getAllCompanies());
         }
 
         [HttpGet("{id}")]
@@ -30,14 +31,13 @@ namespace WarehouseRESTfulAPI.Controllers
         {
             try
             {
-                if (id == null) return this.BadRequest();
+                if (String.IsNullOrEmpty(id)) return this.BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return this.Ok(companyService.getCompany(idCompany));
+                return this.Ok(JsonSerializer.Serialize(companyService.getCompany(idCompany)));
             }
             catch (Exception)
-            {
-
+            { 
                 return this.Problem("invalid id",null,500);
             }
         }
