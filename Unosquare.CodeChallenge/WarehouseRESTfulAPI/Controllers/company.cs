@@ -53,7 +53,7 @@ namespace WarehouseRESTfulAPI.Controllers
 
             try
             {
-                modelValidator.Validate(newCompany);
+                modelValidator.ValidateEmptyNewModel(newCompany);
             }
             catch (Exception e)
             {
