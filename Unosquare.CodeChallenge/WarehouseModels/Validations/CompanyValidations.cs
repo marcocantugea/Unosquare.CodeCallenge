@@ -16,16 +16,18 @@ namespace WarehouseModels.Validations
             ValidateCompleteModel(model);
         }
 
-        public void ValidateEmptyNewModel(Company model)
+        public CompanyValidations ValidateEmptyNewModel(Company model)
         {
             if(String.IsNullOrEmpty(model.Name)) throw new Exception("company name value empty");
+            return this;
         }
 
-        public void ValidateCompleteModel(Company model)
+        public CompanyValidations ValidateCompleteModel(Company model)
         {
             if(model.Id==null) throw new Exception("company id value empty");
             if (model.Id <=0 ) throw new Exception("company id value empty");
             ValidateEmptyNewModel(model);
+            return this;
         }
     }
 }
