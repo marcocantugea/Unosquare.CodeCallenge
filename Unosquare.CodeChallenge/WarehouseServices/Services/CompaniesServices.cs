@@ -47,5 +47,11 @@ namespace WarehouseServices.Services
         {
             return repository.getCompanyByName(name);
         }
+
+        public void updateCompany(Company company)
+        {
+            repository.update(company);
+            repository.save();
+        }
     }
 }

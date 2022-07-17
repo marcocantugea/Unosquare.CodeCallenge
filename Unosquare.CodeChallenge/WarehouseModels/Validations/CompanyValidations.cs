@@ -13,7 +13,7 @@ namespace WarehouseModels.Validations
     {
         public void Validate(Company model)
         {
-            ValidateEmptyNewModel(model);
+            ValidateCompleteModel(model);
         }
 
         public void ValidateEmptyNewModel(Company model)

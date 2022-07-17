@@ -63,5 +63,52 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 
             Assert.Equal(HttpStatusCode.OK, responseDelete.StatusCode);
         }
+
+        [Fact]
+        public async void test_updateCompanyItem_UpdatesSucess()
+        {
+            var client = _factory.CreateClient();
+            Company newCompany = new Company()
+            {
+                Name = "Patito"
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Company>(newCompany));
+            content.Headers.ContentType= new MediaTypeHeaderValue("application/json");
+
+            var responsePost = await client.PostAsync("api/company", content);
+            var responseSearch = await client.GetAsync("api/company/search?name=" + newCompany.Name);
+            var responseJson = await responseSearch.Content.ReadAsStringAsync();
+
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            Company companyUpdate = JsonSerializer.Deserialize<Company>(responseJson);
+            companyUpdate.Name = "DisneyInc.";
+            HttpContent jsoncontent = new StringContent(JsonSerializer.Serialize<Company>(companyUpdate));
+            jsoncontent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responseUpdate = await client.PutAsync("api/company",jsoncontent);
+
+            Assert.Equal(HttpStatusCode.OK, responseUpdate.StatusCode);
+        }
+
+        [Fact]
+        public async void test_getCompanyById_getCompanyItem()
+        {
+            var client = _factory.CreateClient();
+
+            var responseSearch = await client.GetAsync("api/company/search?name=Mattel");
+            var responseJson = await responseSearch.Content.ReadAsStringAsync();
+            Company companyToSearch = JsonSerializer.Deserialize<Company>(responseJson);
+            var valueBytes = Encoding.UTF8.GetBytes(companyToSearch.Id.ToString());
+            string idbase = Convert.ToBase64String(valueBytes);
+
+            var responseCompanyIdFound = await client.GetAsync("api/company/" + idbase);
+            var jsonreponse = await responseCompanyIdFound.Content.ReadAsStringAsync();
+            Company companyFound = JsonSerializer.Deserialize<Company>(jsonreponse);
+
+            Assert.Equal(HttpStatusCode.OK, responseCompanyIdFound.StatusCode);
+            Assert.Equal(1, companyFound.Id);
+        }
     }
+
 }

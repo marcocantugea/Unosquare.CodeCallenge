@@ -30,7 +30,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(id)) return this.BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return this.Ok(companyService.getCompany(idCompany));
+                return this.Ok(JsonSerializer.Serialize<Company>(companyService.getCompany(idCompany)));
             }
             catch (Exception)
             {
@@ -40,10 +40,10 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpGet("search")]
-        public string  searchCompany([FromQuery] string name= "")
+        public IActionResult searchCompany([FromQuery] string name= "")
         {
-            if (string.IsNullOrEmpty(name)) return null;
-            return JsonSerializer.Serialize(companyService.getCompanyByName(name));
+            if (string.IsNullOrEmpty(name)) return this.Problem("name is invalid",null,500);
+            return this.Ok(JsonSerializer.Serialize(companyService.getCompanyByName(name)));
         }
 
         [HttpPost]
@@ -80,6 +80,23 @@ namespace WarehouseRESTfulAPI.Controllers
                 return this.Problem("invalid id", null, 500);
             }
             
+        }
+
+        [HttpPut]
+        public IActionResult updateCompany([FromBody] Company model,[FromServices]IValidation<Company> validation)
+        {
+            CompanyValidations validations = (CompanyValidations)validation;
+            try
+            {
+                validations.ValidateCompleteModel(model);
+            }
+            catch (Exception e)
+            {
+                return this.Problem(e.Message.ToString(), null, 500);
+            }
+
+            companyService.updateCompany(model);
+            return this.Ok();
         }
     }
 }
