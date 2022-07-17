@@ -8,6 +8,5 @@ namespace WarehouseRESTfulAPI.Controllers
     public class product : ControllerBase
     {
 
-        
     }
 }
