@@ -96,7 +96,7 @@ namespace WarehouseRESTfulAPI.Controllers
             }
 
             companyService.updateCompany(model);
-            return this.Ok();
+            return this.NoContent();
         }
     }
 }
