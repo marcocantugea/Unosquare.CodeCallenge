@@ -25,6 +25,7 @@ namespace WarehouseRESTfulAPI.Controllers
         [HttpGet]
         public IActionResult getProducts() {
             return this.Ok(JsonSerializer.Serialize(productService.getProducts()));
+            Console.WriteLine("sfsdf");
         }
 
         [HttpPost]
