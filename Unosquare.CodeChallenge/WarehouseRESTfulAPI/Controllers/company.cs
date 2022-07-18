@@ -73,7 +73,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 var valueBytes = System.Convert.FromBase64String(id);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
                 companyService.deleteCompany(new Company() { Id = idCompany });
-                return this.Ok();
+                return this.NoContent();
             }
             catch (Exception)
             {
