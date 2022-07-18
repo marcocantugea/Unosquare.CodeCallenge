@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseCoreLib", "Warehou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseModels", "WarehouseModels\WarehouseModels.csproj", "{C7E66D21-B04C-4552-BD79-C4325C67EACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseRESTfulAPI", "WarehouseRESTfulAPI\WarehouseRESTfulAPI.csproj", "{2DA8B055-DF8C-4C01-B4DD-699B08F5FDF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseRESTfulAPI", "WarehouseRESTfulAPI\WarehouseRESTfulAPI.csproj", "{2DA8B055-DF8C-4C01-B4DD-699B08F5FDF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseTestingUnit", "WarehouseTestingUnit\WarehouseTestingUnit.csproj", "{D9F888DD-2870-420A-AA3F-3328B814E011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseTestingUnit", "WarehouseTestingUnit\WarehouseTestingUnit.csproj", "{D9F888DD-2870-420A-AA3F-3328B814E011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseRepositories", "WarehouseRepositories\WarehouseRepositories.csproj", "{B1F3EAF0-E77C-4D7C-871F-CC13A6CDC418}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseRepositories", "WarehouseRepositories\WarehouseRepositories.csproj", "{B1F3EAF0-E77C-4D7C-871F-CC13A6CDC418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseServices", "WarehouseServices\WarehouseServices.csproj", "{C337989D-6108-4E3A-B982-ADC921ED39CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseServices", "WarehouseServices\WarehouseServices.csproj", "{C337989D-6108-4E3A-B982-ADC921ED39CE}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WarehouseManagement", "WarehouseManagement\WarehouseManagement.esproj", "{AA5A34C6-8F13-4615-9138-B6AC47CEC2E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,12 @@ Global
 		{C337989D-6108-4E3A-B982-ADC921ED39CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C337989D-6108-4E3A-B982-ADC921ED39CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C337989D-6108-4E3A-B982-ADC921ED39CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5A34C6-8F13-4615-9138-B6AC47CEC2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5A34C6-8F13-4615-9138-B6AC47CEC2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5A34C6-8F13-4615-9138-B6AC47CEC2E8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AA5A34C6-8F13-4615-9138-B6AC47CEC2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5A34C6-8F13-4615-9138-B6AC47CEC2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5A34C6-8F13-4615-9138-B6AC47CEC2E8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
