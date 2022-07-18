@@ -39,7 +39,7 @@ namespace WarehouseRESTfulAPI.Controllers
             }
 
             productService.addProduct(model);
-            return this.Ok();
+            return this.NoContent();
         }
 
         [HttpGet("{id}")]
