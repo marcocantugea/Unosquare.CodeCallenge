@@ -61,7 +61,7 @@ namespace WarehouseRESTfulAPI.Controllers
             }
             
             companyService.addCompany(newCompany);
-            return this.Ok();
+            return this.NoContent();
         }
 
         [HttpDelete("{id}")]
