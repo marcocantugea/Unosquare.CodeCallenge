@@ -1,13 +1,17 @@
 
 <div class="container px-5 my-5">
-  <form id="contactForm" >
-    <div class="mb-3">
-      <label class="form-label" for="companyName">Company Name</label>
+  <form id="contactForm">
+    <div class="mb-2">
+      <label class="form-label txt-lg" for="companyName"><h2>New Company Name</h2></label>
       <input class="form-control" id="companyName" type="text" data-sb-validations="required" />
       <div class="invalid-feedback" data-sb-feedback="companyName:required">Company Name is required.</div>
+      <br />
     </div>
-    <div class="d-grid">
-      <button class="btn btn-primary btn-lg" id="submitButton" type="button">Save</button>
+    <div class="d-grid mt-3">
+      <button class="btn btn-primary btn-lg" id="submitButton" type="button" (click)="saveNewCompany()">Save</button>
+    </div>
+    <div class="d-grid mt-3">
+      <button class="btn btn-danger btn-lg" id="cancelop" type="button" (click)="closeDialog()">Cancel</button>
     </div>
   </form>
 </div>

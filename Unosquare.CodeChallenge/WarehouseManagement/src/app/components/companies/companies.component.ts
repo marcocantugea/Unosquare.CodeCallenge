@@ -16,7 +16,7 @@ export class CompaniesComponent implements OnInit {
 
 
   openAddCompany() {
-    const dialogRef = this.dialog.open(AddcompanyComponent, { height: '400px', width: '600px' });
+    const dialogRef = this.dialog.open(AddcompanyComponent, { disableClose:true,height: "300", width: "300" });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
