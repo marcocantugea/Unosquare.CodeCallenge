@@ -12,6 +12,8 @@ import { SearchpageComponent } from './components/searchpage/searchpage.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddcompanyComponent } from './components/parts/addcompany/addcompany.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SearchcompanyBarComponent } from './components/parts/searchcompany-bar/searchcompany-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { MatDialogModule } from '@angular/material/dialog';
     ProductsComponent,
     CompaniesComponent,
     SearchpageComponent,
-    AddcompanyComponent
+    AddcompanyComponent,
+    SearchcompanyBarComponent
   ],
   imports: [
     BrowserModule,
     appRoutingModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [ ],
   bootstrap: [AppComponent]
