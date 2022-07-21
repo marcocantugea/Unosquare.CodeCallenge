@@ -22,8 +22,7 @@ namespace WarehouseRESTfulAPI.Controllers
         [HttpGet]
         public IActionResult getAllCompanies()
         {
-            this.Response.Headers.ContentType = "application/json";
-            return  this.Ok(companyService.getAllCompanies());
+            return  this.Ok(JsonSerializer.Serialize(companyService.getAllCompanies()));
         }
 
         [HttpGet("{id}")]

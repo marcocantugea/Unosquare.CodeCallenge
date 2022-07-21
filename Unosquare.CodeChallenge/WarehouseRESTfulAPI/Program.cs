@@ -10,6 +10,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("warehousedb");
 
+//CORS configuration
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options => options.AddPolicy(
+    name: MyAllowSpecificOrigins,
+    policy =>
+    {
+        policy.WithOrigins("*")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        ;
+    }
+    ));
+
 // Add services to the container.
 builder.Services.AddDbContext<WarehouseCoreLib.DataAccess.WarehouseDbContext>(options=>
         options.UseSqlServer(connectionString, sqlServerOptions => sqlServerOptions.MigrationsAssembly("WarehouseCoreLib")));
@@ -28,6 +41,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

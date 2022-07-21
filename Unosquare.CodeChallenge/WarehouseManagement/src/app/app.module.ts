@@ -12,8 +12,14 @@ import { SearchpageComponent } from './components/searchpage/searchpage.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddcompanyComponent } from './components/parts/addcompany/addcompany.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SearchcompanyBarComponent } from './components/parts/searchcompany-bar/searchcompany-bar.component';
+import { CompaniesdatagridComponent } from './components/parts/companiesdatagrid/companiesdatagrid.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
+import { CompanydeletemodalComponent } from './components/parts/companydeletemodal/companydeletemodal.component';
+import { AddproductComponent } from './components/products/parts/addproduct/addproduct.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,10 @@ import { SearchcompanyBarComponent } from './components/parts/searchcompany-bar/
     CompaniesComponent,
     SearchpageComponent,
     AddcompanyComponent,
-    SearchcompanyBarComponent
+    SearchcompanyBarComponent,
+    CompaniesdatagridComponent,
+    CompanydeletemodalComponent,
+    AddproductComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +42,9 @@ import { SearchcompanyBarComponent } from './components/parts/searchcompany-bar/
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
+    HttpClientModule,
+    MatProgressSpinnerModule,
+    FormsModule 
   ],
   providers: [ ],
   bootstrap: [AppComponent]
