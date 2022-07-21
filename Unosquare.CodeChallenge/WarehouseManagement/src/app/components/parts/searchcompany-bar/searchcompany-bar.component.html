@@ -1,11 +1,11 @@
 <form class="row g-3 mt-3">
   <div class="col-auto">
-    <input type="text" class="form-control" id="serachName" placeholder="Company Name">
+    <input type="text" class="form-control" id="serachName" placeholder="Company Name" #searchNameTxt>
   </div>
   <div class="col-auto">
-    <button type="button" class="btn btn-success mb-3">Search</button>
+    <button type="button" class="btn btn-success mb-3" (click)="searchCompany(searchNameTxt.value)">Search</button>
   </div>
   <div class="col-auto">
-    <button type="button" class="btn btn-primary mb-3">Clear</button>
+    <button type="button" class="btn btn-primary mb-3"  (click)="searchCompany('!all')">Clear</button>
   </div>
 </form>

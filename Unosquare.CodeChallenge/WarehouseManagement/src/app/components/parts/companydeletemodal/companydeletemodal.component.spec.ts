@@ -1,21 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { CompaniesService } from '../../../services/companies.service';
+import { CompanydeletemodalComponent } from './companydeletemodal.component';
 
-import { AddcompanyComponent } from './addcompany.component';
-
-describe('AddcompanyComponent', () => {
-  let component: AddcompanyComponent;
-  let fixture: ComponentFixture<AddcompanyComponent>;
+describe('CompanydeletemodalComponent', () => {
+  let component: CompanydeletemodalComponent;
+  let fixture: ComponentFixture<CompanydeletemodalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddcompanyComponent],
+      declarations: [CompanydeletemodalComponent],
       imports: [MatDialogModule],
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddcompanyComponent);
+    fixture = TestBed.createComponent(CompanydeletemodalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

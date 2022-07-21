@@ -1,0 +1,29 @@
+<div class="m-3">
+  <h2>Registered Companies</h2>
+  <div class="text-center" *ngIf="!Isloaded">
+    <mat-spinner class="" [diameter]="30" [color]="color" [mode]="mode"></mat-spinner>
+  </div>
+  <div  *ngIf="Isloaded">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Company Name</td>
+          <td colspan="2">Options</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of listOfCompanies;">
+          <td>{{company.Id}}</td>
+          <td>{{ company.Name }}</td>
+          <td>
+            <button id="edit_id" class="btn btn-primary" (click)="showEditDialog(company)" >Edit</button>
+          </td>
+          <td>
+            <button id="delete_item" class="btn btn-danger" (click)="showDeleteDialog(company)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
