@@ -9,6 +9,7 @@ import { Company } from '../../../../models/company.model';
 import { Store } from '../../../../models/store.model';
 import { PhotoviewerComponent } from '../photoviewer/photoviewer.component';
 import { AddproductComponent } from '../addproduct/addproduct.component';
+import { DeletedialogComponent } from '../deletedialog/deletedialog.component';
 
 @Component({
   selector: 'app-productdatagrid',
@@ -56,6 +57,21 @@ export class ProductdatagridComponent implements OnInit {
 
   photoViewer(imageUrl: string) {
     const dialogRef = this.dialog.open(PhotoviewerComponent, { data: imageUrl });
+    dialogRef.afterClosed().subscribe(
+      next => {
+        console.log(next);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        //this.updateList()
+      }
+    );
+  }
+
+  showDeleteConfirmationItem(product: IProduct) {
+    const dialogRef = this.dialog.open(DeletedialogComponent, { data: product });
     dialogRef.afterClosed().subscribe(
       next => {
         console.log(next);
