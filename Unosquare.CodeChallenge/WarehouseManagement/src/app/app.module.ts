@@ -11,15 +11,21 @@ import { CompaniesComponent } from './components/companies/companies.component';
 import { SearchpageComponent } from './components/searchpage/searchpage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddcompanyComponent } from './components/parts/addcompany/addcompany.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SearchcompanyBarComponent } from './components/parts/searchcompany-bar/searchcompany-bar.component';
 import { CompaniesdatagridComponent } from './components/parts/companiesdatagrid/companiesdatagrid.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { CompanydeletemodalComponent } from './components/parts/companydeletemodal/companydeletemodal.component';
 import { AddproductComponent } from './components/products/parts/addproduct/addproduct.component';
+import { SearchbarComponent } from './components/products/parts/searchbar/searchbar.component';
+import { ProductdatagridComponent } from './components/products/parts/productdatagrid/productdatagrid.component';
+import { StoreinfoComponent } from './components/products/parts/storeinfo/storeinfo.component';
+import { PhotoviewerComponent } from './components/products/parts/photoviewer/photoviewer.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,11 @@ import { AddproductComponent } from './components/products/parts/addproduct/addp
     SearchcompanyBarComponent,
     CompaniesdatagridComponent,
     CompanydeletemodalComponent,
-    AddproductComponent
+    AddproductComponent,
+    SearchbarComponent,
+    ProductdatagridComponent,
+    StoreinfoComponent,
+    PhotoviewerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +54,9 @@ import { AddproductComponent } from './components/products/parts/addproduct/addp
     MatDialogModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    FormsModule 
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]
