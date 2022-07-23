@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { CompaniesService } from '../../../../services/companies.service';
 
 
@@ -18,6 +19,7 @@ export interface DataModal {
 export class CompanydeletemodalComponent implements OnInit {
 
   public valueSelected: string = '';
+  subscriptions: Subscription[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<CompanydeletemodalComponent>,
@@ -29,6 +31,9 @@ export class CompanydeletemodalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(item => item.unsubscribe());
+  }
 
   closeDialog() {
     this.dialogRef.close();
@@ -40,7 +45,7 @@ export class CompanydeletemodalComponent implements OnInit {
 
   deleteItem() {
     console.log(this.data.id);
-    this.serviceCompany.deleteCompany(this.data.id).subscribe(
+    this.subscriptions.push(this.serviceCompany.deleteCompany(this.data.id).subscribe(
       next => { },
       error => {
         this.openSnackBar('ERROR | error trying to delete the item, please try again later.', '', { duration: 3000 });
@@ -49,7 +54,7 @@ export class CompanydeletemodalComponent implements OnInit {
         this.closeDialog();
         this.openSnackBar('SUCCESS, company deleted.', '', { duration: 3000 });
       }
-    );
+    ));
   }
 
  

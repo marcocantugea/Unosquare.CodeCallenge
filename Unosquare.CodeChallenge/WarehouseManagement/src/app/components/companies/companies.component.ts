@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscriber, Subscription } from 'rxjs';
 import { ICompany } from '../../interfaces/ICompany';
 import { Company } from '../../models/company.model';
 import { CompaniesService } from '../../services/companies.service';
@@ -16,8 +16,7 @@ export class CompaniesComponent implements OnInit {
   constructor(public dialog: MatDialog, public serviceCompanies: CompaniesService) { }
   public isLoadedGrid = false;
   public listOfCompanies: ICompany[] | null = [];
-  public listOfCOmpaniesBehavior = new BehaviorSubject<ICompany[]>([]);
-  listOfCOmpaniesBehavior$ = this.serviceCompanies.getAllCompanies();
+  public subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
 
@@ -26,9 +25,8 @@ export class CompaniesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.listOfCOmpaniesBehavior.unsubscribe();
+    this.subscriptions.forEach(item => item.unsubscribe());
   }
-
 
   openAddCompany() {
     const dialogRef = this.dialog.open(AddcompanyComponent, { disableClose:true,height: "300", width: "300" });
@@ -46,7 +44,8 @@ export class CompaniesComponent implements OnInit {
   }
 
   getAllCompanies() {
-    this.listOfCOmpaniesBehavior$
+
+    this.subscriptions.push(this.serviceCompanies.getAllCompanies()
       .subscribe(
         next => {
           next.map(item => {
@@ -54,7 +53,10 @@ export class CompaniesComponent implements OnInit {
           })
         },
         error => console.log(error),
-        () => { this.isLoadedGrid = true });
+        () => {
+          this.isLoadedGrid = true
+        }
+      ));
   }
 
   filterByName(name:string ) {
@@ -66,7 +68,7 @@ export class CompaniesComponent implements OnInit {
       return;
     }
 
-    this.serviceCompanies.getCompanyByName(name).subscribe(
+    this.subscriptions.push(this.serviceCompanies.getCompanyByName(name).subscribe(
       next => {
         this.listOfCompanies?.push(next)
       },
@@ -77,7 +79,7 @@ export class CompaniesComponent implements OnInit {
       () => {
         this.isLoadedGrid = true
       }
-    );
+    ));
   }
 
   updateList() {
