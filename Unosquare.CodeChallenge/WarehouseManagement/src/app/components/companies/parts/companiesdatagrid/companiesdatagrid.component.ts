@@ -1,10 +1,10 @@
 import { Component, OnInit,OnDestroy, Input, EventEmitter, Output } from '@angular/core';
 import { Observable,interval, BehaviorSubject, map } from 'rxjs';
-import { ICompany } from '../../../interfaces/ICompany';
+import { ICompany } from '../../../../interfaces/ICompany';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ThemePalette } from '@angular/material/core';
-import { CompaniesService } from '../../../services/companies.service';
-import { Company } from '../../../models/company.model';
+import { CompaniesService } from '../../../../services/companies.service';
+import { Company } from '../../../../models/company.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanydeletemodalComponent } from '../companydeletemodal/companydeletemodal.component';
 import { AddcompanyComponent } from '../addcompany/addcompany.component';

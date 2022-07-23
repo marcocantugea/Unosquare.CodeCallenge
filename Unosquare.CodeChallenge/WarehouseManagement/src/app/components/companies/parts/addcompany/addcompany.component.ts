@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Inject, OnInit, Output,OnChanges } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ICompany } from '../../../interfaces/ICompany';
-import { Company } from '../../../models/company.model';
-import { CompaniesService } from '../../../services/companies.service';
+import { ICompany } from '../../../../interfaces/ICompany';
+import { Company } from '../../../../models/company.model';
+import { CompaniesService } from '../../../../services/companies.service';
 
 export interface dataDialog {
   selectedCompany: ICompany,

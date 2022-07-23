@@ -21,6 +21,7 @@ namespace WarehouseModels.Validations
             ValidatePrice(model);
             ValidateCompanyId(model);
             ValidateAgeRestriction(model);
+            ValidateDescription(model);
 
             return this;
         }
@@ -57,6 +58,7 @@ namespace WarehouseModels.Validations
         public ProductValidations ValidateName(Product model)
         {
             if (String.IsNullOrEmpty(model.name)) throw new Exception("invalid name, empty string");
+            if (model.name.Length > 50) throw new Exception("name cannot be more than 50 characteres");
             return this;
         }
 
@@ -70,6 +72,7 @@ namespace WarehouseModels.Validations
         public ProductValidations ValidateDescription(Product model)
         {
             if (String.IsNullOrEmpty(model.description)) throw new Exception("Description fill can not be empty");
+            if (model.description.Length > 100) throw new Exception("the description cannot be more than 100 characters");
             return this;
         }
 

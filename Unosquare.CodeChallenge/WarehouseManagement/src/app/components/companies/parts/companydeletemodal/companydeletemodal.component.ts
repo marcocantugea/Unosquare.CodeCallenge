@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { CompaniesService } from '../../../services/companies.service';
+import { CompaniesService } from '../../../../services/companies.service';
 
 
 export interface DataModal {
