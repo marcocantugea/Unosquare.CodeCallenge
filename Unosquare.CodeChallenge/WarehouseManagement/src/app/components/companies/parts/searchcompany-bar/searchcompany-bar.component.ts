@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ICompany } from '../../../interfaces/ICompany';
-import { Company } from '../../../models/company.model';
-import { CompaniesService } from '../../../services/companies.service';
+import { ICompany } from '../../../../interfaces/ICompany';
+import { Company } from '../../../../models/company.model';
+import { CompaniesService } from '../../../../services/companies.service';
 
 @Component({
   selector: 'app-searchcompany-bar',

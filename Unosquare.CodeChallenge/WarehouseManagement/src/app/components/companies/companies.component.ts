@@ -4,8 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ICompany } from '../../interfaces/ICompany';
 import { Company } from '../../models/company.model';
 import { CompaniesService } from '../../services/companies.service';
-import { AddcompanyComponent } from '../parts/addcompany/addcompany.component';
-import { CompanydeletemodalComponent } from '../parts/companydeletemodal/companydeletemodal.component'
+import { AddcompanyComponent } from './parts/addcompany/addcompany.component';
 
 @Component({
   selector: 'app-companies',
