@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-searchbar',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchbarComponent implements OnInit {
 
+  @Output() filterEmit = new EventEmitter<string>();
+
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  searchProductName(productName: string) {
+    if (productName == "!All") (<HTMLInputElement>document.getElementById("productName")).value="";
+    this.filterEmit.emit(productName);
   }
 
 }

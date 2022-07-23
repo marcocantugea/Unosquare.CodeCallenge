@@ -9,8 +9,8 @@
   </div>
 </div>
 <div>
- <app-searchbar></app-searchbar>
+ <app-searchbar (filterEmit)="searchByName($event)"></app-searchbar>
 </div>
 <div>
-  <app-productdatagrid></app-productdatagrid>
+  <app-productdatagrid [refreshList]="updateList" [searchByName]="nameToSearch"></app-productdatagrid>
 </div>

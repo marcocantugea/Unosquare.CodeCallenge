@@ -2,44 +2,49 @@
   <div class="mb-3">
     <label for="productNametxt" class="form-label">Product Name</label>
     <input *ngIf="dataDialog!=null" type="text" class="form-control" id="productNametxt" placeholder="" value="{{dataDialog.product.name}}">
-    <input *ngIf="dataDialog==null" type="text" class="form-control" id="productNametxt" placeholder="">
+    <input *ngIf="dataDialog==null" type="text" class="form-control" id="productNametxt" placeholder=""> 
   </div>
   <div class="mb-3">
-    <label for="priceTxt" class="form-label">Price</label>
-    <input *ngIf="dataDialog==null" type="text" class="form-control" id="priceTxt" placeholder="">
-    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="priceTxt" placeholder="" value="{{dataDialog.product.price}}" >
+    <label for="pricetxt" class="form-label">Price</label>
+    <input *ngIf="dataDialog==null" type="text" class="form-control" id="pricetxt" placeholder="">
+    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="pricetxt" placeholder="" value="{{dataDialog.product.price}}">
   </div>
   <div class="mb-3">
     <label for="companySel" class="form-label">Company</label>
     <select class="form-select" id="companySel" aria-label="Default select example">
-      <option  *ngIf="dataDialog==null" selected>Select an option...</option>
-      <option  *ngFor="let company of listOfCompanies;" [selected]="(dataDialog!=null)&&(dataDialog.product.companyId==company.Id)" value="{{company.Id}}">{{company.Name}}</option>
+      <option *ngIf="dataDialog==null" selected value="-1">Select an option...</option>
+      <option *ngFor="let company of listOfCompanies;" [selected]="(dataDialog!=null)&&(dataDialog.product.companyId==company.Id)" value="{{company.Id}}">{{company.Name}}</option>
 
     </select>
   </div>
   <div class="mb-3">
     <label for="ageRestrictionText" class="form-label">Maximum Age</label>
-    <input *ngIf="dataDialog==null" type="text" class="form-control" id="ageRestriction" placeholder="" min="1" max="100">
-    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="ageRestriction" placeholder="" min="1" max="100" value="{{dataDialog.product.ageRestriction}}">
+    <input *ngIf="dataDialog==null" type="text" class="form-control" id="ageRestrictionText" placeholder="" min="1" max="100">
+    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="ageRestrictionText" placeholder="" min="1" max="100" value="{{dataDialog.product.ageRestriction}}">
+  </div>
+  <div class="mb-3">
+    <label for="imageURLtxt" class="form-label">Image URL</label>
+    <input *ngIf="dataDialog==null" type="text" class="form-control" id="imageURLtxt" placeholder="">
+    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="imageURLtxt" placeholder="" value="{{dataDialog.product.imageIurl}}">
   </div>
   <div class="mb-3">
     <label for="descriptionTxt" class="form-label">Description</label>
-    <textarea *ngIf="dataDialog==null" class="form-control" id="descriptionTxt" rows="3"></textarea>
-    <textarea *ngIf="dataDialog!=null" class="form-control" id="descriptionTxt" rows="3">{{dataDialog.product.description}}</textarea>
+    <textarea *ngIf="dataDialog==null" class="form-control" id="descriptionTxt" rows="3" ></textarea>
+    <textarea *ngIf="dataDialog!=null" class="form-control" id="descriptionTxt" rows="3" #description>{{dataDialog.product.description}}</textarea>
   </div>
   <div class="mb-3 row text-center">
     <div *ngIf="dataDialog==null" class="col-sm-6">
-      <button class="btn btn-primary" type="button">Save add another</button>
+      <button class="btn btn-primary" type="button" (click)="saveCompanyAndContinue()">Save add another</button>
     </div>
     <div *ngIf="dataDialog==null" class="col-sm-6">
-      <button class="btn btn-info" type="button">Save and close</button>
+      <button class="btn btn-info" type="button" (click)="saveCompanyAndCloseDialog()" >Save and close</button>
     </div>
     <div *ngIf="dataDialog!=null" class="col-sm-12">
-      <button class="btn btn-info" style="width:100%" type="button">Save and close</button>
+      <button class="btn btn-info" style="width:100%" type="button" (click)="saveCompanyAndCloseDialog()">Save and close</button>
     </div>
   </div>
   <br />
   <div class="mb-3 text-center">
-    <button class="btn btn-danger" style="width:100%" type="button" (click)="closeDialog()">Cancel</button>
+    <button class="btn btn-danger" style="width:100%" type="button" (click)="closeDialog(false)">Close</button>
   </div>
 </form>

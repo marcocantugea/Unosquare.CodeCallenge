@@ -12,7 +12,7 @@ export class StoreinfoComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<StoreinfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IProduct,
+    @Inject(MAT_DIALOG_DATA) public product: IProduct,
   ) { }
 
   ngOnInit(): void {

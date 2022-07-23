@@ -7,13 +7,13 @@
             <tr>
               <td class="padding15px">Product Name: &nbsp;</td>
               <td class="padding15px">
-                <input type="text" class="form-control" id="priceTxt" placeholder="">
+                <input type="text" class="form-control" id="productName" placeholder="" #productName>
               </td>
               <td class="padding15px">
-                <button type="button" class="btn btn-success">Search</button>
+                <button type="button" class="btn btn-success" (click)="searchProductName(productName.value)" >Search</button>
               </td>
               <td class="padding15px">
-                <button type="button" class="btn btn-primary">clear</button>
+                <button type="button" class="btn btn-primary"  (click)="searchProductName('!All')">clear</button>
               </td>
             </tr>
           </tbody>
