@@ -1,0 +1,47 @@
+<div class="m-3">
+  <h2>Products</h2>
+  <div *ngIf="!isLoaded" class="text-center">
+    <mat-spinner class="" [diameter]="30" [color]="color" [mode]="mode"></mat-spinner>
+  </div>
+  <div *ngIf="isLoaded">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Image</td>
+          <td>Product name</td>
+          <td>Description</td>
+          <td>Max age</td>
+          <td>Price</td>
+          <td>Company</td>
+          <td colspan="3">Options</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let productItem of listProducts;let i = index">
+          <td class="align-middle text-center">{{i+1}}</td>
+          <td class="align-middle">
+            <a (click)="photoViewer(productItem.imageIurl)">
+              <img *ngIf="(productItem.imageIurl!=null) && (productItem.imageIurl!='')" src="{{productItem.imageIurl}}" width="100" height="100" />
+              <img *ngIf="productItem.imageIurl==''" src="https://th.bing.com/th/id/R.2b53a072e24c01dd1e8829e8255e2384?rik=ow1u4G%2fDPduF5g&pid=ImgRaw&r=0&sres=1&sresct=1" width="100" height="100" />
+            </a>
+          </td>
+          <td class="align-middle">{{productItem.name}}</td>
+          <td class="align-middle">{{productItem.description}}</td>
+          <td class="text-center align-middle">{{productItem.ageRestriction}}</td>
+          <td class="align-middle">{{productItem.price|currency}}</td>
+          <td class="align-middle">{{productItem.company.Name}}</td>
+          <td>
+            <button id="edit_id" class="btn btn-info" (click)="showStoreInfo(productItem)">Check Store</button>
+          </td>
+          <td>
+            <button id="edit_id" class="btn btn-primary" (click)="showEditProduct(productItem)" >Edit</button>
+          </td>
+          <td>
+            <button id="delete_item" class="btn btn-danger" (click)="showDeleteConfirmationItem(productItem)" >Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

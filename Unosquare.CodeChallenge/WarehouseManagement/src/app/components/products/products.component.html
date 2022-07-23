@@ -1,3 +1,16 @@
 <div class="m-3">
   <h1>Products Management</h1>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <button class="btn btn-primary" type="button" (click)="showAddProductsModal()" >Add products</button>
+    </div>
+  </div>
+</div>
+<div>
+ <app-searchbar (filterEmit)="searchByName($event)"></app-searchbar>
+</div>
+<div>
+  <app-productdatagrid [refreshList]="updateList" [searchByName]="nameToSearch"></app-productdatagrid>
+</div>
