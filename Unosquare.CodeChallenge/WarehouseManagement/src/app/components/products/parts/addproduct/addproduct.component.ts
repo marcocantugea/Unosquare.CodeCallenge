@@ -126,7 +126,10 @@ export class AddproductComponent implements OnInit {
     let ageRestriction = (<HTMLInputElement>document.getElementById("ageRestrictionText")).value;
     let description = (<HTMLInputElement>document.getElementById("descriptionTxt")).value;
     let imageUrl = (<HTMLInputElement>document.getElementById("imageURLtxt")).value;
-    console.log(price);
+
+    if (productName.length > 50) productName = productName.substring(0, 50);
+    if (description.length > 100) description = description.substring(0, 100);
+
     let newProduct: IProductBasicInfo = new ProductBasicInfo(productName,Number(price), Number.parseInt(companyId), Number.parseInt(ageRestriction), description, imageUrl);
     console.log(newProduct);
     return newProduct;
