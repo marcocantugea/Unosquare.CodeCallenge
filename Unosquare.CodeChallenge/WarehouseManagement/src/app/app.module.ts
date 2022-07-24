@@ -10,7 +10,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { SearchpageComponent } from './components/searchpage/searchpage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AddcompanyComponent } from './components/companies/parts/addcompany/addcompany.component';
+import { AddcompanyComponent } from "./components/companies/parts/addcompany/AddcompanyComponent";
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SearchcompanyBarComponent } from './components/companies/parts/searchcompany-bar/searchcompany-bar.component';
