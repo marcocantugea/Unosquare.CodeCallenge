@@ -1,24 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IProduct } from '../../interfaces/iproduct';
+import { Subscription } from 'rxjs';
 import { AddproductComponent } from './parts/addproduct/addproduct.component';
-import { PhotoviewerComponent } from './parts/photoviewer/photoviewer.component';
-import { ProductdatagridComponent } from './parts/productdatagrid/productdatagrid.component';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   public updateList = false;
-  public nameToSearch:string="";
- 
+  public nameToSearch: string = "";
+  subscribers: Subscription[] = [];
 
   constructor(
     public dialog: MatDialog
   ) { }
+
+  ngOnDestroy(): void {
+    this.subscribers.forEach(item => item.unsubscribe());
+  }
 
   ngOnInit(): void {
   }
@@ -26,7 +28,7 @@ export class ProductsComponent implements OnInit {
   showAddProductsModal() {
     let updateList = false;
     const dialogRef = this.dialog.open(AddproductComponent, { disableClose: true });
-    dialogRef.afterClosed().subscribe(
+    this.subscribers.push(dialogRef.afterClosed().subscribe(
       next => {
         console.log(next);
         if (next) updateList = true;
@@ -37,7 +39,7 @@ export class ProductsComponent implements OnInit {
       () => {
         if (updateList) this.updateList=true;
       }
-    );
+    ));
   }
 
   searchByName(productName: string) {

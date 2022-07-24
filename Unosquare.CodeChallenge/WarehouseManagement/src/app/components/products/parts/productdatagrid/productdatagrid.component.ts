@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges,OnChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges,OnChanges, OnDestroy } from '@angular/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ThemePalette } from '@angular/material/core';
 import { StoreinfoComponent } from '../storeinfo/storeinfo.component';
@@ -18,7 +18,7 @@ import { ProductsService } from '../../../../services/products.service';
   templateUrl: './productdatagrid.component.html',
   styleUrls: ['./productdatagrid.component.css']
 })
-export class ProductdatagridComponent implements OnInit {
+export class ProductdatagridComponent implements OnInit, OnDestroy {
 
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'indeterminate';
@@ -36,6 +36,11 @@ export class ProductdatagridComponent implements OnInit {
     public dialog: MatDialog,
     public productServices: ProductsService
   ) { }
+
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(item => item.unsubscribe());
+  }
 
   ngOnInit(): void {
     if (this.showLastAdded) {
@@ -82,7 +87,7 @@ export class ProductdatagridComponent implements OnInit {
 
   showStoreInfo(product: IProduct) {
     const dialogRef = this.dialog.open(StoreinfoComponent, { data: product });
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {},
       error => {
         console.log(error);
@@ -90,12 +95,12 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         //this.updateList()
       }
-    );
+    ));
   }
 
   showEditProduct(product: IProduct) {
     const dialogRef = this.dialog.open(AddproductComponent, { disableClose: true, data: { product:product, isUpdate:true } });
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {},
       error => {
         console.log(error);
@@ -103,12 +108,12 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         this.updateList()
       }
-    );
+    ));
   }
 
   photoViewer(imageUrl: string) {
     const dialogRef = this.dialog.open(PhotoviewerComponent, { data: imageUrl });
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {},
       error => {
         console.log(error);
@@ -116,13 +121,13 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         //this.updateList()
       }
-    );
+    ));
   }
 
   showDeleteConfirmationItem(product: IProduct) {
     const dialogRef = this.dialog.open(DeletedialogComponent, { data: product });
     let refreshPage = false;
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {
         if (next === true) refreshPage = true;
       },
@@ -132,7 +137,7 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         if (refreshPage) this.updateList();
       }
-    );
+    ));
   }
 
   updateList() {
