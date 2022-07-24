@@ -1,17 +1,17 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject, Subscriber, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { ICompany } from '../../interfaces/ICompany';
 import { Company } from '../../models/company.model';
 import { CompaniesService } from '../../services/companies.service';
-import { AddcompanyComponent } from './parts/addcompany/addcompany.component';
+import { AddcompanyComponent } from "./parts/addcompany/AddcompanyComponent";
 
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
   styleUrls: ['./companies.component.css']
 })
-export class CompaniesComponent implements OnInit {
+export class CompaniesComponent implements OnInit, OnDestroy {
 
   constructor(public dialog: MatDialog, public serviceCompanies: CompaniesService) { }
   public isLoadedGrid = false;

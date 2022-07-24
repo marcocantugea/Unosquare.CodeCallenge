@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Subscriber, Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { ProductsService } from '../../../../services/products.service';
   templateUrl: './deletedialog.component.html',
   styleUrls: ['./deletedialog.component.css']
 })
-export class DeletedialogComponent implements OnInit {
+export class DeletedialogComponent implements OnInit, OnDestroy {
 
   protected subscribers: Subscription[] = [];
 
@@ -20,6 +20,10 @@ export class DeletedialogComponent implements OnInit {
     private _snackBar: MatSnackBar,
     public serviceProduct: ProductsService
   ) { }
+
+  ngOnDestroy(): void {
+    this.subscribers.forEach(item => item.unsubscribe());
+  }
 
   ngOnInit(): void {
   }

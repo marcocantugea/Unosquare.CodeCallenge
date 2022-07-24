@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges,OnChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges,OnChanges, OnDestroy } from '@angular/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ThemePalette } from '@angular/material/core';
 import { StoreinfoComponent } from '../storeinfo/storeinfo.component';
@@ -18,7 +18,7 @@ import { ProductsService } from '../../../../services/products.service';
   templateUrl: './productdatagrid.component.html',
   styleUrls: ['./productdatagrid.component.css']
 })
-export class ProductdatagridComponent implements OnInit {
+export class ProductdatagridComponent implements OnInit, OnDestroy {
 
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'indeterminate';
@@ -29,13 +29,25 @@ export class ProductdatagridComponent implements OnInit {
 
   @Input() refreshList: boolean = false;
   @Input() searchByName: string = "";
+  @Input() showOptions = true;
+  @Input() showLastAdded = false;
 
   constructor(
     public dialog: MatDialog,
     public productServices: ProductsService
   ) { }
 
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(item => item.unsubscribe());
+  }
+
   ngOnInit(): void {
+    if (this.showLastAdded) {
+      this.getLastAdded(5);
+      return;
+    }
+
     this.getProducts();
   }
 
@@ -50,6 +62,12 @@ export class ProductdatagridComponent implements OnInit {
     if (changes['searchByName']) {
       this.searchByNameProduct(changes['searchByName'].currentValue);
       return;
+    }
+
+    if (changes["showLast10Added"]) {
+      if (changes["showLast10Added"].currentValue == true) {
+        this.getLastAdded(5);
+      }
     }
   }
 
@@ -69,7 +87,7 @@ export class ProductdatagridComponent implements OnInit {
 
   showStoreInfo(product: IProduct) {
     const dialogRef = this.dialog.open(StoreinfoComponent, { data: product });
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {},
       error => {
         console.log(error);
@@ -77,12 +95,12 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         //this.updateList()
       }
-    );
+    ));
   }
 
   showEditProduct(product: IProduct) {
     const dialogRef = this.dialog.open(AddproductComponent, { disableClose: true, data: { product:product, isUpdate:true } });
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {},
       error => {
         console.log(error);
@@ -90,12 +108,12 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         this.updateList()
       }
-    );
+    ));
   }
 
   photoViewer(imageUrl: string) {
     const dialogRef = this.dialog.open(PhotoviewerComponent, { data: imageUrl });
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {},
       error => {
         console.log(error);
@@ -103,13 +121,13 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         //this.updateList()
       }
-    );
+    ));
   }
 
   showDeleteConfirmationItem(product: IProduct) {
     const dialogRef = this.dialog.open(DeletedialogComponent, { data: product });
     let refreshPage = false;
-    dialogRef.afterClosed().subscribe(
+    this.subscriptions.push(dialogRef.afterClosed().subscribe(
       next => {
         if (next === true) refreshPage = true;
       },
@@ -119,7 +137,7 @@ export class ProductdatagridComponent implements OnInit {
       () => {
         if (refreshPage) this.updateList();
       }
-    );
+    ));
   }
 
   updateList() {
@@ -141,6 +159,22 @@ export class ProductdatagridComponent implements OnInit {
     this.subscriptions.push(this.productServices.getProducts().subscribe(
       next => {
         this.listProducts = next.filter(item => item.name.toLowerCase().match(nameProduct));
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        this.isLoaded = true;
+      }
+    ));
+  }
+
+  getLastAdded(size: number) {
+    this.isLoaded = false;
+    this.listProducts = [];
+    this.subscriptions.push(this.productServices.getProducts().subscribe(
+      next => {
+        this.listProducts = next.reverse().slice(0, size);
       },
       error => {
         console.log(error)

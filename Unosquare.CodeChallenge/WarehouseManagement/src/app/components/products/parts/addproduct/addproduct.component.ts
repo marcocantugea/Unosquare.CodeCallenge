@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { ICompany } from '../../../../interfaces/ICompany';
-import { IProduct } from '../../../../interfaces/iproduct';
 import { IProductBasicInfo } from '../../../../interfaces/iproduct-basic-info';
 import { ProductBasicInfo } from '../../../../models/product-basic-info.model';
 import { Product } from '../../../../models/product.model';
@@ -20,7 +19,7 @@ export interface updateDataInfo {
   templateUrl: './addproduct.component.html',
   styleUrls: ['./addproduct.component.css']
 })
-export class AddproductComponent implements OnInit {
+export class AddproductComponent implements OnInit, OnDestroy {
 
   public listOfCompanies: ICompany[] = []
   public subscriptions: Subscription[] = [];

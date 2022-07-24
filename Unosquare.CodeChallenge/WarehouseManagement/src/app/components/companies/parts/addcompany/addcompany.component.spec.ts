@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { CompaniesService } from '../../../../services/companies.service';
-
-import { AddcompanyComponent } from './addcompany.component';
+import { CompaniesService } from '../../../../services/companies.service';import { AddcompanyComponent } from "./AddcompanyComponent";
+;
 
 describe('AddcompanyComponent', () => {
   let component: AddcompanyComponent;

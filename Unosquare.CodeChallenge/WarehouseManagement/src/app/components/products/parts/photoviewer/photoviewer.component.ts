@@ -15,7 +15,6 @@ export class PhotoviewerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //console.log(this.imageUrl);
   }
 
 }
