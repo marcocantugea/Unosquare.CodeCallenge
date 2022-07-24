@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ export interface DataModal {
 })
 
 
-export class CompanydeletemodalComponent implements OnInit {
+export class CompanydeletemodalComponent implements OnInit, OnDestroy {
 
   public valueSelected: string = '';
   subscriptions: Subscription[] = [];
