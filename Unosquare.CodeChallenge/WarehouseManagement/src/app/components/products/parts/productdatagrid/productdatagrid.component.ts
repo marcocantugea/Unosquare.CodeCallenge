@@ -29,6 +29,8 @@ export class ProductdatagridComponent implements OnInit {
 
   @Input() refreshList: boolean = false;
   @Input() searchByName: string = "";
+  @Input() showOptions = true;
+  @Input() showLastAdded = false;
 
   constructor(
     public dialog: MatDialog,
@@ -36,6 +38,11 @@ export class ProductdatagridComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.showLastAdded) {
+      this.getLastAdded(5);
+      return;
+    }
+
     this.getProducts();
   }
 
@@ -50,6 +57,12 @@ export class ProductdatagridComponent implements OnInit {
     if (changes['searchByName']) {
       this.searchByNameProduct(changes['searchByName'].currentValue);
       return;
+    }
+
+    if (changes["showLast10Added"]) {
+      if (changes["showLast10Added"].currentValue == true) {
+        this.getLastAdded(5);
+      }
     }
   }
 
@@ -141,6 +154,22 @@ export class ProductdatagridComponent implements OnInit {
     this.subscriptions.push(this.productServices.getProducts().subscribe(
       next => {
         this.listProducts = next.filter(item => item.name.toLowerCase().match(nameProduct));
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        this.isLoaded = true;
+      }
+    ));
+  }
+
+  getLastAdded(size: number) {
+    this.isLoaded = false;
+    this.listProducts = [];
+    this.subscriptions.push(this.productServices.getProducts().subscribe(
+      next => {
+        this.listProducts = next.reverse().slice(0, size);
       },
       error => {
         console.log(error)

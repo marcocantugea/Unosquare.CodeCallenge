@@ -3,6 +3,33 @@
   <div class="m-3">
     <h1>Dashboard</h1>
   </div>
-  
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card text-bg-secondary border-secondary">
+        <div class="card-body">
+          <h2 class="card-title">Products</h2>
+          <p class="card-text"> Total of Products added: <strong>{{totalOfProducts}}</strong> </p>
+          <a routerLink="/products" class="btn btn-primary" >Go to products management</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card text-bg-secondary border-secondary">
+          <div class="card-body">
+            <h2 class="card-title">Companies</h2>
+            <p class="card-text"> Total of companies added: <strong>{{totalOfCompanies}}</strong> </p>
+            <a routerLink="/companies"  class="btn btn-primary">Go to companies management</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p></p>
+  <h2>Last 10 products added</h2>
+  <div>
+    <app-productdatagrid [refreshList]="updateList" [searchByName]="nameToSearch" [showOptions]="false" [showLastAdded]="true" ></app-productdatagrid>
+  </div>
 </div>
 

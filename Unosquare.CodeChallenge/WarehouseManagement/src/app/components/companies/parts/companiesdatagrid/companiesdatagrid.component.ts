@@ -7,7 +7,7 @@ import { CompaniesService } from '../../../../services/companies.service';
 import { Company } from '../../../../models/company.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanydeletemodalComponent } from '../companydeletemodal/companydeletemodal.component';
-import { AddcompanyComponent } from '../addcompany/addcompany.component';
+import { AddcompanyComponent } from "../addcompany/AddcompanyComponent";
 
 @Component({
   selector: 'app-companiesdatagrid',
