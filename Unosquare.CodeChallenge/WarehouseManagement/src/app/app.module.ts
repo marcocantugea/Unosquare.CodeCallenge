@@ -27,6 +27,8 @@ import { ProductdatagridComponent } from './components/products/parts/productdat
 import { StoreinfoComponent } from './components/products/parts/storeinfo/storeinfo.component';
 import { PhotoviewerComponent } from './components/products/parts/photoviewer/photoviewer.component';
 import { DeletedialogComponent } from './components/products/parts/deletedialog/deletedialog.component';
+import { SearchBarComponent } from './components/searchpage/search-bar/search-bar.component';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { DeletedialogComponent } from './components/products/parts/deletedialog/
     ProductdatagridComponent,
     StoreinfoComponent,
     PhotoviewerComponent,
-    DeletedialogComponent
+    DeletedialogComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
