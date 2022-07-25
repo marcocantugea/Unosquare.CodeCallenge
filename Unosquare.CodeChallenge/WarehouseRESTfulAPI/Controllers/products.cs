@@ -29,7 +29,7 @@ namespace WarehouseRESTfulAPI.Controllers
 
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         public IActionResult searchProducts([FromBody] ProductFilterRequestModel[] filters)
         {
             //por cada filtro los convertimos a linq expression

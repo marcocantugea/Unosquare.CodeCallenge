@@ -33,23 +33,22 @@ namespace WarehouseRESTfulAPI.Helpers
                 return linqExp;
             }
 
-            if (model.typeField == (int)typeFields.BOOLEAN)
+            if (model.typeField == (int)typeFields.BOOLEAN || model.typeField==10)
             {
                 //revisamos los operadores permitidos
-                if (model.whereOperator=="==") throw new Exception($"operator {model.whereOperator} is not valid for a boolean field");
+                if (model.whereOperator!="==") throw new Exception($"operator {model.whereOperator} is not valid for a boolean field");
                 //realizamos expression linq
                 linqExp = @"prod=>prod." + model.field + model.whereOperator + model.value;
                 return linqExp;
             }
-
-
             //revisamos los operadores permitidos
-            if (!stringOperators.Contains(model.whereOperator)) throw new Exception($"operator {model.whereOperator} is not valid for a string field");
+            if (stringOperators.Where(item => item==model.whereOperator)==null) throw new Exception($"operator {model.whereOperator} is not valid for a string field");
 
             //realizamos expression linq
             linqExp = @"prod=>prod." + model.field;
+            if (model.whereOperator != "==") linqExp = linqExp + ".ToLower().Contains(\"" + model.value.ToLower() + "\")";
             if (model.whereOperator == "==") linqExp = linqExp + "==\"" + model.value + "\"";
-            if (model.whereOperator == "contains") linqExp = linqExp + ".ToLower().Contains(\"" + model.value + "\")";
+            //if (model.whereOperator == "contains") 
 
             return linqExp;
         }

@@ -125,6 +125,7 @@ namespace WarehouseRepositories.Repositories
                            warehouseInfo = new List<WarehouseInfo>()
                        })
                        .Where(filter);
+                    continue;
                 } 
                 query = query.Where(filter);
                 index++;
