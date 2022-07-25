@@ -93,5 +93,53 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
 
             Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convetLinqExpression(model));
         }
+
+        [Fact]
+        public void test_getLinqExpresssion_getvalidexpresssionWithAnds()
+        {
+            string linqExp = @"prod=>( prod.ageRestriction>=30 && prod.name.ToLower().Contains(""world""))";
+            ProductFilterRequestModel model1 = new ProductFilterRequestModel();
+            model1.field = "ageRestriction";
+            model1.value = "30";
+            model1.typeField = (int)typeFields.NUMERIC;
+            model1.whereOperator = ">=";
+
+            ProductFilterRequestModel model3 = new ProductFilterRequestModel();
+            model3.field = "name";
+            model3.value = "world";
+            model3.typeField = (int)typeFields.STRING;
+            model3.whereOperator = "contains";
+
+            ProductFilterRequestModel[] filters =new ProductFilterRequestModel[] { model1, model3 };
+
+            string linqExpFun = FiltersConverter.getLinqExpressions(filters);
+
+            Assert.Equal(linqExpFun, linqExp);
+            Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
+        }
+
+        [Fact]
+        public void test_getLinqExpresssion_getvalidexpresssionWithNoAnds()
+        {
+            string linqExp = @"prod=> prod.ageRestriction>=30";
+            ProductFilterRequestModel model1 = new ProductFilterRequestModel();
+            model1.field = "ageRestriction";
+            model1.value = "30";
+            model1.typeField = (int)typeFields.NUMERIC;
+            model1.whereOperator = ">=";
+
+            //ProductFilterRequestModel model3 = new ProductFilterRequestModel();
+            //model3.field = "name";
+            //model3.value = "world";
+            //model3.typeField = (int)typeFields.STRING;
+            //model3.whereOperator = "contains";
+
+            ProductFilterRequestModel[] filters = new ProductFilterRequestModel[] { model1 };
+
+            string linqExpFun = FiltersConverter.getLinqExpressions(filters);
+
+            Assert.Equal(linqExpFun, linqExp);
+            Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
+        }
     }
 }
