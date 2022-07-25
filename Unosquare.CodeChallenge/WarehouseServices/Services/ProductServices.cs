@@ -66,5 +66,10 @@ namespace WarehouseServices.Services
             repository.deleteProduct(id);
             repository.save();
         }
+
+        public IEnumerable<Product> searchProducts(IEnumerable<Func<Product,bool>> filters)
+        {
+            return repository.Search(filters);
+        } 
     }
 }

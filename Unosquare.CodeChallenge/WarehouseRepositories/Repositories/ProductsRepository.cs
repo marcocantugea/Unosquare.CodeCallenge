@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WarehouseCoreLib.Base;
+using WarehouseModels.Interfaces;
 using WarehouseModels.Models;
 
 namespace WarehouseRepositories.Repositories
@@ -84,6 +85,54 @@ namespace WarehouseRepositories.Repositories
         public void deleteProduct(int id)
         {
             dbcontext.Products.Remove(getById(id));
+        }
+
+        public IEnumerable<Product> Search(IEnumerable<Func<Product, bool>> filters)
+        {
+            if (filters.Count() <= 0) return new List<Product>();
+
+            IEnumerable<Product> query = new List<Product>();
+
+            int index = 0;
+            foreach (var filter in filters)
+            {
+                if (index == 0) {
+                    query=dbcontext.Products
+                       .Include(prop => prop.company)
+                       .Include(prop => prop.warehouseInfo)
+                       .Select(prop => new Product()
+                       {
+                           id = prop.id,
+                           ageRestriction = prop.ageRestriction,
+                           companyId = prop.companyId,
+                           company = new Company()
+                           {
+                               Id = prop.companyId,
+                               Name = prop.company.Name
+                           },
+                           description = prop.description,
+                           imageIurl = prop.imageIurl,
+                           name = prop.name,
+                           price = prop.price,
+                           storeid = prop.storeid,
+                           store = new Store()
+                           {
+                               Id = prop.storeid,
+                               address = prop.store.address,
+                               city = prop.store.city,
+                               storeName = prop.store.storeName
+                           },
+                           warehouseInfo = new List<WarehouseInfo>()
+                       })
+                       .Where(filter);
+                } 
+                query = query.Where(filter);
+                index++;
+            }
+
+
+            return query;
+
         }
     }
 }
