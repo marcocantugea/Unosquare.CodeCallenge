@@ -4,6 +4,7 @@ using System.Text.Json;
 using WarehouseModels.Interfaces;
 using WarehouseModels.Models;
 using WarehouseModels.Validations;
+using WarehouseRESTfulAPI.Helpers;
 using WarehouseRESTfulAPI.RequestModels;
 using WarehouseServices.Contractor;
 using WarehouseServices.Services;
@@ -25,7 +26,28 @@ namespace WarehouseRESTfulAPI.Controllers
         [HttpGet]
         public IActionResult getProducts() {
             return this.Ok(JsonSerializer.Serialize(productService.getProducts()));
-            
+
+        }
+
+        [HttpGet("search")]
+        public IActionResult searchProducts([FromBody] ProductFilterRequestModel[] filters)
+        {
+            //por cada filtro los convertimos a linq expression
+            List<Func<IProduct, bool>> linqFilters = new List<Func<IProduct, bool>>();
+            foreach (ProductFilterRequestModel item  in filters)
+            {
+                try
+                {
+                    linqFilters.Add(FiltersConverter.convetLinqExpression(item));
+                }
+                catch (Exception exception)
+                {
+                    this.BadRequest(exception);
+                }
+            }
+
+            return this.Ok(JsonSerializer.Serialize(productService.searchProducts(linqFilters)));
+
         }
 
         [HttpPost]

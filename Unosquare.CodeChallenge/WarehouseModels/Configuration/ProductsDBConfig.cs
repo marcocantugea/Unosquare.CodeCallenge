@@ -72,7 +72,7 @@ namespace WarehouseModels.Configuration
                 companyId = Marvel.Id,
                 description = "FIGLot ZD Toys Marvel Iron Man Mark 3 Mark III Figura de acción de 7",
                 ageRestriction = 10,
-                name = "Iron Man Mark 3 Mark III Figura de acción",
+                name = "Iron Man Mark 3 Mark III Figura de acción Marvel",
                 price = (decimal)663.17,
                 imageIurl = "https://m.media-amazon.com/images/I/51AEF32Dz+L._AC_SX300_SY300_.jpg",
                 storeid = 4
@@ -82,7 +82,7 @@ namespace WarehouseModels.Configuration
             {
                 id = 5,
                 companyId = Marvel.Id,
-                description = "Marvel Legends Spiderman Symbiote",
+                description = "Marvel Legends Spiderman Symbiote Marvel",
                 ageRestriction = 10,
                 name = "Spiderman Symbiote Marvel Legends ",
                 price = (decimal)599.00,
@@ -94,7 +94,7 @@ namespace WarehouseModels.Configuration
             {
                 id = 6,
                 companyId = Marvel.Id,
-                description = "Thanos Avengers Endgame Hot Toys",
+                description = "Thanos Avengers Endgame Hot Toys Marvel",
                 ageRestriction = 15,
                 name = "Thanos Avengers Endgame Hot Toys",
                 price = (decimal)1580.74,
@@ -108,7 +108,7 @@ namespace WarehouseModels.Configuration
                 companyId = Nintento.Id,
                 description = "Nintendo NES Classic Mini Consola, color Gris - Classics Edition",
                 ageRestriction = 15,
-                name = "NES Classic Mini Consola",
+                name = "NES Classic Mini Consola Nintendo",
                 price = (decimal)4997.00,
                 imageIurl = "https://m.media-amazon.com/images/I/81s7B+Als-L._AC_SX679_.jpg",
                 storeid = 3
@@ -132,7 +132,7 @@ namespace WarehouseModels.Configuration
                 companyId = Sony.Id,
                 description = "Control Inalámbrico Dualsense Cosmic Red - Playstation 5",
                 ageRestriction = 15,
-                name = "Control Inalámbrico Dualsense Cosmic Red ",
+                name = "Playstation Control Inalámbrico Dualsense Cosmic Red",
                 price = (decimal)1390.00,
                 imageIurl = "https://m.media-amazon.com/images/I/71-2sMke9uS._AC_SX679_.jpg",
                 storeid = 1

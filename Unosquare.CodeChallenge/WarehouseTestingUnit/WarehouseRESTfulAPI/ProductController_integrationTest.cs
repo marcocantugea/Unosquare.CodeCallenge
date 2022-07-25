@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WarehouseModels.Models;
 using Xunit.Abstractions;
+using WarehouseRESTfulAPI.RequestModels;
+using System.Net.Mime;
 
 namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 {
@@ -175,6 +177,35 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var responseUpdate = await client.DeleteAsync("api/product/"+ idbase);
 
             Assert.Equal(HttpStatusCode.NoContent, responseUpdate.StatusCode);
+        }
+
+        [Fact]
+        public async void test_searchProduct_searchProductsList()
+        {
+            ProductFilterRequestModel model = new ProductFilterRequestModel();
+            model.field = "name";
+            model.value = "MARVEL";
+            model.typeField = (int)typeFields.STRING;
+            model.whereOperator = "contains";
+
+            List<ProductFilterRequestModel> filters = new List<ProductFilterRequestModel>();
+            filters.Add(model);
+
+            var client = _factory.CreateClient();
+            //HttpContent content = new StringContent(JsonSerializer.Serialize(filters));
+            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://localhost:7032/api/products/search"),
+                Content = new StringContent(JsonSerializer.Serialize(filters), Encoding.UTF8, MediaTypeNames.Application.Json),
+            };
+            var response = await client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
     }
 }
