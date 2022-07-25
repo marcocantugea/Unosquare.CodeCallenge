@@ -4,33 +4,35 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Company } from '../models/company.model';
 import { ICompany } from '../interfaces/ICompany';
+import { environment } from '../../environments/environment';
 
-
-const host = 'https://localhost:7032/'
-const apiResouce = 'api/company';
-const apiResoucePlural = 'api/companies';
 @Injectable({
   providedIn: 'root'
 })
 export class CompaniesService {
 
+  private host: string = (environment.APIhost) ? environment.APIhost : 'https://localhost:7032/';
+  private apiResouce: string  = 'api/company';
+  private apiResoucePlural:string = 'api/companies';
+
   private listOfCompanies: Observable<ICompany> | null = null;
   public listOfCompaniesBehavior = new BehaviorSubject<ICompany[]>([]);
   listOfCOmpaniesBehavior$ = this.listOfCompanies;
 
-  
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getAllCompanies(): Observable<ICompany[]> {
-    return this.http.get<ICompany[]>(host + apiResoucePlural);
+    return this.http.get<ICompany[]>(this.host + this.apiResoucePlural);
   }
 
   getCompany(id: string) : Observable<ICompany> {
-    return this.http.get<ICompany>(host + apiResouce + "/" + id);
+    return this.http.get<ICompany>(this.host + this.apiResouce + "/" + id);
   }
 
   getCompanyByName(name: string): Observable<ICompany> {
-    return this.http.get<ICompany>(host + apiResouce + "/search?name=" + name);
+    return this.http.get<ICompany>(this.host + this.apiResouce + "/search?name=" + name);
   }
 
   addCompany(name: string): Observable<any>  {
@@ -38,17 +40,17 @@ export class CompaniesService {
       Name:name 
     }
     const headers = { 'Content-type': 'application/json' };
-    return this.http.post(host + apiResouce, JSON.stringify(item), { headers });
+    return this.http.post(this.host + this.apiResouce, JSON.stringify(item), { headers });
   }
 
   deleteCompany(idCompany: string): Observable<any> {
     let item = {
       Id:idCompany
     }
-    return this.http.delete(host + apiResouce+"/"+idCompany)
+    return this.http.delete(this.host + this.apiResouce+"/"+idCompany)
   }
 
   updateCompanyInfo(company: Company) {
-    return this.http.put(host + apiResouce, company);
+    return this.http.put(this.host + this.apiResouce, company);
   }
 }

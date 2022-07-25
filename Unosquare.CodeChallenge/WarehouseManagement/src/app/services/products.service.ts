@@ -3,13 +3,14 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { IProduct } from '../interfaces/iproduct';
 import { IProductBasicInfo } from '../interfaces/iproduct-basic-info';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService implements OnInit, OnDestroy {
 
-  protected host = 'https://localhost:7032/';
+  protected host: string = (environment.APIhost) ? environment.APIhost : 'https://localhost:7032/';
   protected apiResouce = 'api/product';
   protected apiResoucePlural = 'api/products';
 
