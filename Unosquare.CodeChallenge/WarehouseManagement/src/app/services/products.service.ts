@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { IProduct } from '../interfaces/iproduct';
 import { IProductBasicInfo } from '../interfaces/iproduct-basic-info';
 import { environment } from '../../environments/environment';
+import { IFilter } from '../interfaces/ifilter';
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,7 @@ export class ProductsService implements OnInit, OnDestroy {
     return this.HttpClient.put(this.host + this.apiResouce + "/" + id, productBasicInfo);
   }
 
+  searchProducts(filters: IFilter[]): Observable<IProduct[]> {
+    return this.HttpClient.post<IProduct[]>(this.host + this.apiResoucePlural + "/search", filters);
+  }
 }

@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CompanydeletemodalComponent } from './components/companies/parts/companydeletemodal/companydeletemodal.component';
 import { AddproductComponent } from './components/products/parts/addproduct/addproduct.component';
@@ -61,7 +63,9 @@ import { SearchBarComponent } from './components/searchpage/search-bar/search-ba
     MatProgressSpinnerModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
+    MatIconModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]

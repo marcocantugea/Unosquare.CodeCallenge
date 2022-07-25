@@ -1,3 +1,9 @@
 <div class="m-3">
   <h1>Search Products</h1>
 </div>
+<div>
+  <app-search-bar (filterEmit)="setFilters($event)"></app-search-bar>
+</div>
+<div>
+  <app-productdatagrid [refreshList]="false" [showOptions]="false" [showLastAdded]="true" [listOfFilters]="listOfFilters" ></app-productdatagrid>
+</div>

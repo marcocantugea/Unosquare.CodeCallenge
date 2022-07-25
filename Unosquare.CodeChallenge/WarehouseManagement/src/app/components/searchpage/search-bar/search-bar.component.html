@@ -1,1 +1,52 @@
-<p>search-bar works!</p>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="mb-3">
+        <table>
+          <tbody>
+            <tr>
+              <td class="padding15px">Filter: &nbsp;</td>
+              <td class="padding15px">
+                <select class="form-select" id="fields" (change)='onFieldSelected(fieldSelector.value)' #fieldSelector>
+                  <option value="name" selected>Product name</option>
+                  <option value="description">Product description</option>
+                  <option value="ageRestriction">Age restriction</option>
+                  <option value="price">price</option>
+                  <option value="companyId">Company</option>
+                </select>
+              </td>
+              <td class="padding15px">
+                <select class="form-select" #operatorSelector>
+                  <option *ngFor="let operator of listOperators" value="{{operator.filterOperator}}">{{operator.filterOperatorDescription}}</option>
+                </select>
+              </td>
+              <td class="padding15px">
+                <input *ngIf="!showCompaniesControl" type="text" class="form-control" value="" id="valueText" />
+                <select *ngIf="showCompaniesControl" class="form-select" id="valueText" >
+                  <option *ngFor="let company of listOfCompanies" value="{{company.Id}}">{{company.Name}}</option>
+                </select>
+              </td>
+              <td class="padding15px">
+                <button type="button" class="btn btn-primary" (click)="addFilter(fieldSelector.value,operatorSelector.value)" >Add filter</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <mat-chip-list [aria-orientation]="'horizontal'" >
+    <mat-chip *ngFor="let filter of listOfFilters" (removed)="removeFilter(filter.filter.field)">
+      <span *ngIf="filter.filter.field!='companyId'">{{filter.filter.field}} {{filter.filterOperator.filterOperatorDescription}} {{filter.filter.value}}</span>
+      <span *ngIf="filter.filter.field=='companyId'">company {{filter.filterOperator.filterOperatorDescription}} {{getCompany(filter.filter.value).Name}}</span>
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+    <!--<mat-chip color="primary" selected>Primary fish</mat-chip>
+  <mat-chip color="accent" selected>Accent fish</mat-chip>-->
+  </mat-chip-list>
+
