@@ -29,23 +29,20 @@ namespace WarehouseRESTfulAPI.Controllers
 
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         public IActionResult searchProducts([FromBody] ProductFilterRequestModel[] filters)
         {
             //por cada filtro los convertimos a linq expression
             List<Func<IProduct, bool>> linqFilters = new List<Func<IProduct, bool>>();
-            foreach (ProductFilterRequestModel item  in filters)
+            try
             {
-                try
-                {
-                    linqFilters.Add(FiltersConverter.convetLinqExpression(item));
-                }
-                catch (Exception exception)
-                {
-                    this.BadRequest(exception);
-                }
+                linqFilters.Add(FiltersConverter.convertToLinqExpression(FiltersConverter.getLinqExpressions(filters)));
             }
-
+            catch (Exception exception)
+            {
+                this.BadRequest(exception);
+            }
+            
             return this.Ok(JsonSerializer.Serialize(productService.searchProducts(linqFilters)));
 
         }

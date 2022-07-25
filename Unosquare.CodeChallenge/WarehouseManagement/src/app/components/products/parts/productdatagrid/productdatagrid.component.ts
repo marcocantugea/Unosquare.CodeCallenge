@@ -12,17 +12,18 @@ import { AddproductComponent } from '../addproduct/addproduct.component';
 import { DeletedialogComponent } from '../deletedialog/deletedialog.component';
 import { filter, Subscription } from 'rxjs';
 import { ProductsService } from '../../../../services/products.service';
+import { IFilterOperator } from '../../../../interfaces/ifilter-operator';
+import { IFilter } from '../../../../interfaces/ifilter';
 
 @Component({
   selector: 'app-productdatagrid',
   templateUrl: './productdatagrid.component.html',
   styleUrls: ['./productdatagrid.component.css']
 })
-export class ProductdatagridComponent implements OnInit, OnDestroy {
+export class ProductdatagridComponent implements OnInit, OnChanges, OnDestroy {
 
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'indeterminate';
-  public testProduct: IProduct = new Product(0, "Toy Story Buzz Vuelo Espacial", "Toy Story Buzz Vuelo Espacial", 2, new Company(0, "Mattel"), 459.35, "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRqYWqWbYTWEuI-d5Y4RB8UrFldHMpdkCfoqmv7CJYijolQfcy-Vbo1af2-a8KAK-jkf6PRDICytGtQ3TSjjxLpMw3i-aje0NfwqiW69WaG4R2hzaMGkvx1JA", 4, 5, new Store(1, "Plaza Cristal", "Avenida Lázaro Cárdenas Sn", "Xalapa, Veracruz"));
   public isLoaded:boolean = false;
   public listProducts: IProduct[] = [];
   subscriptions: Subscription[] = [];
@@ -31,6 +32,7 @@ export class ProductdatagridComponent implements OnInit, OnDestroy {
   @Input() searchByName: string = "";
   @Input() showOptions = true;
   @Input() showLastAdded = false;
+  @Input() listOfFilters: { filterOperator: IFilterOperator, filter: IFilter }[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -47,11 +49,11 @@ export class ProductdatagridComponent implements OnInit, OnDestroy {
       this.getLastAdded(5);
       return;
     }
-
     this.getProducts();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
     if (changes["refreshList"]) {
       if (changes["refreshList"].currentValue==true) {
         this.refreshList = false;
@@ -60,6 +62,7 @@ export class ProductdatagridComponent implements OnInit, OnDestroy {
     }
     
     if (changes['searchByName']) {
+      console.log("entro aqui ")
       this.searchByNameProduct(changes['searchByName'].currentValue);
       return;
     }
@@ -68,6 +71,11 @@ export class ProductdatagridComponent implements OnInit, OnDestroy {
       if (changes["showLast10Added"].currentValue == true) {
         this.getLastAdded(5);
       }
+    }
+
+    if (changes['listOfFilters']) {
+      console.log(changes['listOfFilters'])
+      this.searchProducts();
     }
   }
 
@@ -81,6 +89,31 @@ export class ProductdatagridComponent implements OnInit, OnDestroy {
       },
       () => {
         this.isLoaded = true;
+      }
+    ));
+  }
+
+  searchProducts() {
+    if (this.listOfFilters.length == 0) {
+      this.getLastAdded(5);
+      return;
+    }
+    this.isLoaded = false;
+    this.listProducts = [];
+    let filters: IFilter[] = [];
+    this.listOfFilters.forEach(item => filters.push(item.filter));
+
+    console.log(filters);
+    this.subscriptions.push(this.productServices.searchProducts(filters).subscribe(
+      next => {
+        this.listProducts = next;
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        this.isLoaded = true;
+        this.listOfFilters = [];
       }
     ));
   }

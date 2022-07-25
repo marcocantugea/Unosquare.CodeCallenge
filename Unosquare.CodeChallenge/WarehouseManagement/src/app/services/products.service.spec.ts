@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Subscription } from 'rxjs';
+import { IFilter } from '../interfaces/ifilter';
 import { IProduct } from '../interfaces/iproduct';
 import { IProductBasicInfo } from '../interfaces/iproduct-basic-info';
 import { ProductBasicInfo } from '../models/product-basic-info.model';
@@ -111,5 +112,31 @@ describe('ProductsService', () => {
     ));
   });
 
+  it('will make a filter', (done: DoneFn) => {
+    let filter: IFilter = {
+      field: "name",
+      value: "world",
+      typeField: 0,
+      whereOperator: "contains"
+    }
+
+    let products: IProduct[] = [];
+
+    subscriptions.push(service.searchProducts([filter]).subscribe(
+      next => {
+        next.forEach(item => products.push(item));
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        expect(1).toBeGreaterThanOrEqual(products.length);
+        expect(true).toBeTrue();
+        done();
+      }
+    ));
+
+
+  });
 
 });
