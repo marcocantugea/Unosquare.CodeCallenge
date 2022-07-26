@@ -38,7 +38,24 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var responsePost = await client.PostAsync("api/company", content);
 
-            Assert.Equal(HttpStatusCode.OK, responsePost.StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_addCompany_ValidatorNameEmpty()
+        {
+            var client = _factory.CreateClient();
+            Company newCompany = new Company()
+            {
+                Name = ""
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Company>(newCompany));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/company", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
         }
 
         [Fact]
@@ -89,6 +106,62 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var responseUpdate = await client.PutAsync("api/company",jsoncontent);
 
             Assert.Equal(HttpStatusCode.OK, responseUpdate.StatusCode);
+        }
+
+
+        [Fact]
+        public async void test_updateCompany_ValidatorIdZero()
+        {
+            var client = _factory.CreateClient();
+            Company newCompany = new Company()
+            {
+                Name = "Patito"
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Company>(newCompany));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var responsePost = await client.PostAsync("api/company", content);
+            var responseSearch = await client.GetAsync("api/company/search?name=" + newCompany.Name);
+            var responseJson = await responseSearch.Content.ReadAsStringAsync();
+
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            Company companyUpdate = JsonSerializer.Deserialize<Company>(responseJson);
+            companyUpdate.Id = 0;
+            companyUpdate.Name = "DisneyInc.";
+            HttpContent jsoncontent = new StringContent(JsonSerializer.Serialize<Company>(companyUpdate));
+            jsoncontent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responseUpdate = await client.PutAsync("api/company", jsoncontent);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responseUpdate.StatusCode);
+        }
+
+        [Fact]
+        public async void test_updateCompany_ValidatorNameEmpty()
+        {
+            var client = _factory.CreateClient();
+            Company newCompany = new Company()
+            {
+                Name = "Patito"
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Company>(newCompany));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var responsePost = await client.PostAsync("api/company", content);
+            var responseSearch = await client.GetAsync("api/company/search?name=" + newCompany.Name);
+            var responseJson = await responseSearch.Content.ReadAsStringAsync();
+
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            Company companyUpdate = JsonSerializer.Deserialize<Company>(responseJson);
+            companyUpdate.Name = "";
+            HttpContent jsoncontent = new StringContent(JsonSerializer.Serialize<Company>(companyUpdate));
+            jsoncontent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responseUpdate = await client.PutAsync("api/company", jsoncontent);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responseUpdate.StatusCode);
         }
 
         [Fact]

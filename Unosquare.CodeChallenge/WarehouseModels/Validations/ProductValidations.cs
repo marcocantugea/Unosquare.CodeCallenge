@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,74 +9,20 @@ using WarehouseModels.Models;
 
 namespace WarehouseModels.Validations
 {
-    public class ProductValidations : IValidation<Product>
+    public class ProductValidations : AbstractValidator<Product>,IValidation<Product>
     {
-        public void Validate(Product model)
+        public ProductValidations()
         {
-           ValidateCompleteModel(model);
+            RuleFor(product => product.name).NotEmpty().MaximumLength(50);
+            RuleFor(product => product.ageRestriction).NotEmpty().GreaterThan(0).LessThanOrEqualTo(100);
+            RuleFor(product => product.price).NotEmpty().GreaterThan(0);
+            RuleFor(product => product.companyId).NotEmpty().GreaterThan(0);
+            RuleFor(product=> product.description).MaximumLength(100);
         }
 
-        public ProductValidations ValidateNewProductModel(Product model)
+        public void ValidateModel(Product model)
         {
-            ValidateName(model);
-            ValidatePrice(model);
-            ValidateCompanyId(model);
-            ValidateAgeRestriction(model);
-            ValidateDescription(model);
-
-            return this;
+            Validate(model);
         }
-
-        public ProductValidations ValidateCompleteModel(Product model)
-        {
-            ValidateName(model);
-            ValidatePrice(model);
-            ValidateCompanyId(model);
-            ValidateAgeRestriction(model);
-            ValidateDescription(model);
-
-            return this;
-        }
-
-        public ProductValidations ValidateAgeRestriction(Product model)
-        {
-            if (model.ageRestriction < 0) throw new Exception("Age restriction cannot be less than 0");
-            if (model.ageRestriction == 0) throw new Exception("Age restriction cannot be 0");
-            if (model.ageRestriction > 100) throw new Exception("Age restriction cannot be grather than 0");
-
-            return this;
-        }
-
-        public ProductValidations ValidatePrice(Product model)
-        {
-            if (model.price == null) throw new Exception("invalid price, empty int");
-            if (model.price < 0) throw new Exception("invalid price, price cannot be less than 0");
-            if (model.price == 0) throw new Exception("price cannot be 0");
-
-            return this;
-        }
-
-        public ProductValidations ValidateName(Product model)
-        {
-            if (String.IsNullOrEmpty(model.name)) throw new Exception("invalid name, empty string");
-            if (model.name.Length > 50) throw new Exception("name cannot be more than 50 characteres");
-            return this;
-        }
-
-        public ProductValidations ValidateCompanyId(Product model)
-        {
-            if (model.companyId == 0) throw new Exception("Company id cannot be 0");
-            if (model.companyId < 0) throw new Exception("Invalid company id, cannot be less than 0");
-            return this;
-        }
-
-        public ProductValidations ValidateDescription(Product model)
-        {
-            if (String.IsNullOrEmpty(model.description)) throw new Exception("Description fill can not be empty");
-            if (model.description.Length > 100) throw new Exception("the description cannot be more than 100 characters");
-            return this;
-        }
-
-
     }
 }

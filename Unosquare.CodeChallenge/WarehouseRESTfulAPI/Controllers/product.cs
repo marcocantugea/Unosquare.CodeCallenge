@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Text.Json;
@@ -30,7 +31,12 @@ namespace WarehouseRESTfulAPI.Controllers
             ProductValidations validations = (ProductValidations)validation;
             try
             {
-                validations.ValidateNewProductModel(model);
+                ValidationResult result= validations.Validate(model);
+                if (!result.IsValid)
+                {
+                    string msg = "error validating data " + result.ToString(";");
+                    return this.Problem(msg, null, 500);
+                }
             }
             catch (Exception e)
             {
@@ -66,14 +72,30 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult updateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate)
+        public IActionResult updateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate, [FromServices] IValidation<Product> validation)
         {
             try
             {
+                ProductValidations validations = (ProductValidations)validation;
+
                 if (String.IsNullOrEmpty(id)) return this.BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
                 Product productToUpdate = ProductRequestModel.getModel(productUpdate);
+                try
+                {
+                    ValidationResult result = validations.Validate(productToUpdate);
+                    if (!result.IsValid)
+                    {
+                        string msg = "error validating data " + result.ToString(";");
+                        return this.Problem(msg, null, 500);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return this.Problem(e.Message.ToString(), null, 500);
+                }
                 productToUpdate.id=productId;
                 productService.updateProduct(productToUpdate);
             }
