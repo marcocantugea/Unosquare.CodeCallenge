@@ -53,7 +53,6 @@ export class ProductdatagridComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (changes["refreshList"]) {
       if (changes["refreshList"].currentValue==true) {
         this.refreshList = false;
@@ -62,7 +61,6 @@ export class ProductdatagridComponent implements OnInit, OnChanges, OnDestroy {
     }
     
     if (changes['searchByName']) {
-      console.log("entro aqui ")
       this.searchByNameProduct(changes['searchByName'].currentValue);
       return;
     }
@@ -74,7 +72,6 @@ export class ProductdatagridComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if (changes['listOfFilters']) {
-      console.log(changes['listOfFilters'])
       this.searchProducts();
     }
   }
@@ -103,7 +100,6 @@ export class ProductdatagridComponent implements OnInit, OnChanges, OnDestroy {
     let filters: IFilter[] = [];
     this.listOfFilters.forEach(item => filters.push(item.filter));
 
-    console.log(filters);
     this.subscriptions.push(this.productServices.searchProducts(filters).subscribe(
       next => {
         this.listProducts = next;

@@ -30,7 +30,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AddproductComponent, { disableClose: true });
     this.subscribers.push(dialogRef.afterClosed().subscribe(
       next => {
-        console.log(next);
         if (next) updateList = true;
       },
       error => {

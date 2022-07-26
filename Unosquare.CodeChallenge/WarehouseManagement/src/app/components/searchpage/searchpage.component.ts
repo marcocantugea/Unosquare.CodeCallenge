@@ -15,17 +15,14 @@ export class SearchpageComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    //throw new Error('Method not implemented.');
+    
   }
 
   ngOnInit(): void {
   }
 
   setFilters(filters: { filterOperator: IFilterOperator, filter: IFilter }[]) {
-    console.log("entro en set filters");
     this.listOfFilters = filters;
-
   }
 
 }

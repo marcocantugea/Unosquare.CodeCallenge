@@ -31,9 +31,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
   openAddCompany() {
     const dialogRef = this.dialog.open(AddcompanyComponent, { disableClose:true,height: "300", width: "300" });
     dialogRef.afterClosed().subscribe(
-      next => {
-        console.log(next);
-      },
+      next => {},
       error => {
         console.log(error);
       },

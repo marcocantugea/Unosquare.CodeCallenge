@@ -44,7 +44,6 @@ export class CompanydeletemodalComponent implements OnInit, OnDestroy {
   }
 
   deleteItem() {
-    console.log(this.data.id);
     this.subscriptions.push(this.serviceCompany.deleteCompany(this.data.id).subscribe(
       next => { },
       error => {
