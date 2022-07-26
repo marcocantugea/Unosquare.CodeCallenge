@@ -1,46 +1,62 @@
-<form style="width:400px">
+<form [formGroup]="formProduct" (ngSubmit)="saveCompanyAndCloseDialog()" style="width:400px">
   <div class="mb-3">
     <label for="productNametxt" class="form-label">Product Name</label>
-    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="productNametxt" placeholder="" value="{{dataDialog.product.name}}">
-    <input *ngIf="dataDialog==null" type="text" class="form-control" id="productNametxt" placeholder=""> 
+    <input type="text" class="form-control" id="productNametxt" placeholder="" formControlName="productNametxt">
+    <div *ngIf="isRequiredField('productNametxt')" class="alert alert-danger" role="alert">
+      the product name is a required field;
+    </div>
+    <div *ngIf="formProduct.get('productNametxt')?.hasError('invalidBranch') && this.formProduct.get('productNametxt')?.touched && !isRequiredField('productNametxt')" class="alert alert-danger" role="alert">
+      Invalid product name, the name must have at least 3 valid characters ;
+    </div>
   </div>
   <div class="mb-3">
     <label for="pricetxt" class="form-label">Price</label>
-    <input *ngIf="dataDialog==null" type="text" class="form-control" id="pricetxt" placeholder="">
-    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="pricetxt" placeholder="" value="{{dataDialog.product.price}}">
+    <input type="text" class="form-control" id="pricetxt" placeholder="" formControlName="pricetxt">
+    <div *ngIf="isRequiredField('pricetxt')" class="alert alert-danger" role="alert">
+      the product price is a required field;
+    </div>
+    <div *ngIf="formProduct.get('pricetxt')?.hasError('invalidBranch') && this.formProduct.get('pricetxt')?.touched && !isRequiredField('pricetxt')" class="alert alert-danger" role="alert">
+      invalid price, please check the field;
+    </div>
   </div>
   <div class="mb-3">
     <label for="companySel" class="form-label">Company</label>
-    <select class="form-select" id="companySel" aria-label="Default select example">
+    <select class="form-select" id="companySel" aria-label="Default select example" formControlName="companySel">
       <option *ngIf="dataDialog==null" selected value="-1">Select an option...</option>
       <option *ngFor="let company of listOfCompanies;" [selected]="(dataDialog!=null)&&(dataDialog.product.companyId==company.Id)" value="{{company.Id}}">{{company.Name}}</option>
 
     </select>
+    <div *ngIf="formProduct.get('companySel')?.hasError('invalidBranch') && this.formProduct.get('companySel')?.touched" class="alert alert-danger" role="alert">
+      please select a company for the produdct
+    </div>
   </div>
   <div class="mb-3">
     <label for="ageRestrictionText" class="form-label">Maximum Age</label>
-    <input *ngIf="dataDialog==null" type="text" class="form-control" id="ageRestrictionText" placeholder="" min="1" max="100">
-    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="ageRestrictionText" placeholder="" min="1" max="100" value="{{dataDialog.product.ageRestriction}}">
+    <input type="text" class="form-control" id="ageRestrictionText" placeholder="" formControlName="ageRestrictionText">
+    <div *ngIf="formProduct.get('ageRestrictionText')?.hasError('invalidBranch') && this.formProduct.get('ageRestrictionText')?.touched" class="alert alert-danger" role="alert">
+      invalid maximum age, please type a number between 1 and 100 ;
+    </div>
   </div>
   <div class="mb-3">
     <label for="imageURLtxt" class="form-label">Image URL</label>
-    <input *ngIf="dataDialog==null" type="text" class="form-control" id="imageURLtxt" placeholder="">
-    <input *ngIf="dataDialog!=null" type="text" class="form-control" id="imageURLtxt" placeholder="" value="{{dataDialog.product.imageIurl}}">
+    <input type="text" class="form-control" id="imageURLtxt" placeholder="" formControlName="imageURLtxt">
+    <div *ngIf="formProduct.get('imageURLtxt')?.hasError('invalidBranch') && this.formProduct.get('imageURLtxt')?.touched" class="alert alert-danger" role="alert">
+      invalid http link image
+    </div>
   </div>
   <div class="mb-3">
     <label for="descriptionTxt" class="form-label">Description</label>
-    <textarea *ngIf="dataDialog==null" class="form-control" id="descriptionTxt" rows="3" ></textarea>
-    <textarea *ngIf="dataDialog!=null" class="form-control" id="descriptionTxt" rows="3" #description>{{dataDialog.product.description}}</textarea>
+    <textarea class="form-control" id="descriptionTxt" rows="4" formControlName="descriptionTxt"></textarea>
   </div>
   <div class="mb-3 row text-center">
     <div *ngIf="dataDialog==null" class="col-sm-6">
-      <button class="btn btn-primary" type="button" (click)="saveCompanyAndContinue()">Save add another</button>
+      <button class="btn btn-primary" type="button" (click)="saveCompanyAndContinue()" [disabled]="!formProduct.valid">Save add another</button>
     </div>
     <div *ngIf="dataDialog==null" class="col-sm-6">
-      <button class="btn btn-info" type="button" (click)="saveCompanyAndCloseDialog()" >Save and close</button>
+      <button class="btn btn-info" type="button" (click)="saveCompanyAndCloseDialog()" [disabled]="!formProduct.valid" >Save and close</button>
     </div>
     <div *ngIf="dataDialog!=null" class="col-sm-12">
-      <button class="btn btn-info" style="width:100%" type="button" (click)="saveCompanyAndCloseDialog()">Save and close</button>
+      <button class="btn btn-info" style="width:100%" type="button" (click)="saveCompanyAndCloseDialog()"  [disabled]="!formProduct.valid"  >Save and close</button>
     </div>
   </div>
   <br />

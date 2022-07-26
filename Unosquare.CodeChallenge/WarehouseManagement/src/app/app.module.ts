@@ -21,7 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanydeletemodalComponent } from './components/companies/parts/companydeletemodal/companydeletemodal.component';
 import { AddproductComponent } from './components/products/parts/addproduct/addproduct.component';
 import { SearchbarComponent } from './components/products/parts/searchbar/searchbar.component';
@@ -65,7 +65,8 @@ import { SearchBarComponent } from './components/searchpage/search-bar/search-ba
     MatFormFieldModule,
     MatInputModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]
