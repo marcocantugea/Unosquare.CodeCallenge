@@ -76,10 +76,6 @@ export class AddproductComponent implements OnInit, OnDestroy {
     this._snackBar.open(message, action, config);
   }
 
-  saveProduct() {
-    console.log(this.formProduct);
-  }
-
   saveCompanyAndCloseDialog() {
 
     let product: IProductBasicInfo = this.getNewProduct();
