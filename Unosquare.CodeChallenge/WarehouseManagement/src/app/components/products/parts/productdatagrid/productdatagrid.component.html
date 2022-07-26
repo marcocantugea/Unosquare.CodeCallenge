@@ -31,9 +31,9 @@
           <td class="text-center align-middle">{{productItem.ageRestriction}}</td>
           <td class="align-middle">{{productItem.price|currency}}</td>
           <td class="align-middle">{{productItem.company.Name}}</td>
-          <td class="align-middle" *ngIf="showOptions">
+          <!--<td class="align-middle" *ngIf="showOptions">
             <button id="edit_id" class="btn btn-info" (click)="showStoreInfo(productItem)">Check Store</button>
-          </td>
+          </td>-->
           <td class="align-middle" *ngIf="showOptions">
             <button id="edit_id" class="btn btn-primary" (click)="showEditProduct(productItem)" >Edit</button>
           </td>
