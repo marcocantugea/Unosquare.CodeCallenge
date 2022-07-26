@@ -2,23 +2,8 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export class ProductFormValidators {
 
-  //public validators: {
-  //  [key: string]: { validator: Validators | CallableFunction }[]
-  //}[] = [];
 
-  constructor() {
-    /*this.loadValidators();*/
-  }
-
-
-  //loadValidators() {
-
-  //  this.validators.push({ "nameproductNametxt": [{ validator: Validators.required }] });
-  //  this.validators.push({ "pricetxt": [{ validator: Validators.required }] });
-  //  this.validators.push({ "companySel": [{ validator: Validators.required }] });
-  //  this.validators.push({ "ageRestrictionText": [{ validator: Validators.required }] });
-
-  //}
+  constructor() {  }
 
   static validateNotEmptyString(control: AbstractControl){
     const regexp = /(.*[a-z]){3}/i;
