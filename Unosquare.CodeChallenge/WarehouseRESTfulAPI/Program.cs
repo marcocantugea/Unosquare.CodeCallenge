@@ -38,6 +38,20 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+//crea la migracion de base de datos
+using var scope = app.Services.CreateScope();
+try
+{
+    var db = scope.ServiceProvider.GetService<WarehouseCoreLib.DataAccess.WarehouseDbContext>();
+
+    if (db.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+        db.Database.Migrate();
+}
+catch (Exception )
+{
+    throw;
+}
+
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
