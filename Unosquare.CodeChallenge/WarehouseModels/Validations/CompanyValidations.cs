@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,25 +10,22 @@ using WarehouseModels.Models;
 
 namespace WarehouseModels.Validations
 {
-    public class CompanyValidations : IValidation<Company>
+    public class CompanyValidations : AbstractValidator<Company>, IValidation<Company>
     {
-        public void Validate(Company model)
-        {
-            ValidateCompleteModel(model);
+
+        public CompanyValidations() {
+            RuleFor(company=> company.Name).NotEmpty();
         }
 
-        public CompanyValidations ValidateEmptyNewModel(Company model)
+        public void setRuleForId()
         {
-            if(String.IsNullOrEmpty(model.Name)) throw new Exception("company name value empty");
-            return this;
+            RuleFor(company => company.Id).NotEmpty().GreaterThan(0);
+
         }
 
-        public CompanyValidations ValidateCompleteModel(Company model)
+        public void ValidateModel(Company model)
         {
-            if(model.Id==null) throw new Exception("company id value empty");
-            if (model.Id <=0 ) throw new Exception("company id value empty");
-            ValidateEmptyNewModel(model);
-            return this;
+            Validate(model);
         }
     }
 }

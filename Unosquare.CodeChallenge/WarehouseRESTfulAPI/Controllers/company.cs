@@ -7,6 +7,7 @@ using System.Text;
 using WarehouseModels.Interfaces;
 using WarehouseModels.Validations;
 using System.Text.Json;
+using FluentValidation.Results;
 
 namespace WarehouseRESTfulAPI.Controllers
 {
@@ -53,7 +54,12 @@ namespace WarehouseRESTfulAPI.Controllers
 
             try
             {
-                modelValidator.ValidateEmptyNewModel(newCompany);
+                ValidationResult result = modelValidator.Validate(newCompany);
+                if (!result.IsValid)
+                {
+                    string msg = "error validating data " + result.ToString(";");
+                    return this.Problem(msg, null, 500);
+                }
             }
             catch (Exception e)
             {
@@ -86,9 +92,15 @@ namespace WarehouseRESTfulAPI.Controllers
         public IActionResult updateCompany([FromBody] Company model,[FromServices]IValidation<Company> validation)
         {
             CompanyValidations validations = (CompanyValidations)validation;
+            validations.setRuleForId();
             try
             {
-                validations.ValidateCompleteModel(model);
+                ValidationResult result = validations.Validate(model);
+                if (!result.IsValid)
+                {
+                    string msg = "error validating data " + result.ToString(";");
+                    return this.Problem(msg, null, 500);
+                }
             }
             catch (Exception e)
             {

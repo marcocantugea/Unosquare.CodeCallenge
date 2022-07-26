@@ -50,6 +50,167 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
+        public async void test_addProduct_TestValidatorNameEmpty()
+        {
+            var client = _factory.CreateClient();
+            Product newProduct = new Product()
+            {
+                name = "",
+                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                ageRestriction = 5,
+                companyId = 2,
+                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                price = 221.50m,
+                storeid = 1
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_addProduct_TestValidatorNameMore50Chars()
+        {
+            var client = _factory.CreateClient();
+            Product newProduct = new Product()
+            {
+                name = "Note ValidateAndThrow is an extension method, so you must have the FluentValidation namespace imported with a using statement at the top of your file in order for this method to be available.",
+                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                ageRestriction = 5,
+                companyId = 2,
+                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                price = 221.50m,
+                storeid = 1
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_addProduct_TestValidatorAgeRestictionEmpty()
+        {
+            var client = _factory.CreateClient();
+            Product newProduct = new Product()
+            {
+                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                ageRestriction = 0,
+                companyId = 2,
+                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                price = 221.50m,
+                storeid = 1
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_addProduct_TestValidatorAgeRestictionGreaterThan100()
+        {
+            var client = _factory.CreateClient();
+            Product newProduct = new Product()
+            {
+                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                ageRestriction = 500,
+                companyId = 2,
+                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                price = 221.50m,
+                storeid = 1
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_addProduct_TestValidatorPriceZero()
+        {
+            var client = _factory.CreateClient();
+            Product newProduct = new Product()
+            {
+                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                ageRestriction = 19,
+                companyId = 2,
+                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                price = 0,
+                storeid = 1
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_addProduct_TestValidatorCompanyIdZero()
+        {
+            var client = _factory.CreateClient();
+            Product newProduct = new Product()
+            {
+                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                ageRestriction = 19,
+                companyId = 0,
+                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                price = 221.50m,
+                storeid = 1
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
+        }
+
+        [Fact]
+        public async void test_addProduct_TestValidatorDescriptionMaxLenth100()
+        {
+            var client = _factory.CreateClient();
+            Product newProduct = new Product()
+            {
+                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                ageRestriction = 19,
+                companyId = 1,
+                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                price = 221.50m,
+                storeid = 1
+            };
+
+
+            HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/product", content);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, responsePost.StatusCode);
+        }
+
+        [Fact]
         public async void test_addProducts_addItemsSuccess()
         {
             var client = _factory.CreateClient();
@@ -194,18 +355,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _factory.CreateClient();
             //HttpContent content = new StringContent(JsonSerializer.Serialize(filters));
             //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://localhost:7032/api/products/search"),
-                Content = new StringContent(JsonSerializer.Serialize(filters), Encoding.UTF8, MediaTypeNames.Application.Json),
-            };
-            var response = await client.SendAsync(request).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
 
-            var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            HttpContent content = new StringContent(JsonSerializer.Serialize(filters));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var responsePost = await client.PostAsync("api/products/search", content);
 
-            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+
+            Assert.Equal(HttpStatusCode.OK, responsePost.StatusCode);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using WarehouseModels.Interfaces;
@@ -60,7 +61,12 @@ namespace WarehouseRESTfulAPI.Controllers
             foreach (Product product in products) {
                 try
                 {
-                    validations.ValidateNewProductModel(product);
+                    ValidationResult result = validations.Validate(product);
+                    if (!result.IsValid)
+                    {
+                        string msg = "error validating data " + result.ToString(";");
+                        return this.Problem(msg, null, 500);
+                    }
                 }
                 catch (Exception e)
                 {

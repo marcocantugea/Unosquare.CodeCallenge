@@ -8,6 +8,6 @@ namespace WarehouseModels.Interfaces
 {
     public interface IValidation<IModel>
     {
-        public void Validate(IModel model);
+        public void ValidateModel(IModel model);
     }
 }
