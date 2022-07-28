@@ -24,14 +24,14 @@ namespace WarehouseRESTfulAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public IActionResult getCompany([FromRoute] string id)
+        public async Task<IActionResult> GetCompanyAsync([FromRoute] string id)
         {
             try
             {
                 if (String.IsNullOrEmpty(id)) return this.BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return this.Ok(JsonSerializer.Serialize<Company>(companyService.getCompany(idCompany)));
+                return this.Ok(JsonSerializer.Serialize<Company>( await companyService.GetCompanyAsync(idCompany)));
             }
             catch (Exception)
             {
@@ -41,20 +41,20 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpGet("search")]
-        public IActionResult searchCompany([FromQuery] string name= "")
+        public async Task<IActionResult> SearchCompanyAsync([FromQuery] string name= "")
         {
             if (string.IsNullOrEmpty(name)) return this.Problem("name is invalid",null,500);
-            return this.Ok(JsonSerializer.Serialize(companyService.getCompanyByName(name)));
+            return this.Ok(JsonSerializer.Serialize(await companyService.GetCompanyByNameAsync(name)));
         }
 
         [HttpPost]
-        public IActionResult addCompany([FromBody] Company newCompany, [FromServices] IValidation<Company> validation)
+        public async Task<IActionResult> AddCompanyAsync([FromBody] Company newCompany, [FromServices] IValidation<Company> validation)
         {
             CompanyValidations modelValidator = (CompanyValidations)validation;
 
             try
             {
-                ValidationResult result = modelValidator.Validate(newCompany);
+                ValidationResult result = await modelValidator.ValidateAsync(newCompany);
                 if (!result.IsValid)
                 {
                     string msg = "error validating data " + result.ToString(";");
@@ -66,19 +66,19 @@ namespace WarehouseRESTfulAPI.Controllers
                 return this.Problem(e.Message.ToString(), null, 500);
             }
             
-            companyService.addCompany(newCompany);
+            await companyService.AddCompanyAsync(newCompany);
             return this.NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult deleteCompany([FromRoute] string id)
+        public async Task<IActionResult> DeleteCompanyAsync([FromRoute] string id)
         {
             try
             {
                 if (String.IsNullOrEmpty(id)) return this.BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                companyService.deleteCompany(new Company() { Id = idCompany });
+                await companyService.DeleteCompanyAsync(new Company() { Id = idCompany });
                 return this.NoContent();
             }
             catch (Exception)
@@ -89,13 +89,13 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult updateCompany([FromBody] Company model,[FromServices]IValidation<Company> validation)
+        public async Task<IActionResult> UpdateCompanyAsync([FromBody] Company model,[FromServices]IValidation<Company> validation)
         {
             CompanyValidations validations = (CompanyValidations)validation;
             validations.setRuleForId();
             try
             {
-                ValidationResult result = validations.Validate(model);
+                ValidationResult result = await validations.ValidateAsync(model);
                 if (!result.IsValid)
                 {
                     string msg = "error validating data " + result.ToString(";");
@@ -107,7 +107,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 return this.Problem(e.Message.ToString(), null, 500);
             }
 
-            companyService.updateCompany(model);
+            await companyService.UpdateCompanyAsync(model);
             return this.NoContent();
         }
     }

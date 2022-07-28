@@ -8,50 +8,91 @@ using WarehouseModels.Models;
 using WarehouseServices.Contractor;
 using WarehouseCoreLib.Base;
 using WarehouseRepositories.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace WarehouseServices.Services
 {
     public class CompaniesServices : Service<Company>, IWarehouseService<CompaniesServices>
     {
-        private CompanyRepository repository;
+        private WarehouseDbContext dbcontext;
 
         public CompaniesServices(WarehouseDbContext context)
         {
-            repository = new CompanyRepository();
-            repository.dbcontext = context;
+            dbcontext = context;
         }
 
-        public IEnumerable<Company> getAllCompanies()
+        public IEnumerable<Company> GetAllCompanies(int limit = 0)
         {
-            return repository.findAll();
+
+            if (limit == 0) return dbcontext.Companies;
+            return dbcontext.Companies.Take(limit);
         }
 
-        public Company getCompany(int id)
+        public async Task<List<Company>> GetAllCompaniesAsync(int limit = 0)
         {
-            return repository.getById(id);
+            return await dbcontext.Companies.ToListAsync();
         }
 
-        public void addCompany(Company company)
+        public Company GetCompany(int id)
         {
-            repository.add(company);
-            repository.save();
+            return dbcontext.Companies.Find(id);
         }
 
-        public void deleteCompany(Company company)
+        public async Task<Company> GetCompanyAsync(int id)
         {
-            repository.delete(company);
-            repository.save();
+            return  await dbcontext.Companies.FindAsync(id);
         }
 
-        public Company getCompanyByName(string name)
+        public void AddCompany(Company company)
         {
-            return repository.getCompanyByName(name);
+            dbcontext.Companies.Add(company);
+            dbcontext.SaveChanges();
         }
 
-        public void updateCompany(Company company)
+        public async Task AddCompanyAsync(Company company)
         {
-            repository.update(company);
-            repository.save();
+            await dbcontext.Companies.AddAsync(company);
+            await dbcontext.SaveChangesAsync();
+        }
+
+        public void DeleteCompany(Company company)
+        {
+            dbcontext.Companies.Remove(company);
+            dbcontext.SaveChanges();
+        }
+
+        public async Task DeleteCompanyAsync(Company company)
+        {
+            await Task.Run(() =>{
+                dbcontext.Companies.Remove(company);
+                dbcontext.SaveChanges();
+            });
+        }
+
+        public Company GetCompanyByName(string name)
+        {
+            return dbcontext.Companies.Where(company => company.Name == name).First();
+        }
+
+        public async Task<Company> GetCompanyByNameAsync(string name)
+        {
+            return await dbcontext.Companies.Where(company => company.Name == name).FirstAsync();
+        }
+
+        public void UpdateCompany(Company company)
+        {
+            dbcontext.Companies.Update(company);
+            dbcontext.SaveChanges();
+        }
+
+        public async Task UpdateCompanyAsync(Company company)
+        {
+            await Task.Run(() =>
+            {
+                dbcontext.Companies.Update(company);
+                dbcontext.SaveChanges();
+            });
+            
         }
     }
 }
