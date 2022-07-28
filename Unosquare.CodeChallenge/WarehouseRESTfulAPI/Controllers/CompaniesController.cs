@@ -10,11 +10,11 @@ namespace WarehouseRESTfulAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class companies : ControllerBase
+    public class CompaniesController : ControllerBase
     {
         private CompaniesServices companyService;
 
-        public companies(IWarehouseService<CompaniesServices> companyservice)
+        public CompaniesController(IWarehouseService<CompaniesServices> companyservice)
         {
             companyService = (CompaniesServices)companyservice;
         }

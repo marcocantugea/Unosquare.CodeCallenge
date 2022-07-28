@@ -14,17 +14,17 @@ namespace WarehouseRESTfulAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class product : ControllerBase
+    public class ProductController : ControllerBase
     {
         private ProductServices productService;
 
-        public product(IWarehouseService<ProductServices> productService)
+        public ProductController(IWarehouseService<ProductServices> productService)
         {
                 this.productService = (ProductServices)productService;
         }
 
         [HttpPost]
-        public IActionResult addProduct([FromBody] ProductRequestModel requestModel,[FromServices]IValidation<Product> validation)
+        public IActionResult AddProduct([FromBody] ProductRequestModel requestModel,[FromServices]IValidation<Product> validation)
         {
             Product model = ProductRequestModel.getModel(requestModel);
 
@@ -44,19 +44,19 @@ namespace WarehouseRESTfulAPI.Controllers
                 return this.Problem(e.Message.ToString(), null, 500);
             }
 
-            productService.addProduct(model);
+            productService.AddProduct(model);
             return this.NoContent();
         }
 
         [HttpGet("{id}")]
-        public IActionResult getProduct([FromRoute] string id)
+        public IActionResult GetProduct([FromRoute] string id)
         {
             try
             {
                 if (String.IsNullOrEmpty(id)) return this.BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return this.Ok(JsonSerializer.Serialize(productService.getProduct(productId)));
+                return this.Ok(JsonSerializer.Serialize(productService.GetProduct(productId)));
             }
             catch (Exception)
             {
@@ -66,13 +66,13 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpGet("list")]
-        public IActionResult getProducts()
+        public IActionResult GetProducts()
         {
-            return this.Ok(JsonSerializer.Serialize(productService.getProducts()));
+            return this.Ok(JsonSerializer.Serialize(productService.GetProducts()));
         }
 
         [HttpPut("{id}")]
-        public IActionResult updateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate, [FromServices] IValidation<Product> validation)
+        public IActionResult UpdateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate, [FromServices] IValidation<Product> validation)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace WarehouseRESTfulAPI.Controllers
                     return this.Problem(e.Message.ToString(), null, 500);
                 }
                 productToUpdate.id=productId;
-                productService.updateProduct(productToUpdate);
+                productService.UpdateProduct(productToUpdate);
             }
             catch (Exception)
             {
@@ -109,14 +109,14 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult deleteProduct([FromRoute]string id)
+        public IActionResult DeleteProduct([FromRoute]string id)
         {
             try
             {
                 if (String.IsNullOrEmpty(id)) return this.BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                productService.deleteProduct(productId);
+                productService.DeleteProduct(productId);
             }
             catch (Exception)
             {

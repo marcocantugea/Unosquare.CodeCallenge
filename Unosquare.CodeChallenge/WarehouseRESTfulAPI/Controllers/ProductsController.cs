@@ -14,24 +14,24 @@ namespace WarehouseRESTfulAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class products : ControllerBase
+    public class ProductsController : ControllerBase
     {
 
         private ProductServices productService;
 
-        public products(IWarehouseService<ProductServices> productService)
+        public ProductsController(IWarehouseService<ProductServices> productService)
         {
             this.productService = (ProductServices)productService;
         }
 
         [HttpGet]
-        public IActionResult getProducts() {
-            return this.Ok(JsonSerializer.Serialize(productService.getProducts()));
+        public IActionResult GetProducts() {
+            return this.Ok(JsonSerializer.Serialize(productService.GetProducts()));
 
         }
 
         [HttpPost("search")]
-        public IActionResult searchProducts([FromBody] ProductFilterRequestModel[] filters)
+        public IActionResult SearchProducts([FromBody] ProductFilterRequestModel[] filters)
         {
             //por cada filtro los convertimos a linq expression
             List<Func<IProduct, bool>> linqFilters = new List<Func<IProduct, bool>>();
@@ -44,12 +44,12 @@ namespace WarehouseRESTfulAPI.Controllers
                 this.BadRequest(exception);
             }
             
-            return this.Ok(JsonSerializer.Serialize(productService.searchProducts(linqFilters)));
+            return this.Ok(JsonSerializer.Serialize(productService.Search(linqFilters)));
 
         }
 
         [HttpPost]
-        public IActionResult postProducts([FromBody] IEnumerable<ProductRequestModel> productsRequested,[FromServices]IValidation<Product> validation) {
+        public IActionResult PostProducts([FromBody] IEnumerable<ProductRequestModel> productsRequested,[FromServices]IValidation<Product> validation) {
 
             List<Product> products = new List<Product>();
             foreach (ProductRequestModel productRequested in productsRequested)
@@ -77,7 +77,7 @@ namespace WarehouseRESTfulAPI.Controllers
 
             try
             {
-                productService.addProducts(products);
+                productService.AddProducts(products);
             }
             catch (Exception e)
             {
