@@ -12,14 +12,14 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
     public class FiltersConverter_unitTest
     {
         [Fact]
-        public void test_convertToLinqExpression_getLinqExpressionFromString()
+        public void ConvertToLinqExpression_GetLinqExpressionFromString()
         {
             Func<Product, bool> expression = FiltersConverter.convertToLinqExpression(@"prod=>prod.name.ToLower().Contains(""world"")");
             Assert.IsAssignableFrom<Func<Product, bool>>(expression);
         }
 
         [Fact]
-        public void test_getLinqExpresssion_getvalidexpresssion()
+        public void GetLinqExpresssion_GetValidExpresssion()
         {
             //string linqExp = @"prod=>prod.name.ToLower().Contains(""world"")";
             string linqExp = @"prod=>prod.name==""world""";
@@ -35,7 +35,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
         }
 
         [Fact]
-        public void test_getLinqExpresssion_getvalidexpresssionContains()
+        public void GetLinqExpresssion_GetValidExpresssionContains()
         {
             string linqExp = @"prod=>prod.name.ToLower().Contains(""world"")";
             //string linqExp = @"prod=>prod.name=='world'";
@@ -51,7 +51,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
         }
 
         [Fact]
-        public void test_getLinqExpresssion_getvalidexpresssionNumeric()
+        public void GetLinqExpresssion_GetValidExpressionWithNumericType()
         {
             string linqExp = @"prod=>prod.price<10";
             //string linqExp = @"prod=>prod.name=='world'";
@@ -68,7 +68,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
 
 
         [Fact]
-        public void test_getLinqExpresssion_getvalidexpresssionNumericAgeResctition()
+        public void GetLinqExpresssion_GetValidExpressionWithAgeResctition()
         {
             string linqExp = @"prod=>prod.ageRestriction>=30";
             ProductFilterRequestModel model = new ProductFilterRequestModel();
@@ -83,7 +83,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
         }
 
         [Fact]
-        public void test_convetLinqExpression_getLinqExpression()
+        public void ConvetLinqExpression_GetLinqExpression()
         {
             ProductFilterRequestModel model = new ProductFilterRequestModel();
             model.field = "ageRestriction";
@@ -95,7 +95,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
         }
 
         [Fact]
-        public void test_getLinqExpresssion_getvalidexpresssionWithAnds()
+        public void GetLinqExpresssion_GetValidExpressionWithAnds()
         {
             string linqExp = @"prod=>( prod.ageRestriction>=30 && prod.name.ToLower().Contains(""world""))";
             ProductFilterRequestModel model1 = new ProductFilterRequestModel();
@@ -119,7 +119,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
         }
 
         [Fact]
-        public void test_getLinqExpresssion_getvalidexpresssionWithNoAnds()
+        public void GetLinqExpresssion_GetValidExpressionWithNoAnds()
         {
             string linqExp = @"prod=> prod.ageRestriction>=30";
             ProductFilterRequestModel model1 = new ProductFilterRequestModel();
@@ -127,12 +127,6 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
             model1.value = "30";
             model1.typeField = (int)typeFields.NUMERIC;
             model1.whereOperator = ">=";
-
-            //ProductFilterRequestModel model3 = new ProductFilterRequestModel();
-            //model3.field = "name";
-            //model3.value = "world";
-            //model3.typeField = (int)typeFields.STRING;
-            //model3.whereOperator = "contains";
 
             ProductFilterRequestModel[] filters = new ProductFilterRequestModel[] { model1 };
 
