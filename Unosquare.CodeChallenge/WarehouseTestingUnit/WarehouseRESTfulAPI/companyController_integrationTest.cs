@@ -25,7 +25,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 
 
         [Fact]
-        public async void test_companyController_successAddCompany()
+        public async void AddCompany_successAddCompany()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -42,7 +42,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addCompany_ValidatorNameEmpty()
+        public async void AddCompany_ValidatorNameEmpty()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -59,7 +59,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addCompanyRemoveNew_removeSuccess()
+        public async void RemoveCompany_removeSuccess()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -82,7 +82,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_updateCompanyItem_UpdatesSucess()
+        public async void UpdateCompanyItem_UpdatesSucess()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -110,7 +110,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 
 
         [Fact]
-        public async void test_updateCompany_ValidatorIdZero()
+        public async void UpdateCompany_ValidatorIdZero()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -138,7 +138,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_updateCompany_ValidatorNameEmpty()
+        public async void UpdateCompany_ValidatorNameEmpty()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -165,7 +165,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_getCompanyById_getCompanyItem()
+        public async void GetCompanyById_getCompanyItem()
         {
             var client = _factory.CreateClient();
 

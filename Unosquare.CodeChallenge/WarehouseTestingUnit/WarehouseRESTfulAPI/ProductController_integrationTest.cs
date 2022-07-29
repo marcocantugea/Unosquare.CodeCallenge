@@ -27,7 +27,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_addItemSuccess()
+        public async void AddProduct_addItemSuccess()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -50,7 +50,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_TestValidatorNameEmpty()
+        public async void AddProduct_TestValidatorNameEmpty()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -73,7 +73,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_TestValidatorNameMore50Chars()
+        public async void AddProduct_TestValidatorNameMore50Chars()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -96,7 +96,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_TestValidatorAgeRestictionEmpty()
+        public async void AddProduct_TestValidatorAgeRestictionEmpty()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -119,7 +119,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_TestValidatorAgeRestictionGreaterThan100()
+        public async void AddProduct_TestValidatorAgeRestictionGreaterThan100()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -142,7 +142,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_TestValidatorPriceZero()
+        public async void AddProduct_TestValidatorPriceZero()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -165,7 +165,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_TestValidatorCompanyIdZero()
+        public async void AddProduct_TestValidatorCompanyIdZero()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -188,7 +188,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProduct_TestValidatorDescriptionMaxLenth100()
+        public async void AddProduct_TestValidatorDescriptionMaxLenth100()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -211,7 +211,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_addProducts_addItemsSuccess()
+        public async void AddProducts_addItemsSuccess()
         {
             var client = _factory.CreateClient();
             List<Product> products = new List<Product>();
@@ -271,7 +271,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_getProduct_GetProductObj()
+        public async void GetProduct_GetProductObj()
         {
             var client = _factory.CreateClient();
             var responseGet = await client.GetAsync("api/product/MQ==");
@@ -286,7 +286,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_updateProduct_updateProductInfo()
+        public async void UpdateProduct_updateProductInfo()
         {
             Product productToUpdate = new Product()
             {
@@ -309,7 +309,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 
 
         [Fact]
-        public async void test_deleteProduct_deleteProductSuccess()
+        public async void DeleteProduct_DeleteProductSuccess()
         {
             Product newProduct = new Product()
             {
@@ -341,7 +341,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void test_searchProduct_searchProductsList()
+        public async void SearchProduct_ObtainDataFromFilter()
         {
             ProductFilterRequestModel model = new ProductFilterRequestModel();
             model.field = "name";
