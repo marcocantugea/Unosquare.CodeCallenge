@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 using WarehouseCoreLib.DataAccess;
 using WarehouseModels.Models;
 using WarehouseServices.Contractor;
-using WarehouseCoreLib.Base;
-using WarehouseRepositories.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace WarehouseServices.Services
 {
-    public class CompaniesServices : Service<Company>, IWarehouseService<CompaniesServices>
+    public class CompaniesServices : IWarehouseService<CompaniesServices>
     {
         private readonly WarehouseDbContext dbcontext;
 
