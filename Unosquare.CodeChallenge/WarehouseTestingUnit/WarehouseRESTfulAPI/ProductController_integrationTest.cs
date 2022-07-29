@@ -46,7 +46,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var responsePost = await client.PostAsync("api/product", content);
 
-            Assert.Equal(HttpStatusCode.OK, responsePost.StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, responsePost.StatusCode);
         }
 
         [Fact]

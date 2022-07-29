@@ -14,7 +14,7 @@ namespace WarehouseServices.Services
 {
     public class CompaniesServices : Service<Company>, IWarehouseService<CompaniesServices>
     {
-        private WarehouseDbContext dbcontext;
+        private readonly WarehouseDbContext dbcontext;
 
         public CompaniesServices(WarehouseDbContext context)
         {
@@ -63,10 +63,8 @@ namespace WarehouseServices.Services
 
         public async Task DeleteCompanyAsync(Company company)
         {
-            await Task.Run(() =>{
-                dbcontext.Companies.Remove(company);
-                dbcontext.SaveChanges();
-            });
+            dbcontext.Companies.Remove(company);
+            await dbcontext.SaveChangesAsync();
         }
 
         public Company GetCompanyByName(string name)
@@ -87,11 +85,8 @@ namespace WarehouseServices.Services
 
         public async Task UpdateCompanyAsync(Company company)
         {
-            await Task.Run(() =>
-            {
-                dbcontext.Companies.Update(company);
-                dbcontext.SaveChanges();
-            });
+            dbcontext.Companies.Update(company);
+            await dbcontext.SaveChangesAsync();
             
         }
     }

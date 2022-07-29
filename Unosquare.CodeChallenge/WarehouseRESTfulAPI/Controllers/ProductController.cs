@@ -16,7 +16,7 @@ namespace WarehouseRESTfulAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private ProductServices productService;
+        private readonly ProductServices productService;
 
         public ProductController(IWarehouseService<ProductServices> productService)
         {
@@ -35,40 +35,40 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (!result.IsValid)
                 {
                     string msg = "error validating data " + result.ToString(";");
-                    return this.Problem(msg, null, 500);
+                    return Problem(msg, null, 500);
                 }
             }
             catch (Exception e)
             {
 
-                return this.Problem(e.Message.ToString(), null, 500);
+                return Problem(e.Message.ToString(), null, 500);
             }
 
             productService.AddProduct(model);
-            return this.NoContent();
+            return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetProduct([FromRoute] string id)
+        [HttpGet("{idEncoded}")]
+        public IActionResult GetProduct([FromRoute] string idEncoded)
         {
             try
             {
-                if (String.IsNullOrEmpty(id)) return this.BadRequest();
-                var valueBytes = System.Convert.FromBase64String(id);
+                if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
+                var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return this.Ok(JsonSerializer.Serialize(productService.GetProduct(productId)));
+                return Ok(JsonSerializer.Serialize(productService.GetProduct(productId)));
             }
             catch (Exception)
             {
 
-                return this.Problem("invalid id", null, 500);
+                return Problem("invalid id", null, 500);
             }
         }
 
         [HttpGet("list")]
         public IActionResult GetProducts()
         {
-            return this.Ok(JsonSerializer.Serialize(productService.GetProducts()));
+            return Ok(JsonSerializer.Serialize(productService.GetProducts()));
         }
 
         [HttpPut("{id}")]
@@ -78,7 +78,7 @@ namespace WarehouseRESTfulAPI.Controllers
             {
                 ProductValidations validations = (ProductValidations)validation;
 
-                if (String.IsNullOrEmpty(id)) return this.BadRequest();
+                if (String.IsNullOrEmpty(id)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
                 Product productToUpdate = ProductRequestModel.getModel(productUpdate);
@@ -88,13 +88,13 @@ namespace WarehouseRESTfulAPI.Controllers
                     if (!result.IsValid)
                     {
                         string msg = "error validating data " + result.ToString(";");
-                        return this.Problem(msg, null, 500);
+                        return Problem(msg, null, 500);
                     }
                 }
                 catch (Exception e)
                 {
 
-                    return this.Problem(e.Message.ToString(), null, 500);
+                    return Problem(e.Message.ToString(), null, 500);
                 }
                 productToUpdate.id=productId;
                 productService.UpdateProduct(productToUpdate);
@@ -102,10 +102,10 @@ namespace WarehouseRESTfulAPI.Controllers
             catch (Exception)
             {
 
-                return this.Problem("invalid id", null, 500);
+                return Problem("invalid id", null, 500);
             }
 
-            return this.NoContent();
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
@@ -113,16 +113,16 @@ namespace WarehouseRESTfulAPI.Controllers
         {
             try
             {
-                if (String.IsNullOrEmpty(id)) return this.BadRequest();
+                if (String.IsNullOrEmpty(id)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
                 productService.DeleteProduct(productId);
             }
             catch (Exception)
             {
-                return this.Problem("invalid id", null, 500);
+                return Problem("invalid id", null, 500);
             }
-            return this.NoContent();
+            return NoContent();
         }
     }
 }

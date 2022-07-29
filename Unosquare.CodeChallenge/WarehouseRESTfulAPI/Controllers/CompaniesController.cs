@@ -22,22 +22,22 @@ namespace WarehouseRESTfulAPI.Controllers
         [HttpGet]
         public IActionResult getAllCompanies()
         {
-            return  this.Ok(JsonSerializer.Serialize(companyService.GetAllCompanies()));
+            return  Ok(JsonSerializer.Serialize(companyService.GetAllCompanies()));
         }
 
-        [HttpGet("{id}")]
-        public IActionResult getCompany([FromRoute]string id)
+        [HttpGet("{idEncoded}")]
+        public IActionResult getCompany([FromRoute]string idEncoded)
         {
             try
             {
-                if (String.IsNullOrEmpty(id)) return this.BadRequest();
-                var valueBytes = System.Convert.FromBase64String(id);
+                if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
+                var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return this.Ok(JsonSerializer.Serialize(companyService.GetCompany(idCompany)));
+                return Ok(JsonSerializer.Serialize(companyService.GetCompany(idCompany)));
             }
             catch (Exception)
             { 
-                return this.Problem("invalid id",null,500);
+                return Problem("invalid id",null,500);
             }
         }
 

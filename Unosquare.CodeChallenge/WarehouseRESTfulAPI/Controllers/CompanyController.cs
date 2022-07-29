@@ -23,28 +23,28 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCompanyAsync([FromRoute] string id)
+        [HttpGet("{idEncoded}")]
+        public async Task<IActionResult> GetCompanyAsync([FromRoute] string idEncoded)
         {
             try
             {
-                if (String.IsNullOrEmpty(id)) return this.BadRequest();
-                var valueBytes = System.Convert.FromBase64String(id);
+                if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
+                var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return this.Ok(JsonSerializer.Serialize<Company>( await companyService.GetCompanyAsync(idCompany)));
+                return Ok(JsonSerializer.Serialize<Company>( await companyService.GetCompanyAsync(idCompany)));
             }
             catch (Exception)
             {
 
-                return this.Problem("invalid id", null, 500);
+                return Problem("invalid id", null, 500);
             }
         }
 
         [HttpGet("search")]
         public async Task<IActionResult> SearchCompanyAsync([FromQuery] string name= "")
         {
-            if (string.IsNullOrEmpty(name)) return this.Problem("name is invalid",null,500);
-            return this.Ok(JsonSerializer.Serialize(await companyService.GetCompanyByNameAsync(name)));
+            if (string.IsNullOrEmpty(name)) return Problem("name is invalid",null,500);
+            return Ok(JsonSerializer.Serialize(await companyService.GetCompanyByNameAsync(name)));
         }
 
         [HttpPost]
@@ -58,32 +58,32 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (!result.IsValid)
                 {
                     string msg = "error validating data " + result.ToString(";");
-                    return this.Problem(msg, null, 500);
+                    return Problem(msg, null, 500);
                 }
             }
             catch (Exception e)
             {
-                return this.Problem(e.Message.ToString(), null, 500);
+                return Problem(e.Message.ToString(), null, 500);
             }
             
             await companyService.AddCompanyAsync(newCompany);
-            return this.NoContent();
+            return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCompanyAsync([FromRoute] string id)
+        [HttpDelete("{idEncoded}")]
+        public async Task<IActionResult> DeleteCompanyAsync([FromRoute] string idEncoded)
         {
             try
             {
-                if (String.IsNullOrEmpty(id)) return this.BadRequest();
-                var valueBytes = System.Convert.FromBase64String(id);
+                if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
+                var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
                 await companyService.DeleteCompanyAsync(new Company() { Id = idCompany });
-                return this.NoContent();
+                return NoContent();
             }
             catch (Exception)
             {
-                return this.Problem("invalid id", null, 500);
+                return Problem("invalid id", null, 500);
             }
             
         }
@@ -99,16 +99,16 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (!result.IsValid)
                 {
                     string msg = "error validating data " + result.ToString(";");
-                    return this.Problem(msg, null, 500);
+                    return Problem(msg, null, 500);
                 }
             }
             catch (Exception e)
             {
-                return this.Problem(e.Message.ToString(), null, 500);
+                return Problem(e.Message.ToString(), null, 500);
             }
 
             await companyService.UpdateCompanyAsync(model);
-            return this.NoContent();
+            return NoContent();
         }
     }
 }

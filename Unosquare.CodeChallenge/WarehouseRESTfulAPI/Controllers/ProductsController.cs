@@ -26,7 +26,7 @@ namespace WarehouseRESTfulAPI.Controllers
 
         [HttpGet]
         public IActionResult GetProducts() {
-            return this.Ok(JsonSerializer.Serialize(productService.GetProducts()));
+            return Ok(JsonSerializer.Serialize(productService.GetProducts()));
 
         }
 
@@ -41,10 +41,10 @@ namespace WarehouseRESTfulAPI.Controllers
             }
             catch (Exception exception)
             {
-                this.BadRequest(exception);
+                BadRequest(exception);
             }
             
-            return this.Ok(JsonSerializer.Serialize(productService.Search(linqFilters)));
+            return Ok(JsonSerializer.Serialize(productService.Search(linqFilters)));
 
         }
 
@@ -65,12 +65,12 @@ namespace WarehouseRESTfulAPI.Controllers
                     if (!result.IsValid)
                     {
                         string msg = "error validating data " + result.ToString(";");
-                        return this.Problem(msg, null, 500);
+                        return Problem(msg, null, 500);
                     }
                 }
                 catch (Exception e)
                 {
-                    return this.Problem(e.Message.ToString(), null, 500);
+                    return Problem(e.Message.ToString(), null, 500);
                 }
 
             }
@@ -81,10 +81,10 @@ namespace WarehouseRESTfulAPI.Controllers
             }
             catch (Exception e)
             {
-                return this.Problem(e.Message.ToString(), null, 500);
+                return Problem(e.Message.ToString(), null, 500);
             }
 
-            return this.NoContent();
+            return NoContent();
 
         }
     }
