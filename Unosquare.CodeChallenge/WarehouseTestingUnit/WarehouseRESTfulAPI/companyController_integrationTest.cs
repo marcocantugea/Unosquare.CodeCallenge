@@ -78,7 +78,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             string idbase = Convert.ToBase64String(valueBytes);
             var responseDelete = await client.DeleteAsync("api/company/"+ idbase);
 
-            Assert.Equal(HttpStatusCode.OK, responseDelete.StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, responseDelete.StatusCode);
         }
 
         [Fact]
@@ -105,7 +105,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             jsoncontent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var responseUpdate = await client.PutAsync("api/company",jsoncontent);
 
-            Assert.Equal(HttpStatusCode.OK, responseUpdate.StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, responseUpdate.StatusCode);
         }
 
 
