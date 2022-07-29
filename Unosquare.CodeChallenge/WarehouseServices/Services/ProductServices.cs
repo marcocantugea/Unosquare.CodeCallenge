@@ -12,7 +12,7 @@ namespace WarehouseServices.Services
 {
     public class ProductServices :  IWarehouseService<ProductServices>
     {
-        private WarehouseDbContext dbcontext;
+        private readonly WarehouseDbContext dbcontext;
 
         public ProductServices(WarehouseDbContext context)
         {
