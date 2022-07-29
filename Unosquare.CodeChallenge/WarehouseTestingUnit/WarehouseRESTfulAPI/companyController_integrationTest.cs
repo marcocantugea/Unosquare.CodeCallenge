@@ -25,7 +25,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 
 
         [Fact]
-        public async void AddCompany_successAddCompany()
+        public async void AddCompany_SuccessAddCompany()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -59,7 +59,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void RemoveCompany_removeSuccess()
+        public async void RemoveCompany_RemoveSuccess()
         {
             var client = _factory.CreateClient();
             Company newCompany = new Company()
@@ -165,7 +165,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void GetCompanyById_getCompanyItem()
+        public async void GetCompanyById_GetCompanyItem()
         {
             var client = _factory.CreateClient();
 

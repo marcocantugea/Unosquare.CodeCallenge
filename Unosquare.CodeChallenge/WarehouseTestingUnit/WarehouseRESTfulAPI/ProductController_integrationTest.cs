@@ -27,7 +27,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void AddProduct_addItemSuccess()
+        public async void AddProduct_AddItemSuccess()
         {
             var client = _factory.CreateClient();
             Product newProduct = new Product()
@@ -211,7 +211,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void AddProducts_addItemsSuccess()
+        public async void AddProducts_AddItemsSuccess()
         {
             var client = _factory.CreateClient();
             List<Product> products = new List<Product>();
@@ -286,7 +286,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         }
 
         [Fact]
-        public async void UpdateProduct_updateProductInfo()
+        public async void UpdateProduct_UpdateProductInfo()
         {
             Product productToUpdate = new Product()
             {
