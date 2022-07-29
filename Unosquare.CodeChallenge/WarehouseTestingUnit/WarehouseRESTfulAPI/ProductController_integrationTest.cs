@@ -15,12 +15,12 @@ using System.Net.Mime;
 
 namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 {
-    public class ProductController_integrationTest
+    public class ProductController_IntegrationTest
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly ITestOutputHelper _output;
 
-        public ProductController_integrationTest(ITestOutputHelper output)
+        public ProductController_IntegrationTest(ITestOutputHelper output)
         {
             _output = output;
             _factory = new WebApplicationFactory<Program>();

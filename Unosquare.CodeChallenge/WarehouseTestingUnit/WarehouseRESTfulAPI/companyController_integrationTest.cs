@@ -12,12 +12,12 @@ using Xunit.Abstractions;
 
 namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 {
-    public class companyController_integrationTest
+    public class companyController_IntegrationTest
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly ITestOutputHelper _output;
 
-        public companyController_integrationTest(ITestOutputHelper output)
+        public companyController_IntegrationTest(ITestOutputHelper output)
         {
             _output = output;
             _factory = new WebApplicationFactory<Program>();
