@@ -16,10 +16,10 @@ namespace WarehouseModels.Configuration
             builder.Property(prop => prop.storeName).IsRequired().HasMaxLength(50);
             builder.Property(prop => prop.address).IsRequired().HasMaxLength(100);
             builder.Property(prop => prop.city).IsRequired().HasMaxLength(60);
-            builder.HasData(populateStores());
+            builder.HasData(PopulateStores());
         }
 
-        protected List<Store> populateStores()
+        protected List<Store> PopulateStores()
         {
             List<Store> stores = new List<Store>();
             stores.Add(new Store() { Id=1, storeName="Galerias Monterrey", address= "Plaza Galerias,Avenida Insurgentes 2500, Galerias Monterrey, Monterrey", city="Monterrey, NL" });

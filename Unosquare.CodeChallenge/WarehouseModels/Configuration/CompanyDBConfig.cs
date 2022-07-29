@@ -16,10 +16,10 @@ namespace WarehouseModels.Configuration
         public void Configure(EntityTypeBuilder<Company> builder)
         {
             builder.Property(prop => prop.Name).IsRequired().HasMaxLength(50);
-            builder.HasData(getInitalData());
+            builder.HasData(GetInitalData());
         }
 
-        protected List<Company> getInitalData()
+        protected List<Company> GetInitalData()
         {
             List<Company>  companies = new List<Company>();
 

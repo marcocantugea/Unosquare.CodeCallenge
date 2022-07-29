@@ -16,10 +16,10 @@ namespace WarehouseModels.Configuration
             builder.Property(prop => prop.code).IsRequired().HasMaxLength(5);
             builder.Property(prop => prop.name).IsRequired().HasMaxLength(50);
 
-            builder.HasData(populateWarehouse());
+            builder.HasData(PopulateWarehouse());
         }
 
-        protected List<WarehouseInfo> populateWarehouse()
+        protected List<WarehouseInfo> PopulateWarehouse()
         {
             List<WarehouseInfo> list = new List<WarehouseInfo>();
             list.Add(new WarehouseInfo() {

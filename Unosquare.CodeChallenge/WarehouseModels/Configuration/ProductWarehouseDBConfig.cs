@@ -14,10 +14,10 @@ namespace WarehouseModels.Configuration
         public void Configure(EntityTypeBuilder<ProductWarehouse> builder)
         {
             builder.HasKey(prop => new { prop.productId, prop.warehouseId });
-            builder.HasData(populateStock());
+            builder.HasData(PopulateStock());
         }
 
-        protected List<ProductWarehouse> populateStock()
+        protected List<ProductWarehouse> PopulateStock()
         {
             List<ProductWarehouse> list = new List<ProductWarehouse>();
 

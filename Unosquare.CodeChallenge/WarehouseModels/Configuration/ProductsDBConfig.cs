@@ -18,10 +18,10 @@ namespace WarehouseModels.Configuration
             builder.Property(prop => prop.description).HasMaxLength(100);
             builder.Property(prop => prop.price).IsRequired();
 
-            builder.HasData(populateProducts());
+            builder.HasData(PopulateProducts());
         }
 
-        protected List<Product> populateProducts()
+        protected List<Product> PopulateProducts()
         {
             var products = new List<Product>();
 
