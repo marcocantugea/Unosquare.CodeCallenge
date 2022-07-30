@@ -151,6 +151,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public void DeleteCompany_DeleteCompany()
         {
             Company company = companyServiceFixture.GetService().GetCompanyByName("new company test unit updated");
