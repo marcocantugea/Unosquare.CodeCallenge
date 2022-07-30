@@ -3,69 +3,69 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Tests;
+using Tests;
 using WarehouseCoreLib.DataAccess;
 using WarehouseModels.Models;
 using WarehouseServices.Services;
-using WarehouseHelper = Tests.WarehouseHelper;
-using Assert = NUnit.Framework.Assert;
-//using Theory = NUnit.Framework.TheoryAttribute;
-//using TestFixture = NUnit.Framework.TestFixtureAttribute;
-using NUnit.Framework;
+using WarehouseTestingUnit.Fixtures;
+using Xunit;
 
 namespace WarehouseTestingUnit.WarehouseServices
 {
 
-    public class WarehouseServices_unitTest
+    public class WarehouseServices_unitTest :IClassFixture<CompanyServiceFixture>,IClassFixture<ProductServiceFixture>
     {
-        private WarehouseDbContext dbContext;
+        private CompanyServiceFixture companyServiceFixture;
+        private ProductServiceFixture productServiceFixture;
 
-        public WarehouseServices_unitTest()
+        public WarehouseServices_unitTest(CompanyServiceFixture companyServiceFixture, ProductServiceFixture productServiceFixture )
         {
-            dbContext = WarehouseHelper.createDBContext();
+            this.companyServiceFixture = companyServiceFixture;
+            this.productServiceFixture = productServiceFixture;
         }
 
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public void GetAllCompanies_GetAllCompaniesItems()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-            List<Company> companies = service.GetAllCompanies().ToList();
+            List<Company> companies = companyServiceFixture.GetService().GetAllCompanies().ToList();
 
-            Assert.IsNotEmpty(companies);
-            Assert.Greater(companies.Count, 0);
+            Assert.NotEmpty(companies);
+            Assert.InRange(companies.Count,1,20);
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public async void GetAllCompaniesAsync_GetAllCompaniesItems()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-            List<Company> companies = await  service.GetAllCompaniesAsync();
+            List<Company> companies = await companyServiceFixture.GetService().GetAllCompaniesAsync();
 
-            Assert.IsNotEmpty(companies);
-            Assert.Greater(companies.Count, 0);
+            Assert.NotEmpty(companies);
+            Assert.InRange(companies.Count, 1,100);
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public void GetCompany_GetItemCompanyById()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-            Company company = service.GetCompany(1);
+            Company company = companyServiceFixture.GetService().GetCompany(1);
 
-            Assert.AreEqual(1, company.Id);
+            Assert.Equal(1, company.Id);
 
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public async void GetCompanyAsync_GetItemCompanyByID()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-            Company company = await service.GetCompanyAsync(1);
+            Company company = await companyServiceFixture.GetService().GetCompanyAsync(1);
 
-            Assert.AreEqual(1, company.Id);
+            Assert.Equal(1, company.Id);
         }
 
         [Fact]
+        [Trait("Category","ServiceCompany")]
         public void AddCompany_AddItemToDb()
         {
             Company newCompany = new Company()
@@ -73,13 +73,14 @@ namespace WarehouseTestingUnit.WarehouseServices
                 Name = "new company test unit"
             };
 
-            CompaniesServices service = new CompaniesServices(dbContext);
-            service.AddCompany(newCompany);
+            
+            companyServiceFixture.GetService().AddCompany(newCompany);
             Assert.True(true);
         }
 
 
-        [Fact]
+        [Fact] 
+        [Trait("Category", "ServiceCompany")]
         public async void AddCompanyAsync_AddItemToDb()
         {
             Company newCompany = new Company()
@@ -87,12 +88,13 @@ namespace WarehouseTestingUnit.WarehouseServices
                 Name = "new company test unit"
             };
 
-            CompaniesServices service = new CompaniesServices(dbContext);
-            await service.AddCompanyAsync(newCompany);
+            
+            await companyServiceFixture.GetService().AddCompanyAsync(newCompany);
             Assert.True(true);
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public void GetCompanyByName_GetCompanyItem()
         {
             Company newCompany = new Company()
@@ -100,66 +102,64 @@ namespace WarehouseTestingUnit.WarehouseServices
                 Name = "company to search"
             };
 
-            CompaniesServices service = new CompaniesServices(dbContext);
-            service.AddCompany(newCompany);
+            companyServiceFixture.GetService().AddCompany(newCompany);
 
-            Company company = service.GetCompanyByName("company to search");
+            Company company = companyServiceFixture.GetService().GetCompanyByName("company to search");
 
-            Assert.AreEqual("company to search", company.Name);
+            Assert.Equal("company to search", company.Name);
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public async void GetCompanyByNameAsync_GetCompanyItem()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-            Company company = await service.GetCompanyByNameAsync("Mattel");
+            Company company = await companyServiceFixture.GetService().GetCompanyByNameAsync("Mattel");
 
-            Assert.AreEqual("Mattel", company.Name);
+            Assert.Equal("Mattel", company.Name);
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public void UpdateCompany_UpdateNameCompany()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-
             Company newCompany = new Company()
             {
                 Name = "new company test unit"
             };
-            service.AddCompany(newCompany);
+            companyServiceFixture.GetService().AddCompany(newCompany);
 
-            Company company = service.GetCompanyByName("new company test unit");
+            Company company = companyServiceFixture.GetService().GetCompanyByName("new company test unit");
             company.Name = "new company test unit updated";
-            service.UpdateCompany(company);
+            companyServiceFixture.GetService().UpdateCompany(company);
 
-            List<Company> listOfCompanies = service.GetAllCompanies().ToList();
+            List<Company> listOfCompanies = companyServiceFixture.GetService().GetAllCompanies().ToList();
 
-            Assert.AreEqual(company.Name,listOfCompanies.Where(item => item.Name == company.Name).First().Name);
+            Assert.Equal(company.Name,listOfCompanies.Where(item => item.Name == company.Name).First().Name);
 
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public async void UpdateCompanyAsync_UpdateNameCompany()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-            Company company = await service.GetCompanyByNameAsync("new company test unit");
+            Company company = await companyServiceFixture.GetService().GetCompanyByNameAsync("new company test unit");
             company.Name = "new company test unit updated";
-            await service.UpdateCompanyAsync(company);
+            await companyServiceFixture.GetService().UpdateCompanyAsync(company);
 
-            Assert.IsTrue(true);
+            Assert.True(true);
 
         }
 
         [Fact]
         public void DeleteCompany_DeleteCompany()
         {
-            CompaniesServices service = new CompaniesServices(dbContext);
-            Company company = service.GetCompanyByName("new company test unit updated");
-            service.DeleteCompany(company);
-            Assert.IsTrue(true);
+            Company company = companyServiceFixture.GetService().GetCompanyByName("new company test unit updated");
+            companyServiceFixture.GetService().DeleteCompany(company);
+            Assert.True(true);
         }
 
         [Fact]
+        [Trait("Category", "ServiceCompany")]
         public async void DeleteCompanyAsync_DeleteCompanyFromDB()
         {
             Company newCompany = new Company()
@@ -167,17 +167,17 @@ namespace WarehouseTestingUnit.WarehouseServices
                 Name = "new company test unit to delete"
             };
 
-            CompaniesServices service = new CompaniesServices(dbContext);
-            await service.AddCompanyAsync(newCompany); 
-            Company company = await service.GetCompanyByNameAsync("new company test unit to delete");
-            await service.DeleteCompanyAsync(company);
+            await companyServiceFixture.GetService().AddCompanyAsync(newCompany); 
+            Company company = await companyServiceFixture.GetService().GetCompanyByNameAsync("new company test unit to delete");
+            await companyServiceFixture.GetService().DeleteCompanyAsync(company);
 
-            List<Company> listOfCompanies = await service.GetAllCompaniesAsync();
+            List<Company> listOfCompanies = await companyServiceFixture.GetService().GetAllCompaniesAsync();
 
-            Assert.IsEmpty(listOfCompanies.Where(item => item.Name == "new company test unit to delete"));
+            Assert.Empty(listOfCompanies.Where(item => item.Name == "new company test unit to delete"));
         }
 
         [Fact]
+        [Trait("Category", "ServiceProducts")]
         public void AddProduct_AddNewProduct()
         {
             Product newProduct = new Product()
@@ -191,38 +191,37 @@ namespace WarehouseTestingUnit.WarehouseServices
                 storeid = 1
             };
 
-            ProductServices service = new ProductServices(dbContext);
-            service.AddProduct(newProduct);
+            productServiceFixture.GetService().AddProduct(newProduct);
 
-            Assert.IsTrue(true);
+            Assert.True(true);
         }
 
         [Fact]
+        [Trait("Category", "ServiceProducts")]
         public void GetProduct_GetListOfProducts()
         {
-            ProductServices service = new ProductServices(dbContext);
-            List<Product> products = service.GetProducts().ToList();
+            List<Product> products = productServiceFixture.GetService().GetProducts().ToList();
 
-            Assert.Greater(products.Count, 1);
+            Assert.InRange(products.Count, 1,100);
         }
 
         [Fact]
+        [Trait("Category", "ServiceProducts")]
         public void GetProductById_GetProductItem()
         {
-            ProductServices service = new ProductServices(dbContext);
-            List<Product> products = service.GetProducts().ToList();
+            List<Product> products = productServiceFixture.GetService().GetProducts().ToList();
 
             Product product = products.Last();
 
-            Product productFound = service.GetProduct(product.id);
+            Product productFound = productServiceFixture.GetService().GetProduct(product.id);
 
-            Assert.AreEqual(product.description, productFound.description);
+            Assert.Equal(product.description, productFound.description);
         }
 
         [Fact]
+        [Trait("Category", "ServiceProducts")]
         public void AddProducts_AddSeveralProducts()
         {
-            ProductServices service = new ProductServices(dbContext);
             List<Product> newProducts = new List<Product>();
 
             Product newProduct1 = new Product()
@@ -272,39 +271,39 @@ namespace WarehouseTestingUnit.WarehouseServices
             newProducts.Add(newProduct3);
             newProducts.Add(newProduct4);
 
-            service.AddProducts(newProducts);
+            productServiceFixture.GetService().AddProducts(newProducts);
 
-            List<Product> products = service.GetProducts().ToList();
+            List<Product> products = productServiceFixture.GetService().GetProducts().ToList();
             
-            Assert.IsFalse(String.IsNullOrEmpty(products.Where(item => item.name == newProduct4.name).First().name));
+            Assert.False(String.IsNullOrEmpty(products.Where(item => item.name == newProduct4.name).First().name));
 
         }
 
 
         [Fact]
+        [Trait("Category", "ServiceProducts")]
         public void UpdateProduct_UpdateNameToProduct()
         {
-            ProductServices service = new ProductServices(dbContext);
-
-            List<Product> products = service.GetProducts().ToList();
+            
+            List<Product> products = productServiceFixture.GetService().GetProducts().ToList();
 
             Product updateProduct = products.Where(item => item.id== 1).First();
 
             updateProduct.name = "Mercedes Benz a class blue 2022 updated";
-            
-            service.UpdateProduct(updateProduct);
 
-            products = service.GetProducts().ToList();
+            productServiceFixture.GetService().UpdateProduct(updateProduct);
 
-            Assert.IsNotEmpty(products.Where(item=>item.name== "Mercedes Benz a class blue 2022 updated"));
+            products = productServiceFixture.GetService().GetProducts().ToList();
+
+            Assert.NotEmpty(products.Where(item=>item.name== "Mercedes Benz a class blue 2022 updated"));
 
         }
 
         [Fact]
+        [Trait("Category", "ServiceProducts")]
         public void UpdateProducts_UpdateSeveralItems()
         {
-            ProductServices service = new ProductServices(dbContext);
-            List<Product> products = service.GetProducts().ToList();
+            List<Product> products = productServiceFixture.GetService().GetProducts().ToList();
             products.Reverse();
             Product product1 = products[0];
             Product product2 = products[1];
@@ -328,40 +327,38 @@ namespace WarehouseTestingUnit.WarehouseServices
                 index++;
             }
 
-            service.UpdateProducts(updateProducts);
+            productServiceFixture.GetService().UpdateProducts(updateProducts);
 
 
-            products = service.GetProducts().ToList();
+            products = productServiceFixture.GetService().GetProducts().ToList();
 
-            Assert.IsFalse(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.1").First().name));
-            Assert.IsFalse(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.2").First().name));
-            Assert.IsFalse(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.3").First().name));
-            Assert.IsFalse(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.4").First().name));
-            Assert.IsFalse(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.5").First().name));
+            Assert.False(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.1").First().name));
+            Assert.False(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.2").First().name));
+            Assert.False(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.3").First().name));
+            Assert.False(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.4").First().name));
+            Assert.False(String.IsNullOrEmpty(products.Where(items => items.name == "changed name to item no.5").First().name));
         }
 
         [Fact]
-        [Test]
+        [Trait("Category", "ServiceProducts")]
         public void DeleteProduct_DeleteProduct()
         {
-            ProductServices service = new ProductServices(dbContext);
-           
-            
-            service.DeleteProduct(1);
-            List<Product> products = service.GetProducts().ToList();
 
-            products = service.GetProducts().ToList();
+            productServiceFixture.GetService().DeleteProduct(1);
+            List<Product> products = productServiceFixture.GetService().GetProducts().ToList();
 
-            Assert.AreEqual(0,products.Where(item => item.id == 1).Count());
+            products = productServiceFixture.GetService().GetProducts().ToList();
+
+            Assert.Equal(0,products.Where(item => item.id == 1).Count());
         }
 
         [Fact]
+        [Trait("Category", "ServiceProducts")]
         public void SearchProduct_GetAProduct()
         {
-            ProductServices service = new ProductServices(dbContext);
-            List<Product> products = service.Search(item => item.ageRestriction == 15).ToList();
+            List<Product> products = productServiceFixture.GetService().Search(item => item.ageRestriction == 15).ToList();
 
-            Assert.AreEqual(4,products.Count);
+            Assert.Equal(4,products.Count);
         }
     }
 
