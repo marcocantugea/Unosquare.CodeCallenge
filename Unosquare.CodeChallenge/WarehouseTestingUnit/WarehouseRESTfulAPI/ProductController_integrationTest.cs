@@ -12,24 +12,25 @@ using WarehouseModels.Models;
 using Xunit.Abstractions;
 using WarehouseRESTfulAPI.RequestModels;
 using System.Net.Mime;
+using WarehouseTestingUnit.Fixtures;
 
 namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 {
-    public class ProductController_IntegrationTest
+    public class ProductController_IntegrationTest: IClassFixture<WebApplicationFixture>
     {
-        private readonly WebApplicationFactory<Program> _factory;
+        private readonly HttpClient _client;
         private readonly ITestOutputHelper _output;
 
-        public ProductController_IntegrationTest(ITestOutputHelper output)
+        public ProductController_IntegrationTest(WebApplicationFixture  webApplicationFixture,ITestOutputHelper output)
         {
             _output = output;
-            _factory = new WebApplicationFactory<Program>();
+            _client = webApplicationFixture.GetWebApplicationFactory().CreateClient();
         }
 
         [Fact]
         public async void AddProduct_AddItemSuccess()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = " Mercedes Benz A Class Blue 2022",
@@ -52,7 +53,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProduct_TestValidatorNameEmpty()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = "",
@@ -75,7 +76,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProduct_TestValidatorNameMore50Chars()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = "Note ValidateAndThrow is an extension method, so you must have the FluentValidation namespace imported with a using statement at the top of your file in order for this method to be available.",
@@ -98,7 +99,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProduct_TestValidatorAgeRestictionEmpty()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
@@ -121,7 +122,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProduct_TestValidatorAgeRestictionGreaterThan100()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
@@ -144,7 +145,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProduct_TestValidatorPriceZero()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
@@ -167,7 +168,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProduct_TestValidatorCompanyIdZero()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
@@ -190,7 +191,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProduct_TestValidatorDescriptionMaxLenth100()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Product newProduct = new Product()
             {
                 name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
@@ -213,7 +214,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddProducts_AddItemsSuccess()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             List<Product> products = new List<Product>();
 
             Product newProduct1 = new Product()
@@ -273,7 +274,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void GetProduct_GetProductObj()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             var responseGet = await client.GetAsync("api/product/MQ==");
             var responseJson = await responseGet.Content.ReadAsStringAsync();
             Product product = JsonSerializer.Deserialize<Product>(responseJson);
@@ -299,7 +300,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
                 storeid = 1
             };
 
-            var client = _factory.CreateClient();
+            var client = _client;
             HttpContent content = new StringContent(JsonSerializer.Serialize(productToUpdate));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var responseUpdate = await client.PutAsync("api/product/MQ==",content);
@@ -322,7 +323,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
                 storeid = 1
             };
 
-            var client = _factory.CreateClient();
+            var client = _client;
 
             HttpContent content = new StringContent(JsonSerializer.Serialize<Product>(newProduct));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -352,7 +353,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             List<ProductFilterRequestModel> filters = new List<ProductFilterRequestModel>();
             filters.Add(model);
 
-            var client = _factory.CreateClient();
+            var client = _client;
             //HttpContent content = new StringContent(JsonSerializer.Serialize(filters));
             //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 

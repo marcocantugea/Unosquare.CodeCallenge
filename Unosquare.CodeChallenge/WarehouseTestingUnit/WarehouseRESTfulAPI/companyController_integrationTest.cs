@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,27 +11,31 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using WarehouseCoreLib.DataAccess;
 using WarehouseModels.Models;
+using WarehouseServices.Contractor;
+using WarehouseServices.Services;
+using WarehouseTestingUnit.Fixtures;
 using Xunit.Abstractions;
 
 namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 {
-    public class companyController_IntegrationTest
+    public class CompanyController_IntegrationTest: IClassFixture<WebApplicationFixture>
     {
-        private readonly WebApplicationFactory<Program> _factory;
+        private readonly HttpClient _client;
         private readonly ITestOutputHelper _output;
 
-        public companyController_IntegrationTest(ITestOutputHelper output)
+        public CompanyController_IntegrationTest(WebApplicationFixture webApplicationFixture,ITestOutputHelper output)
         {
             _output = output;
-            _factory = new WebApplicationFactory<Program>();
+            _client = webApplicationFixture.GetWebApplicationFactory().CreateClient();
         }
 
 
         [Fact]
         public async void AddCompany_SuccessAddCompany()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Company newCompany = new Company()
             {
                 Name = "PlayDoh"
@@ -44,7 +52,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void AddCompany_ValidatorNameEmpty()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Company newCompany = new Company()
             {
                 Name = ""
@@ -61,7 +69,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void RemoveCompany_RemoveSuccess()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Company newCompany = new Company()
             {
                 Name = "Patito"
@@ -84,7 +92,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void UpdateCompanyItem_UpdatesSucess()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Company newCompany = new Company()
             {
                 Name = "Patito"
@@ -112,7 +120,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void UpdateCompany_ValidatorIdZero()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
             Company newCompany = new Company()
             {
                 Name = "Patito"
@@ -140,7 +148,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void UpdateCompany_ValidatorNameEmpty()
         {
-            var client = _factory.CreateClient();
+            var client =_client;
             Company newCompany = new Company()
             {
                 Name = "Patito"
@@ -167,7 +175,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         [Fact]
         public async void GetCompanyById_GetCompanyItem()
         {
-            var client = _factory.CreateClient();
+            var client = _client;
 
             var responseSearch = await client.GetAsync("api/company/search?name=Mattel");
             var responseJson = await responseSearch.Content.ReadAsStringAsync();
