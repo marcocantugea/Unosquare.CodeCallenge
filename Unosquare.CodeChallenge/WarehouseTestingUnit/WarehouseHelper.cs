@@ -12,6 +12,11 @@ namespace Tests
     {
         public static WarehouseDbContext dbContext;
 
+        private WarehouseHelper()
+        {
+
+        }
+
         public static WarehouseDbContext createDBContext()
         {
             WarehouseDbContext dbContext = WarehouseHelper.dbContext;
