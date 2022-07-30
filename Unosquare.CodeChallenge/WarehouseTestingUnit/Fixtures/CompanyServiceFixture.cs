@@ -16,5 +16,10 @@ namespace WarehouseTestingUnit.Fixtures
         {
             return serviceCompany;
         }
+
+        public static CompaniesServices GetServiceCompany()
+        {
+            return new CompaniesServices(WarehouseHelper.createDBContext());
+        }
     }
 }
