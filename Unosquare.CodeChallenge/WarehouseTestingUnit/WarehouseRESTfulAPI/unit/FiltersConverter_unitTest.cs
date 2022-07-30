@@ -6,92 +6,36 @@ using System.Threading.Tasks;
 using WarehouseModels.Models;
 using WarehouseRESTfulAPI.Helpers;
 using WarehouseRESTfulAPI.RequestModels;
+using Xunit;
 
 namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
 {
     public class FiltersConverter_unitTest
     {
-        [Fact]
-        public void ConvertToLinqExpression_GetLinqExpressionFromString()
+        [Theory]
+        [InlineData(@"prod=>prod.name.ToLower().Contains(""world"")")]
+        public void ConvertToLinqExpression_GetLinqExpressionFromString(string strExpression)
         {
-            Func<Product, bool> expression = FiltersConverter.convertToLinqExpression(@"prod=>prod.name.ToLower().Contains(""world"")");
+            Func<Product, bool> expression = FiltersConverter.convertToLinqExpression(strExpression);
             Assert.IsAssignableFrom<Func<Product, bool>>(expression);
         }
 
-        [Fact]
-        public void GetLinqExpresssion_GetValidExpresssion()
+        [Theory]
+        [InlineData("name", "world", (int)typeFields.STRING, "==",@"prod=>prod.name==""world""")]
+        [InlineData("name", "world", (int)typeFields.STRING, "contains", @"prod=>prod.name.ToLower().Contains(""world"")")]
+        [InlineData("price", "10", (int)typeFields.DECIMAL, "<", @"prod=>prod.price<10")]
+        [InlineData("ageRestriction", "30", (int)typeFields.NUMERIC, ">=", @"prod=>prod.ageRestriction>=30")]
+        public void GetLinqExpresssion_GetValidExpresssion(string field, string value, int typeField, string whereOperator,string expected)
         {
-            //string linqExp = @"prod=>prod.name.ToLower().Contains(""world"")";
-            string linqExp = @"prod=>prod.name==""world""";
             ProductFilterRequestModel model = new ProductFilterRequestModel();
-            model.field = "name";
-            model.value = "world";
-            model.typeField = (int)typeFields.STRING;
-            model.whereOperator = "==";
+            model.field = field;
+            model.value = value;
+            model.typeField = typeField;
+            model.whereOperator = whereOperator;
             string linqExpFun = FiltersConverter.getLinqExpression(model);
 
-            Assert.Equal(linqExpFun, linqExp);
+            Assert.Equal(linqExpFun, expected);
             Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
-        }
-
-        [Fact]
-        public void GetLinqExpresssion_GetValidExpresssionContains()
-        {
-            string linqExp = @"prod=>prod.name.ToLower().Contains(""world"")";
-            //string linqExp = @"prod=>prod.name=='world'";
-            ProductFilterRequestModel model = new ProductFilterRequestModel();
-            model.field = "name";
-            model.value = "world";
-            model.typeField = (int)typeFields.STRING;
-            model.whereOperator = "contains";
-            string linqExpFun = FiltersConverter.getLinqExpression(model);
-
-            Assert.Equal(linqExpFun, linqExp);
-            Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
-        }
-
-        [Fact]
-        public void GetLinqExpresssion_GetValidExpressionWithNumericType()
-        {
-            string linqExp = @"prod=>prod.price<10";
-            //string linqExp = @"prod=>prod.name=='world'";
-            ProductFilterRequestModel model = new ProductFilterRequestModel();
-            model.field = "price";
-            model.value = "10";
-            model.typeField = (int)typeFields.DECIMAL;
-            model.whereOperator = "<";
-            string linqExpFun = FiltersConverter.getLinqExpression(model);
-
-            Assert.Equal(linqExpFun, linqExp);
-            Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
-        }
-
-
-        [Fact]
-        public void GetLinqExpresssion_GetValidExpressionWithAgeResctition()
-        {
-            string linqExp = @"prod=>prod.ageRestriction>=30";
-            ProductFilterRequestModel model = new ProductFilterRequestModel();
-            model.field = "ageRestriction";
-            model.value = "30";
-            model.typeField = (int)typeFields.NUMERIC;
-            model.whereOperator = ">=";
-            string linqExpFun = FiltersConverter.getLinqExpression(model);
-
-            Assert.Equal(linqExpFun, linqExp);
-            Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
-        }
-
-        [Fact]
-        public void ConvetLinqExpression_GetLinqExpression()
-        {
-            ProductFilterRequestModel model = new ProductFilterRequestModel();
-            model.field = "ageRestriction";
-            model.value = "30";
-            model.typeField = (int)typeFields.NUMERIC;
-            model.whereOperator = ">=";
-
-            Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convetLinqExpression(model));
         }
 
         [Fact]
@@ -118,22 +62,5 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI.unit
             Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
         }
 
-        [Fact]
-        public void GetLinqExpresssion_GetValidExpressionWithNoAnds()
-        {
-            string linqExp = @"prod=> prod.ageRestriction>=30";
-            ProductFilterRequestModel model1 = new ProductFilterRequestModel();
-            model1.field = "ageRestriction";
-            model1.value = "30";
-            model1.typeField = (int)typeFields.NUMERIC;
-            model1.whereOperator = ">=";
-
-            ProductFilterRequestModel[] filters = new ProductFilterRequestModel[] { model1 };
-
-            string linqExpFun = FiltersConverter.getLinqExpressions(filters);
-
-            Assert.Equal(linqExpFun, linqExp);
-            Assert.IsAssignableFrom<Func<Product, bool>>(FiltersConverter.convertToLinqExpression(linqExpFun));
-        }
     }
 }
