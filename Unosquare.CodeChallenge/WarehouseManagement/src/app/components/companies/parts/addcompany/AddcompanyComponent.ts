@@ -32,7 +32,7 @@ export class AddcompanyComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnInit(): void {
-        this.valueSelected = (this.dataDialog.selectedCompany) ? this.dataDialog.selectedCompany.Name : '';
+        this.valueSelected = (this.dataDialog.selectedCompany) ? this.dataDialog.selectedCompany.name : '';
         this.isUpdate = (this.dataDialog.isUpdate) ? true : false;
     }
 
@@ -44,7 +44,7 @@ export class AddcompanyComponent implements OnInit, OnDestroy, OnChanges {
     saveNewCompany(newCompanyName: string) {
 
         if (this.isUpdate) {
-            let company: Company = new Company(this.dataDialog.selectedCompany.Id, newCompanyName);
+            let company: Company = new Company(this.dataDialog.selectedCompany.id, newCompanyName);
             this.subscriptions.push(this.serviceCompany.updateCompanyInfo(company).subscribe(
                 next => { },
                 error => {

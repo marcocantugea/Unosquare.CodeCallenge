@@ -1,14 +1,14 @@
 export class Company {
-  public Id: number;
-  public Name: string;
+  public id: number;
+  public name: string;
 
   constructor(Id: number , Name: string) {
-    this.Id = Id;
-    this.Name = Name;
+    this.id = Id;
+    this.name = Name;
   }
 
-  getName(): string { return this.Name }
-  getId(): number { return this.Id }
-  setId(id: number) { this.Id = id }
-  setName(name: string) { this.Name = name }
+  getName(): string { return this.name }
+  getId(): number { return this.id }
+  setId(id: number) { this.id = id }
+  setName(name: string) { this.name = name }
 }

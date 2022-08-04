@@ -31,7 +31,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return Ok(JsonSerializer.Serialize<Company>( await companyService.GetCompanyAsync(idCompany)));
+                return Ok(await companyService.GetCompanyAsync(idCompany));
             }
             catch (Exception)
             {
@@ -44,7 +44,7 @@ namespace WarehouseRESTfulAPI.Controllers
         public async Task<IActionResult> SearchCompanyAsync([FromQuery] string name= "")
         {
             if (string.IsNullOrEmpty(name)) return Problem("name is invalid",null,500);
-            return Ok(JsonSerializer.Serialize(await companyService.GetCompanyByNameAsync(name)));
+            return Ok(await companyService.GetCompanyByNameAsync(name));
         }
 
         [HttpPost]
@@ -78,7 +78,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                await companyService.DeleteCompanyAsync(new Company() { Id = idCompany });
+                await companyService.DeleteCompanyAsync(new Company() { id = idCompany });
                 return NoContent();
             }
             catch (Exception)

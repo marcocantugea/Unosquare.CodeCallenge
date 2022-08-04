@@ -14,12 +14,12 @@ namespace WarehouseModels.Validations
     {
 
         public CompanyValidations() {
-            RuleFor(company=> company.Name).NotEmpty();
+            RuleFor(company=> company.name).NotEmpty();
         }
 
         public void setRuleForId()
         {
-            RuleFor(company => company.Id).NotEmpty().GreaterThan(0);
+            RuleFor(company => company.id).NotEmpty().GreaterThan(0);
 
         }
 

@@ -23,7 +23,7 @@
     <label for="companySel" class="form-label">Company</label>
     <select class="form-select" id="companySel" aria-label="Default select example" formControlName="companySel">
       <option *ngIf="dataDialog==null" selected value="-1">Select an option...</option>
-      <option *ngFor="let company of listOfCompanies;" [selected]="(dataDialog!=null)&&(dataDialog.product.companyId==company.Id)" value="{{company.Id}}">{{company.Name}}</option>
+      <option *ngFor="let company of listOfCompanies;" [selected]="(dataDialog!=null)&&(dataDialog.product.companyId==company.id)" value="{{company.id}}">{{company.name}}</option>
 
     </select>
     <div *ngIf="formProduct.get('companySel')?.hasError('invalidBranch') && this.formProduct.get('companySel')?.touched" class="alert alert-danger" role="alert">

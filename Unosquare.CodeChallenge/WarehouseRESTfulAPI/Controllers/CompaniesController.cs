@@ -22,7 +22,7 @@ namespace WarehouseRESTfulAPI.Controllers
         [HttpGet]
         public IActionResult getAllCompanies()
         {
-            return  Ok(JsonSerializer.Serialize(companyService.GetAllCompanies()));
+            return  Ok(companyService.GetAllCompanies());
         }
 
         [HttpGet("{idEncoded}")]
@@ -33,7 +33,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return Ok(JsonSerializer.Serialize(companyService.GetCompany(idCompany)));
+                return Ok(companyService.GetCompany(idCompany));
             }
             catch (Exception)
             { 

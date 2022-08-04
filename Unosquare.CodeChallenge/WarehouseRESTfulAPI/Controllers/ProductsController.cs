@@ -26,7 +26,7 @@ namespace WarehouseRESTfulAPI.Controllers
 
         [HttpGet]
         public IActionResult GetProducts() {
-            return Ok(JsonSerializer.Serialize(productService.GetProducts()));
+            return Ok(productService.GetProducts());
 
         }
 
@@ -44,12 +44,12 @@ namespace WarehouseRESTfulAPI.Controllers
                 BadRequest(exception);
             }
             
-            return Ok(JsonSerializer.Serialize(productService.Search(linqFilters)));
+            return Ok(productService.Search(linqFilters));
 
         }
 
         [HttpPost]
-        public IActionResult PostProducts([FromBody] IEnumerable<ProductRequestModel> productsRequested,[FromServices]IValidation<Product> validation) {
+        public async Task<IActionResult> PostProducts([FromBody] IEnumerable<ProductRequestModel> productsRequested,[FromServices]IValidation<Product> validation) {
 
             List<Product> products = new List<Product>();
             foreach (ProductRequestModel productRequested in productsRequested)
@@ -61,7 +61,7 @@ namespace WarehouseRESTfulAPI.Controllers
             foreach (Product product in products) {
                 try
                 {
-                    ValidationResult result = validations.Validate(product);
+                    ValidationResult result = await validations.ValidateAsync(product);
                     if (!result.IsValid)
                     {
                         string msg = "error validating data " + result.ToString(";");
@@ -77,7 +77,7 @@ namespace WarehouseRESTfulAPI.Controllers
 
             try
             {
-                productService.AddProducts(products);
+                await productService.AddProductsAsync(products);
             }
             catch (Exception e)
             {

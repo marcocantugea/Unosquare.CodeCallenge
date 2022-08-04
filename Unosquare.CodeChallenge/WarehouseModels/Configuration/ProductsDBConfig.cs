@@ -25,16 +25,16 @@ namespace WarehouseModels.Configuration
         {
             var products = new List<Product>();
 
-            Company Mattel = new Company() { Id = 1, Name = "Mattel" };
-            Company Marvel = new Company() { Id = 2, Name = "Marvel" };
-            Company Nintento = new Company() { Id = 3, Name = "Nintento" };
-            Company Sony = new Company() { Id = 4, Name = "Sony" };
-            Company Microsot = new Company() { Id = 5, Name = "Microsot" };
+            Company Mattel = new Company() { id = 1, name = "Mattel" };
+            Company Marvel = new Company() { id = 2, name = "Marvel" };
+            Company Nintento = new Company() { id = 3, name = "Nintento" };
+            Company Sony = new Company() { id = 4, name = "Sony" };
+            Company Microsot = new Company() { id = 5, name = "Microsot" };
 
             //adding mattel product
             products.Add(new Product() {
                 id=1,
-                companyId=Mattel.Id,
+                companyId=Mattel.id,
                 description= "Owen & Blue Jurassic World Dominion Extreme Damage",
                 ageRestriction=5,
                 name="Jurassic World Dominion Extreme Damage",
@@ -46,7 +46,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 2,
-                companyId = Mattel.Id,
+                companyId = Mattel.id,
                 description = "Toy Story Buzz Vuelo Espacial",
                 ageRestriction = 2,
                 name = "Toy Story Buzz Vuelo Espacial",
@@ -57,7 +57,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 3,
-                companyId = Mattel.Id,
+                companyId = Mattel.id,
                 description = "Juguete Mattel Masters of the Universe Skelegod",
                 ageRestriction = 6,
                 name = "Juguete Mattel Masters of the Universe Skelegod",
@@ -69,7 +69,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 4,
-                companyId = Marvel.Id,
+                companyId = Marvel.id,
                 description = "FIGLot ZD Toys Marvel Iron Man Mark 3 Mark III Figura de acción de 7",
                 ageRestriction = 10,
                 name = "Iron Man Mark 3 Mark III Figura de acción Marvel",
@@ -81,7 +81,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 5,
-                companyId = Marvel.Id,
+                companyId = Marvel.id,
                 description = "Marvel Legends Spiderman Symbiote Marvel",
                 ageRestriction = 10,
                 name = "Spiderman Symbiote Marvel Legends ",
@@ -93,7 +93,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 6,
-                companyId = Marvel.Id,
+                companyId = Marvel.id,
                 description = "Thanos Avengers Endgame Hot Toys Marvel",
                 ageRestriction = 15,
                 name = "Thanos Avengers Endgame Hot Toys",
@@ -105,7 +105,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 7,
-                companyId = Nintento.Id,
+                companyId = Nintento.id,
                 description = "Nintendo NES Classic Mini Consola, color Gris - Classics Edition",
                 ageRestriction = 15,
                 name = "NES Classic Mini Consola Nintendo",
@@ -117,7 +117,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 8,
-                companyId = Nintento.Id,
+                companyId = Nintento.id,
                 description = "Nintendo Switch Lite -Turquesa",
                 ageRestriction = 15,
                 name = "Nintendo Switch Lite -Turquesa",
@@ -129,7 +129,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 9,
-                companyId = Sony.Id,
+                companyId = Sony.id,
                 description = "Control Inalámbrico Dualsense Cosmic Red - Playstation 5",
                 ageRestriction = 15,
                 name = "Playstation Control Inalámbrico Dualsense Cosmic Red",
@@ -141,7 +141,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 10,
-                companyId = Sony.Id,
+                companyId = Sony.id,
                 description = "Bocina sony srs-xp500",
                 ageRestriction = 5,
                 name = "Bocina sony srs-xp500",
@@ -153,7 +153,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 11,
-                companyId = Microsot.Id,
+                companyId = Microsot.id,
                 description = "Mouse Microsoft Óptico Camo SE, Inalámbrico, Bluetooth 5.0, 1000DPI, Verde",
                 ageRestriction = 5,
                 name = "Mouse Microsoft Óptico Camo SE",
@@ -165,7 +165,7 @@ namespace WarehouseModels.Configuration
             products.Add(new Product()
             {
                 id = 12,
-                companyId = Microsot.Id,
+                companyId = Microsot.id,
                 description = "Kit De Teclado Y Mouse Microsoft 1ai-00003",
                 ageRestriction = 5,
                 name = "Kit De Teclado Y Mouse Microsoft 1ai-00003",

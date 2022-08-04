@@ -24,14 +24,14 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct([FromBody] ProductRequestModel requestModel,[FromServices]IValidation<Product> validation)
+        public async Task<IActionResult> AddProduct([FromBody] ProductRequestModel requestModel,[FromServices]IValidation<Product> validation)
         {
             Product model = ProductRequestModel.getModel(requestModel);
 
             ProductValidations validations = (ProductValidations)validation;
             try
             {
-                ValidationResult result= validations.Validate(model);
+                ValidationResult result= await validations.ValidateAsync(model);
                 if (!result.IsValid)
                 {
                     string msg = "error validating data " + result.ToString(";");
@@ -44,19 +44,19 @@ namespace WarehouseRESTfulAPI.Controllers
                 return Problem(e.Message.ToString(), null, 500);
             }
 
-            productService.AddProduct(model);
+            await productService.AddProductAsync(model);
             return NoContent();
         }
 
         [HttpGet("{idEncoded}")]
-        public IActionResult GetProduct([FromRoute] string idEncoded)
+        public async Task<IActionResult> GetProduct([FromRoute] string idEncoded)
         {
             try
             {
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return Ok(JsonSerializer.Serialize(productService.GetProduct(productId)));
+                return Ok(await productService.GetProductAsync(productId));
             }
             catch (Exception)
             {
@@ -66,13 +66,13 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpGet("list")]
-        public IActionResult GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            return Ok(JsonSerializer.Serialize(productService.GetProducts()));
+            return await productService.GetProductsAsync();
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate, [FromServices] IValidation<Product> validation)
+        public async Task<IActionResult> UpdateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate, [FromServices] IValidation<Product> validation)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 Product productToUpdate = ProductRequestModel.getModel(productUpdate);
                 try
                 {
-                    ValidationResult result = validations.Validate(productToUpdate);
+                    ValidationResult result = await validations.ValidateAsync(productToUpdate);
                     if (!result.IsValid)
                     {
                         string msg = "error validating data " + result.ToString(";");
@@ -97,7 +97,7 @@ namespace WarehouseRESTfulAPI.Controllers
                     return Problem(e.Message.ToString(), null, 500);
                 }
                 productToUpdate.id=productId;
-                productService.UpdateProduct(productToUpdate);
+                await productService.UpdateProductAsync(productToUpdate);
             }
             catch (Exception)
             {
@@ -109,14 +109,14 @@ namespace WarehouseRESTfulAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProduct([FromRoute]string id)
+        public async Task<IActionResult> DeleteProduct([FromRoute]string id)
         {
             try
             {
                 if (String.IsNullOrEmpty(id)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                productService.DeleteProduct(productId);
+                await productService.DeleteProductAsync(productId);
             }
             catch (Exception)
             {

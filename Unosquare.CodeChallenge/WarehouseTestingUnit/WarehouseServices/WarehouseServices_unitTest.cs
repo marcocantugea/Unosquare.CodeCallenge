@@ -51,7 +51,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company company = companyServiceFixture.GetService().GetCompany(1);
 
-            Assert.Equal(1, company.Id);
+            Assert.Equal(1, company.id);
 
         }
 
@@ -61,7 +61,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company company = await companyServiceFixture.GetService().GetCompanyAsync(1);
 
-            Assert.Equal(1, company.Id);
+            Assert.Equal(1, company.id);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company newCompany = new Company()
             {
-                Name = "new company test unit"
+                name = "new company test unit"
             };
 
             
@@ -85,7 +85,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company newCompany = new Company()
             {
-                Name = "new company test unit"
+                name = "new company test unit"
             };
 
             
@@ -99,14 +99,14 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company newCompany = new Company()
             {
-                Name = "company to search"
+                name = "company to search"
             };
 
             companyServiceFixture.GetService().AddCompany(newCompany);
 
             Company company = companyServiceFixture.GetService().GetCompanyByName("company to search");
 
-            Assert.Equal("company to search", company.Name);
+            Assert.Equal("company to search", company.name);
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company company = await companyServiceFixture.GetService().GetCompanyByNameAsync("Mattel");
 
-            Assert.Equal("Mattel", company.Name);
+            Assert.Equal("Mattel", company.name);
         }
 
         [Fact]
@@ -124,17 +124,17 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company newCompany = new Company()
             {
-                Name = "new company test unit"
+                name = "new company test unit"
             };
             companyServiceFixture.GetService().AddCompany(newCompany);
 
             Company company = companyServiceFixture.GetService().GetCompanyByName("new company test unit");
-            company.Name = "new company test unit updated";
+            company.name = "new company test unit updated";
             companyServiceFixture.GetService().UpdateCompany(company);
 
             List<Company> listOfCompanies = companyServiceFixture.GetService().GetAllCompanies().ToList();
 
-            Assert.Equal(company.Name,listOfCompanies.Where(item => item.Name == company.Name).First().Name);
+            Assert.Equal(company.name,listOfCompanies.Where(item => item.name == company.name).First().name);
 
         }
 
@@ -143,7 +143,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         public async void UpdateCompanyAsync_UpdateNameCompany()
         {
             Company company = await companyServiceFixture.GetService().GetCompanyByNameAsync("new company test unit");
-            company.Name = "new company test unit updated";
+            company.name = "new company test unit updated";
             await companyServiceFixture.GetService().UpdateCompanyAsync(company);
 
             Assert.True(true);
@@ -165,7 +165,7 @@ namespace WarehouseTestingUnit.WarehouseServices
         {
             Company newCompany = new Company()
             {
-                Name = "new company test unit to delete"
+                name = "new company test unit to delete"
             };
 
             await companyServiceFixture.GetService().AddCompanyAsync(newCompany); 
@@ -174,7 +174,7 @@ namespace WarehouseTestingUnit.WarehouseServices
 
             List<Company> listOfCompanies = await companyServiceFixture.GetService().GetAllCompaniesAsync();
 
-            Assert.Empty(listOfCompanies.Where(item => item.Name == "new company test unit to delete"));
+            Assert.Empty(listOfCompanies.Where(item => item.name == "new company test unit to delete"));
         }
 
         [Fact]

@@ -72,7 +72,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   getCompany(id: string): ICompany {
-    return this.listOfCompanies.filter(item => item.Id == Number.parseInt(id))[0];
+    return this.listOfCompanies.filter(item => item.id == Number.parseInt(id))[0];
   }
 
   onFieldSelected(value: string) {

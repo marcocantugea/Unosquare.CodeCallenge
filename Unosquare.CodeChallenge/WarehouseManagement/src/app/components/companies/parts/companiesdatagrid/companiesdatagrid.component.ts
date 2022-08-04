@@ -37,7 +37,7 @@ export class CompaniesdatagridComponent implements OnInit, OnDestroy {
   }
 
   showDeleteDialog(company: ICompany) {
-    let idToString = btoa(company.Id.toString());
+    let idToString = btoa(company.id.toString());
     const dialogRef = this.dialog.open(CompanydeletemodalComponent, { disableClose: true, height: "300", width: "300", data: { id: idToString } });
     this.subscribers.push(dialogRef.afterClosed().subscribe(
       next => {},

@@ -23,7 +23,7 @@
               <td class="padding15px">
                 <input *ngIf="!showCompaniesControl" type="text" class="form-control" value="" id="valueText" />
                 <select *ngIf="showCompaniesControl" class="form-select" id="valueText" >
-                  <option *ngFor="let company of listOfCompanies" value="{{company.Id}}">{{company.Name}}</option>
+                  <option *ngFor="let company of listOfCompanies" value="{{company.id}}">{{company.name}}</option>
                 </select>
               </td>
               <td class="padding15px">
@@ -41,7 +41,7 @@
   <mat-chip-list [aria-orientation]="'horizontal'" >
     <mat-chip *ngFor="let filter of listOfFilters" (removed)="removeFilter(filter.filter.field)">
       <span *ngIf="filter.filter.field!='companyId'">{{filter.filter.field}} {{filter.filterOperator.filterOperatorDescription}} {{filter.filter.value}}</span>
-      <span *ngIf="filter.filter.field=='companyId'">company {{filter.filterOperator.filterOperatorDescription}} {{getCompany(filter.filter.value).Name}}</span>
+      <span *ngIf="filter.filter.field=='companyId'">company {{filter.filterOperator.filterOperatorDescription}} {{getCompany(filter.filter.value).name}}</span>
       <button matChipRemove>
         <mat-icon>cancel</mat-icon>
       </button>

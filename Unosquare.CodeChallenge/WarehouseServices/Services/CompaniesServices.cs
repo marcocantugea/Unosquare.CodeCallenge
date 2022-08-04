@@ -13,7 +13,6 @@ namespace WarehouseServices.Services
     public class CompaniesServices : IWarehouseService<CompaniesServices>
     {
         private readonly WarehouseDbContext dbcontext;
-
         public CompaniesServices(WarehouseDbContext context)
         {
             dbcontext = context;
@@ -67,12 +66,12 @@ namespace WarehouseServices.Services
 
         public Company GetCompanyByName(string name)
         {
-            return dbcontext.Companies.Where(company => company.Name == name).First();
+            return dbcontext.Companies.Where(company => company.name == name).First();
         }
 
         public async Task<Company> GetCompanyByNameAsync(string name)
         {
-            return await dbcontext.Companies.Where(company => company.Name == name).FirstAsync();
+            return await dbcontext.Companies.Where(company => company.name == name).FirstAsync();
         }
 
         public void UpdateCompany(Company company)

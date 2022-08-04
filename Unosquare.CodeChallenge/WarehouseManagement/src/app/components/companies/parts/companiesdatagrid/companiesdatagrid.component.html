@@ -14,8 +14,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let company of listOfCompanies;">
-          <td>{{company.Id}}</td>
-          <td>{{ company.Name }}</td>
+          <td>{{company.id}}</td>
+          <td>{{ company.name }}</td>
           <td>
             <button id="edit_id" class="btn btn-primary" (click)="showEditDialog(company)" >Edit</button>
           </td>

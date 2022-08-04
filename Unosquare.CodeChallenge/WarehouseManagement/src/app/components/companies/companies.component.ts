@@ -47,7 +47,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
       .subscribe(
         next => {
           next.map(item => {
-            this.listOfCompanies?.push(new Company(item.Id, item.Name))
+            this.listOfCompanies?.push(new Company(item.id, item.name))
           })
         },
         error => console.log(error),
