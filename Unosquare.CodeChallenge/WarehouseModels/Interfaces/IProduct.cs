@@ -9,18 +9,18 @@ namespace WarehouseModels.Interfaces
 {
     public interface IProduct : IModel
     {
-        public int id { set; get; }
-        public string name { set; get; }
-        public string description { set; get; }
-        public int ageRestriction { set; get; }
-        public int companyId { set; get; }
-        public Company company { set; get; }
-        public decimal price { set; get; }
-        public string imageIurl { set; get; }
+        public int Id { set; get; }
+        public string Name { set; get; }
+        public string Description { set; get; }
+        public int AgeRestriction { set; get; }
+        public int CompanyId { set; get; }
+        public Company Company { set; get; }
+        public decimal Price { set; get; }
+        public string ImageIurl { set; get; }
 
-        public int storeid { set; get; }
-        public Store store { set; get; }
+        public int Storeid { set; get; }
+        public Store Store { set; get; }
 
-        public ICollection<WarehouseInfo> warehouseInfo { set; get; }
+        public ICollection<WarehouseInfo> WarehouseInfo { set; get; }
     }
 }

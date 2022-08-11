@@ -17,16 +17,16 @@ namespace WarehouseRESTfulAPI.Controllers
     public class ProductsController : ControllerBase
     {
 
-        private ProductServices productService;
+        private ProductServices _productService;
 
         public ProductsController(IWarehouseService<ProductServices> productService)
         {
-            this.productService = (ProductServices)productService;
+            this._productService = (ProductServices)productService;
         }
 
         [HttpGet]
         public IActionResult GetProducts() {
-            return Ok(productService.GetProducts());
+            return Ok(_productService.GetProducts());
 
         }
 
@@ -44,7 +44,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 BadRequest(exception);
             }
             
-            return Ok(productService.Search(linqFilters));
+            return Ok(_productService.Search(linqFilters));
 
         }
 
@@ -77,7 +77,7 @@ namespace WarehouseRESTfulAPI.Controllers
 
             try
             {
-                await productService.AddProductsAsync(products);
+                await _productService.AddProductsAsync(products);
             }
             catch (Exception e)
             {

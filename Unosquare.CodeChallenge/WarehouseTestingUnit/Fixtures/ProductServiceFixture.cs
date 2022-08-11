@@ -10,11 +10,22 @@ namespace WarehouseTestingUnit.Fixtures
 {
     public class ProductServiceFixture
     {
-        public ProductServices productService => new ProductServices(WarehouseHelper.createDBContext());
+        private readonly ProductServices _productService;
+
+        public ProductServiceFixture()
+        {
+            WarehouseDbContextFixture dbContextFixture= new WarehouseDbContextFixture();
+            _productService = new ProductServices(dbContextFixture.GetDbContext());
+        }
 
         public ProductServices GetService()
         {
-            return productService;
+            return _productService;
+        }
+
+        public static ProductServices GetProductServices()
+        {
+            return new ProductServiceFixture().GetService();
         }
     }
 }

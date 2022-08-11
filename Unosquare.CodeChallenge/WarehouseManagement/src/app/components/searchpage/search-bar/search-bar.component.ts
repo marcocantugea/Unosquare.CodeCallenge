@@ -21,11 +21,11 @@ const numericOperators: IFilterOperator[] = [
   ];
 
 const fieldsProperties: { field: string, type: number }[] = [
-  { field: "name", type: 0 },
-  { field: "description", type: 0 },
-  { field: "ageRestriction", type: 1 },
-  { field: "price", type: 3 },
-  { field: "companyId", type: 10 },
+  { field: "Name", type: 0 },
+  { field: "Description", type: 0 },
+  { field: "AgeRestriction", type: 1 },
+  { field: "Price", type: 3 },
+  { field: "CompanyId", type: 10 },
 ];
 
 @Component({
@@ -53,7 +53,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.selectFilterOperators("name");
+    this.selectFilterOperators("Name");
     this.loadCompanies();
   }
 

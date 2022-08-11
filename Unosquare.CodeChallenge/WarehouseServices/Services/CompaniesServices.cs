@@ -12,78 +12,78 @@ namespace WarehouseServices.Services
 {
     public class CompaniesServices : IWarehouseService<CompaniesServices>
     {
-        private readonly WarehouseDbContext dbcontext;
+        private readonly WarehouseDbContext _dbcontext;
         public CompaniesServices(WarehouseDbContext context)
         {
-            dbcontext = context;
+            _dbcontext = context;
         }
 
         public IEnumerable<Company> GetAllCompanies(int limit = 0)
         {
 
-            if (limit == 0) return dbcontext.Companies;
-            return dbcontext.Companies.Take(limit);
+            if (limit == 0) return _dbcontext.Companies;
+            return _dbcontext.Companies.Take(limit);
         }
 
         public async Task<List<Company>> GetAllCompaniesAsync(int limit = 0)
         {
-            return await dbcontext.Companies.ToListAsync();
+            return await _dbcontext.Companies.ToListAsync();
         }
 
         public Company GetCompany(int id)
         {
-            return dbcontext.Companies.Find(id);
+            return _dbcontext.Companies.Find(id);
         }
 
         public async Task<Company> GetCompanyAsync(int id)
         {
-            return  await dbcontext.Companies.FindAsync(id);
+            return  await _dbcontext.Companies.FindAsync(id);
         }
 
         public void AddCompany(Company company)
         {
-            dbcontext.Companies.Add(company);
-            dbcontext.SaveChanges();
+            _dbcontext.Companies.Add(company);
+            _dbcontext.SaveChanges();
         }
 
         public async Task AddCompanyAsync(Company company)
         {
-            await dbcontext.Companies.AddAsync(company);
-            await dbcontext.SaveChangesAsync();
+            await _dbcontext.Companies.AddAsync(company);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public void DeleteCompany(Company company)
         {
-            dbcontext.Companies.Remove(company);
-            dbcontext.SaveChanges();
+            _dbcontext.Companies.Remove(company);
+            _dbcontext.SaveChanges();
         }
 
         public async Task DeleteCompanyAsync(Company company)
         {
-            dbcontext.Companies.Remove(company);
-            await dbcontext.SaveChangesAsync();
+            _dbcontext.Companies.Remove(company);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public Company GetCompanyByName(string name)
         {
-            return dbcontext.Companies.Where(company => company.name == name).First();
+            return _dbcontext.Companies.Where(company => company.Name == name).First();
         }
 
         public async Task<Company> GetCompanyByNameAsync(string name)
         {
-            return await dbcontext.Companies.Where(company => company.name == name).FirstAsync();
+            return await _dbcontext.Companies.Where(company => company.Name == name).FirstAsync();
         }
 
         public void UpdateCompany(Company company)
         {
-            dbcontext.Companies.Update(company);
-            dbcontext.SaveChanges();
+            _dbcontext.Companies.Update(company);
+            _dbcontext.SaveChanges();
         }
 
         public async Task UpdateCompanyAsync(Company company)
         {
-            dbcontext.Companies.Update(company);
-            await dbcontext.SaveChangesAsync();
+            _dbcontext.Companies.Update(company);
+            await _dbcontext.SaveChangesAsync();
             
         }
     }

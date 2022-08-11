@@ -13,11 +13,11 @@ namespace WarehouseModels.Validations
     {
         public ProductValidations()
         {
-            RuleFor(product => product.name).NotEmpty().MaximumLength(50);
-            RuleFor(product => product.ageRestriction).NotEmpty().GreaterThan(0).LessThanOrEqualTo(100);
-            RuleFor(product => product.price).NotEmpty().GreaterThan(0);
-            RuleFor(product => product.companyId).NotEmpty().GreaterThan(0);
-            RuleFor(product=> product.description).MaximumLength(100);
+            RuleFor(product => product.Name).NotEmpty().MaximumLength(50);
+            RuleFor(product => product.AgeRestriction).NotEmpty().GreaterThan(0).LessThanOrEqualTo(100);
+            RuleFor(product => product.Price).NotEmpty().GreaterThan(0);
+            RuleFor(product => product.CompanyId).NotEmpty().GreaterThan(0);
+            RuleFor(product=> product.Description).MaximumLength(100);
         }
 
         public void ValidateModel(Product model)

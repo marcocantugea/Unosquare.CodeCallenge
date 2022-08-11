@@ -15,7 +15,7 @@ namespace WarehouseModels.Configuration
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.Property(prop => prop.name).IsRequired().HasMaxLength(50);
+            builder.Property(prop => prop.Name).IsRequired().HasMaxLength(50);
             builder.HasData(GetInitalData());
         }
 
@@ -23,11 +23,11 @@ namespace WarehouseModels.Configuration
         {
             List<Company>  companies = new List<Company>();
 
-            companies.Add(new Company() {id=1, name="Mattel"});
-            companies.Add(new Company() {id=2, name = "Marvel" });
-            companies.Add(new Company() {id=3, name = "Nintento" });
-            companies.Add(new Company() {id=4, name = "Sony" });
-            companies.Add(new Company() {id=5, name = "Microsot" });
+            companies.Add(new Company() {Id=1, Name="Mattel"});
+            companies.Add(new Company() {Id=2, Name = "Marvel" });
+            companies.Add(new Company() {Id=3, Name = "Nintento" });
+            companies.Add(new Company() {Id=4, Name = "Sony" });
+            companies.Add(new Company() {Id=5, Name = "Microsot" });
 
             return companies;
 

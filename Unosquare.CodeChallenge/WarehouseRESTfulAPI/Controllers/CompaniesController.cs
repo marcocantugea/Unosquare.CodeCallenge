@@ -12,17 +12,17 @@ namespace WarehouseRESTfulAPI.Controllers
     [ApiController]
     public class CompaniesController : ControllerBase
     {
-        private CompaniesServices companyService;
+        private CompaniesServices _companyService;
 
         public CompaniesController(IWarehouseService<CompaniesServices> companyservice)
         {
-            companyService = (CompaniesServices)companyservice;
+            _companyService = (CompaniesServices)companyservice;
         }
 
         [HttpGet]
         public IActionResult getAllCompanies()
         {
-            return  Ok(companyService.GetAllCompanies());
+            return  Ok(_companyService.GetAllCompanies());
         }
 
         [HttpGet("{idEncoded}")]
@@ -33,7 +33,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return Ok(companyService.GetCompany(idCompany));
+                return Ok(_companyService.GetCompany(idCompany));
             }
             catch (Exception)
             { 

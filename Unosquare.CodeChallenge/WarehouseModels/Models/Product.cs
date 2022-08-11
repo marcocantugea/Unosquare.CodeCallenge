@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WarehouseModels.Interfaces;
 
@@ -22,20 +23,37 @@ namespace WarehouseModels.Models
         private Store _store;
         private ICollection<WarehouseInfo> _warehouses;
 
-        public int id { get => _id; set => _id = value; }
-        public string name { get => _name; set => _name = value; }
-        public string description { get => _description; set => _description = value; }
-        public int ageRestriction { get => _ageRestriction; set => _ageRestriction = value; }
-        public Company company { get => _company; set => _company = value; }
+        [JsonPropertyName("id")]
+        public int Id { get => _id; set => _id = value; }
 
+        [JsonPropertyName("name")]
+        public string Name { get => _name; set => _name = value; }
+
+        [JsonPropertyName("description")]
+        public string Description { get => _description; set => _description = value; }
+        
+        [JsonPropertyName("ageRestriction")]
+        public int AgeRestriction { get => _ageRestriction; set => _ageRestriction = value; }
+
+        [JsonPropertyName("company")]
+        public Company Company { get => _company; set => _company = value; }
+
+        [JsonPropertyName("price")]
         [Column(TypeName = "decimal(9, 2)")]
-        public decimal price { get => _price; set => _price = value; }
-        public string imageIurl { get => _imageUrl; set => _imageUrl=value; }
+        public decimal Price { get => _price; set => _price = value; }
+
+        [JsonPropertyName("imageIurl")]
+        public string ImageIurl { get => _imageUrl; set => _imageUrl=value; }
+
+        [JsonPropertyName("companyId")]
         [ForeignKey("Companies")]
-        public int companyId { get => _companyId; set => _companyId = value; }
+        public int CompanyId { get => _companyId; set => _companyId = value; }
         [ForeignKey("Stores")]
-        public int storeid { get => _storeid; set => _storeid=value; }
-        public Store store { get => _store; set => _store=value; }
-        public ICollection<WarehouseInfo> warehouseInfo { get => _warehouses; set => _warehouses=value; }
+        public int Storeid { get => _storeid; set => _storeid=value; }
+        
+        [JsonIgnore] 
+        public Store Store { get => _store; set => _store=value; }
+        [JsonIgnore]
+        public ICollection<WarehouseInfo> WarehouseInfo { get => _warehouses; set => _warehouses=value; }
     }
 }

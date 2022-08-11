@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using AutoMapper;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
@@ -16,17 +17,18 @@ namespace WarehouseRESTfulAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly ProductServices productService;
+        private readonly ProductServices _productService;
 
         public ProductController(IWarehouseService<ProductServices> productService)
         {
-                this.productService = (ProductServices)productService;
+                this._productService = (ProductServices)productService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody] ProductRequestModel requestModel,[FromServices]IValidation<Product> validation)
+        public async Task<IActionResult> AddProduct([FromBody] ProductRequestModel requestModel,[FromServices]IValidation<Product> validation, [FromServices] IMapper mapper)
         {
-            Product model = ProductRequestModel.getModel(requestModel);
+            Product model = mapper.Map<Product>(requestModel); // ProductRequestModel.getModel(requestModel);
+
 
             ProductValidations validations = (ProductValidations)validation;
             try
@@ -44,7 +46,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 return Problem(e.Message.ToString(), null, 500);
             }
 
-            await productService.AddProductAsync(model);
+            await _productService.AddProductAsync(model);
             return NoContent();
         }
 
@@ -56,7 +58,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return Ok(await productService.GetProductAsync(productId));
+                return Ok(await _productService.GetProductAsync(productId));
             }
             catch (Exception)
             {
@@ -68,11 +70,11 @@ namespace WarehouseRESTfulAPI.Controllers
         [HttpGet("list")]
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await productService.GetProductsAsync();
+            return await _productService.GetProductsAsync();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate, [FromServices] IValidation<Product> validation)
+        public async Task<IActionResult> UpdateProduct([FromRoute] string id, [FromBody] ProductRequestModel productUpdate, [FromServices] IValidation<Product> validation,[FromServices] IMapper mapper)
         {
             try
             {
@@ -81,7 +83,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(id)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                Product productToUpdate = ProductRequestModel.getModel(productUpdate);
+                Product productToUpdate = mapper.Map<Product>(productUpdate);
                 try
                 {
                     ValidationResult result = await validations.ValidateAsync(productToUpdate);
@@ -96,8 +98,8 @@ namespace WarehouseRESTfulAPI.Controllers
 
                     return Problem(e.Message.ToString(), null, 500);
                 }
-                productToUpdate.id=productId;
-                await productService.UpdateProductAsync(productToUpdate);
+                productToUpdate.Id=productId;
+                await _productService.UpdateProductAsync(productToUpdate);
             }
             catch (Exception)
             {
@@ -116,7 +118,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(id)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(id);
                 int productId = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                await productService.DeleteProductAsync(productId);
+                await _productService.DeleteProductAsync(productId);
             }
             catch (Exception)
             {

@@ -12,33 +12,33 @@ namespace WarehouseServices.Services
 {
     public class ProductServices :  IWarehouseService<ProductServices>
     {
-        private readonly WarehouseDbContext dbcontext;
+        private readonly WarehouseDbContext _dbcontext;
         public ProductServices(WarehouseDbContext context)
         {
-            dbcontext = context;
+            _dbcontext = context;
             
         }
 
         public void AddProduct(Product model)
         {
-            dbcontext.Products.Add(model);
-            dbcontext.SaveChanges();
+            _dbcontext.Products.Add(model);
+            _dbcontext.SaveChanges();
         }
 
         public async Task AddProductAsync(Product model)
         {
-            await dbcontext.Products.AddAsync(model);
-            await dbcontext.SaveChangesAsync();
+            await _dbcontext.Products.AddAsync(model);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public Product GetProduct(int id)
         {
-            Product product = dbcontext.Products.Where(prop => prop.id == id)
-                .Include(prop => prop.company)
-                .Include(prop => prop.warehouseInfo)
+            Product product = _dbcontext.Products.Where(prop => prop.Id == id)
+                .Include(prop => prop.Company)
+                .Include(prop => prop.WarehouseInfo)
                 .First();
 
-            product.store = dbcontext.Stores.Where(prop => prop.Id == product.storeid)
+            product.Store = _dbcontext.Stores.Where(prop => prop.Id == product.Storeid)
                 .Select(prop => new Store()
                 {
                     Id = prop.Id,
@@ -54,73 +54,73 @@ namespace WarehouseServices.Services
 
         public  async Task<Product> GetProductAsync(int id)
         {
-            return await dbcontext.Products.Where(prop => prop.id == id)
-                .Include(prop => prop.company)
-                .Include(prop => prop.warehouseInfo)
+            return await _dbcontext.Products.Where(prop => prop.Id == id)
+                .Include(prop => prop.Company)
+                .Include(prop => prop.WarehouseInfo)
                 .FirstAsync();
 
         }
 
         public IEnumerable<Product> GetProducts()
         {
-            return dbcontext.Products
-              .Include(prop => prop.company)
-              .Include(prop => prop.warehouseInfo)
+            return _dbcontext.Products
+              .Include(prop => prop.Company)
+              .Include(prop => prop.WarehouseInfo)
               .Select(prop => new Product()
               {
-                  id = prop.id,
-                  ageRestriction = prop.ageRestriction,
-                  companyId = prop.companyId,
-                  company = new Company()
+                  Id = prop.Id,
+                  AgeRestriction = prop.AgeRestriction,
+                  CompanyId = prop.CompanyId,
+                  Company = new Company()
                   {
-                      id = prop.company.id,
-                      name = prop.company.name
+                      Id = prop.Company.Id,
+                      Name = prop.Company.Name
                   },
-                  description = prop.description,
-                  imageIurl = prop.imageIurl,
-                  name = prop.name,
-                  price = prop.price,
-                  storeid = prop.storeid,
-                  store = new Store()
+                  Description = prop.Description,
+                  ImageIurl = prop.ImageIurl,
+                  Name = prop.Name,
+                  Price = prop.Price,
+                  Storeid = prop.Storeid,
+                  Store = new Store()
                   {
-                      Id = prop.storeid,
-                      address = prop.store.address,
-                      city = prop.store.city,
-                      storeName = prop.store.storeName
+                      Id = prop.Storeid,
+                      address = prop.Store.address,
+                      city = prop.Store.city,
+                      storeName = prop.Store.storeName
                   },
-                  warehouseInfo = new List<WarehouseInfo>()
+                  WarehouseInfo = new List<WarehouseInfo>()
               })
               .ToList();
         }
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            return await dbcontext.Products
-              .Include(prop => prop.company)
-              .Include(prop => prop.warehouseInfo)
+            return await _dbcontext.Products
+              .Include(prop => prop.Company)
+              .Include(prop => prop.WarehouseInfo)
               .Select(prop => new Product()
               {
-                  id = prop.id,
-                  ageRestriction = prop.ageRestriction,
-                  companyId = prop.companyId,
-                  company = new Company()
+                  Id = prop.Id,
+                  AgeRestriction = prop.AgeRestriction,
+                  CompanyId = prop.CompanyId,
+                  Company = new Company()
                   {
-                      id = prop.companyId,
-                      name = prop.company.name
+                      Id = prop.CompanyId,
+                      Name = prop.Company.Name
                   },
-                  description = prop.description,
-                  imageIurl = prop.imageIurl,
-                  name = prop.name,
-                  price = prop.price,
-                  storeid = prop.storeid,
-                  store = new Store()
+                  Description = prop.Description,
+                  ImageIurl = prop.ImageIurl,
+                  Name = prop.Name,
+                  Price = prop.Price,
+                  Storeid = prop.Storeid,
+                  Store = new Store()
                   {
-                      Id = prop.storeid,
-                      address = prop.store.address,
-                      city = prop.store.city,
-                      storeName = prop.store.storeName
+                      Id = prop.Storeid,
+                      address = prop.Store.address,
+                      city = prop.Store.city,
+                      storeName = prop.Store.storeName
                   },
-                  warehouseInfo = new List<WarehouseInfo>()
+                  WarehouseInfo = new List<WarehouseInfo>()
               })
               .ToListAsync();
         }
@@ -129,8 +129,8 @@ namespace WarehouseServices.Services
         {
             try
             {
-                dbcontext.Products.AddRange(products);
-                dbcontext.SaveChanges();
+                _dbcontext.Products.AddRange(products);
+                _dbcontext.SaveChanges();
             }
             catch (Exception)
             {
@@ -140,58 +140,58 @@ namespace WarehouseServices.Services
 
         public async Task AddProductsAsync(IEnumerable<Product> products)
         {
-            await dbcontext.Products.AddRangeAsync(products);
-            await dbcontext.SaveChangesAsync();
+            await _dbcontext.Products.AddRangeAsync(products);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public void UpdateProduct(Product product)
         {
-            dbcontext.Products.Update(product);
-            dbcontext.SaveChanges();
+            _dbcontext.Products.Update(product);
+            _dbcontext.SaveChanges();
         }
 
         public async Task UpdateProductAsync(Product product)
         {
-            dbcontext.Products.Update(product);
-            await dbcontext.SaveChangesAsync();
+            _dbcontext.Products.Update(product);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public void UpdateProducts(IEnumerable<Product> products)
         {
-            dbcontext.Products.UpdateRange(products);
-            dbcontext.SaveChanges();
+            _dbcontext.Products.UpdateRange(products);
+            _dbcontext.SaveChanges();
         }
 
         public async void UpdateProductsAsync(IEnumerable<Product> products)
         {
-            dbcontext.Products.UpdateRange(products);
-            await dbcontext.SaveChangesAsync();
+            _dbcontext.Products.UpdateRange(products);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public void DeleteProduct(int id)
         {
             Product item = GetProduct(id);
 
-            dbcontext.Products.Remove(item);
-            dbcontext.SaveChanges();
+            _dbcontext.Products.Remove(item);
+            _dbcontext.SaveChanges();
         }
 
         public async Task DeleteProductAsync(int id)
         {
             Product item = await GetProductAsync(id);
 
-            dbcontext.Products.Remove(item);
-            await dbcontext.SaveChangesAsync();
+            _dbcontext.Products.Remove(item);
+            await _dbcontext.SaveChangesAsync();
         }
 
         public IEnumerable<Product> Search(Func<Product, bool> predicate)
         {
-            return dbcontext.Products.Where(predicate).ToList();
+            return _dbcontext.Products.Where(predicate).ToList();
         }
 
         public async Task<IEnumerable<Product>> SearchAsync(Func<Product, bool> predicate)
         {
-            return await (from prod in dbcontext.Products where predicate(prod) select prod).ToListAsync();
+            return await (from prod in _dbcontext.Products where predicate(prod) select prod).ToListAsync();
         }
 
         public IEnumerable<Product> Search(IEnumerable<Func<Product, bool>> filters)
@@ -205,32 +205,32 @@ namespace WarehouseServices.Services
             {
                 if (index == 0)
                 {
-                    query = dbcontext.Products
-                       .Include(prop => prop.company)
-                       .Include(prop => prop.warehouseInfo)
+                    query = _dbcontext.Products
+                       .Include(prop => prop.Company)
+                       .Include(prop => prop.WarehouseInfo)
                        .Select(prop => new Product()
                        {
-                           id = prop.id,
-                           ageRestriction = prop.ageRestriction,
-                           companyId = prop.companyId,
-                           company = new Company()
+                           Id = prop.Id,
+                           AgeRestriction = prop.AgeRestriction,
+                           CompanyId = prop.CompanyId,
+                           Company = new Company()
                            {
-                               id = prop.companyId,
-                               name = prop.company.name
+                               Id = prop.CompanyId,
+                               Name = prop.Company.Name
                            },
-                           description = prop.description,
-                           imageIurl = prop.imageIurl,
-                           name = prop.name,
-                           price = prop.price,
-                           storeid = prop.storeid,
-                           store = new Store()
+                           Description = prop.Description,
+                           ImageIurl = prop.ImageIurl,
+                           Name = prop.Name,
+                           Price = prop.Price,
+                           Storeid = prop.Storeid,
+                           Store = new Store()
                            {
-                               Id = prop.storeid,
-                               address = prop.store.address,
-                               city = prop.store.city,
-                               storeName = prop.store.storeName
+                               Id = prop.Storeid,
+                               address = prop.Store.address,
+                               city = prop.Store.city,
+                               storeName = prop.Store.storeName
                            },
-                           warehouseInfo = new List<WarehouseInfo>()
+                           WarehouseInfo = new List<WarehouseInfo>()
                        })
                        .Where(filter);
                     continue;

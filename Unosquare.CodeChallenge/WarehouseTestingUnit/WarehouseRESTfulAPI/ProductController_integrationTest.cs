@@ -33,13 +33,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = " Mercedes Benz A Class Blue 2022",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 5,
-                companyId = 2,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 221.50m,
-                storeid = 1
+                Name = " Mercedes Benz A Class Blue 2022",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 5,
+                CompanyId = 2,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 221.50m,
+                Storeid = 1
             };
 
 
@@ -56,13 +56,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = "",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 5,
-                companyId = 2,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 221.50m,
-                storeid = 1
+                Name = "",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 5,
+                CompanyId = 2,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 221.50m,
+                Storeid = 1
             };
 
 
@@ -79,13 +79,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = "Note ValidateAndThrow is an extension method, so you must have the FluentValidation namespace imported with a using statement at the top of your file in order for this method to be available.",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 5,
-                companyId = 2,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 221.50m,
-                storeid = 1
+                Name = "Note ValidateAndThrow is an extension method, so you must have the FluentValidation namespace imported with a using statement at the top of your file in order for this method to be available.",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 5,
+                CompanyId = 2,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 221.50m,
+                Storeid = 1
             };
 
 
@@ -102,13 +102,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 0,
-                companyId = 2,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 221.50m,
-                storeid = 1
+                Name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 0,
+                CompanyId = 2,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 221.50m,
+                Storeid = 1
             };
 
 
@@ -125,13 +125,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 500,
-                companyId = 2,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 221.50m,
-                storeid = 1
+                Name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 500,
+                CompanyId = 2,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 221.50m,
+                Storeid = 1
             };
 
 
@@ -148,13 +148,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 19,
-                companyId = 2,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 0,
-                storeid = 1
+                Name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 19,
+                CompanyId = 2,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 0,
+                Storeid = 1
             };
 
 
@@ -171,13 +171,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 19,
-                companyId = 0,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 221.50m,
-                storeid = 1
+                Name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 19,
+                CompanyId = 0,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 221.50m,
+                Storeid = 1
             };
 
 
@@ -194,13 +194,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var client = _client;
             Product newProduct = new Product()
             {
-                name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
-                ageRestriction = 19,
-                companyId = 1,
-                imageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
-                price = 221.50m,
-                storeid = 1
+                Name = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                Description = "Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022 Hot Wheels Toys 19 Mercedes Benz A Class Blue 2022",
+                AgeRestriction = 19,
+                CompanyId = 1,
+                ImageIurl = "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQNELVMHT8Ofj_NCZdtCFIYb8ja76slVkRgXNHwUsrD6IWDYQSTG2UNDajeYnfXZlQjhKSC0vBZjf0h1yk7yoBk73H-0T3l7z-trZg2NCs&usqp=CAE",
+                Price = 221.50m,
+                Storeid = 1
             };
 
 
@@ -219,44 +219,44 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
 
             Product newProduct1 = new Product()
             {
-                name = "Toy test 1",
-                description = "Toy test 1",
-                ageRestriction = 1,
-                companyId = 2,
-                imageIurl = "",
-                price = 1.50m,
-                storeid = 1
+                Name = "Toy test 1",
+                Description = "Toy test 1",
+                AgeRestriction = 1,
+                CompanyId = 2,
+                ImageIurl = "",
+                Price = 1.50m,
+                Storeid = 1
             };
             Product newProduct2 = new Product()
             {
-                name = "Toy test 2",
-                description = "Toy test 2",
-                ageRestriction = 1,
-                companyId = 2,
-                imageIurl = "",
-                price = 1.50m,
-                storeid = 1
+                Name = "Toy test 2",
+                Description = "Toy test 2",
+                AgeRestriction = 1,
+                CompanyId = 2,
+                ImageIurl = "",
+                Price = 1.50m,
+                Storeid = 1
             };
             Product newProduct3 = new Product()
             {
-                name = "Toy test 3",
-                description = "Toy test 3",
-                ageRestriction = 1,
-                companyId = 2,
-                imageIurl = "",
-                price = 1.50m,
-                storeid = 1
+                Name = "Toy test 3",
+                Description = "Toy test 3",
+                AgeRestriction = 1,
+                CompanyId = 2,
+                ImageIurl = "",
+                Price = 1.50m,
+                Storeid = 1
             };
 
             Product newProduct4 = new Product()
             {
-                name = "Toy test 4",
-                description = "Toy test 4",
-                ageRestriction = 1,
-                companyId = 2,
-                imageIurl = "",
-                price = 1.50m,
-                storeid = 1
+                Name = "Toy test 4",
+                Description = "Toy test 4",
+                AgeRestriction = 1,
+                CompanyId = 2,
+                ImageIurl = "",
+                Price = 1.50m,
+                Storeid = 1
             };
             
             products.Add(newProduct1);
@@ -282,7 +282,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             _output.WriteLine(responseJson);
 
             Assert.Equal(HttpStatusCode.OK, responseGet.StatusCode);
-            Assert.Equal(1, product.id);
+            Assert.Equal(1, product.Id);
             
         }
 
@@ -291,13 +291,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         {
             Product productToUpdate = new Product()
             {
-                name = "Toy test 5",
-                description = "Toy test 5",
-                ageRestriction = 1,
-                companyId = 2,
-                imageIurl = "",
-                price = 1.50m,
-                storeid = 1
+                Name = "Toy test 5",
+                Description = "Toy test 5",
+                AgeRestriction = 1,
+                CompanyId = 2,
+                ImageIurl = "",
+                Price = 1.50m,
+                Storeid = 1
             };
 
             var client = _client;
@@ -314,13 +314,13 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
         {
             Product newProduct = new Product()
             {
-                name = "Toy test 6",
-                description = "Toy test 6",
-                ageRestriction = 1,
-                companyId = 2,
-                imageIurl = "",
-                price = 1.50m,
-                storeid = 1
+                Name = "Toy test 6",
+                Description = "Toy test 6",
+                AgeRestriction = 1,
+                CompanyId = 2,
+                ImageIurl = "",
+                Price = 1.50m,
+                Storeid = 1
             };
 
             var client = _client;
@@ -333,7 +333,7 @@ namespace WarehouseTestingUnit.WarehouseRESTfulAPI
             var responseJson = await responseAllOrdes.Content.ReadAsStringAsync();
             List<Product> products = JsonSerializer.Deserialize<List<Product>>(responseJson);
 
-            var valueBytes = Encoding.UTF8.GetBytes(products.Last().id.ToString());
+            var valueBytes = Encoding.UTF8.GetBytes(products.Last().Id.ToString());
             string idbase = Convert.ToBase64String(valueBytes);
 
             var responseUpdate = await client.DeleteAsync("api/product/"+ idbase);

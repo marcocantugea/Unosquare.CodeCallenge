@@ -15,11 +15,11 @@ namespace WarehouseRESTfulAPI.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private CompaniesServices companyService;
+        private CompaniesServices _companyService;
 
         public CompanyController(IWarehouseService<CompaniesServices> companyservice)
         {
-            companyService = (CompaniesServices)companyservice;
+            _companyService = (CompaniesServices)companyservice;
         }
 
 
@@ -31,7 +31,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                return Ok(await companyService.GetCompanyAsync(idCompany));
+                return Ok(await _companyService.GetCompanyAsync(idCompany));
             }
             catch (Exception)
             {
@@ -44,7 +44,7 @@ namespace WarehouseRESTfulAPI.Controllers
         public async Task<IActionResult> SearchCompanyAsync([FromQuery] string name= "")
         {
             if (string.IsNullOrEmpty(name)) return Problem("name is invalid",null,500);
-            return Ok(await companyService.GetCompanyByNameAsync(name));
+            return Ok(await _companyService.GetCompanyByNameAsync(name));
         }
 
         [HttpPost]
@@ -66,7 +66,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 return Problem(e.Message.ToString(), null, 500);
             }
             
-            await companyService.AddCompanyAsync(newCompany);
+            await _companyService.AddCompanyAsync(newCompany);
             return NoContent();
         }
 
@@ -78,7 +78,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 if (String.IsNullOrEmpty(idEncoded)) return BadRequest();
                 var valueBytes = System.Convert.FromBase64String(idEncoded);
                 int idCompany = Int32.Parse(Encoding.UTF8.GetString(valueBytes));
-                await companyService.DeleteCompanyAsync(new Company() { id = idCompany });
+                await _companyService.DeleteCompanyAsync(new Company() { Id = idCompany });
                 return NoContent();
             }
             catch (Exception)
@@ -107,7 +107,7 @@ namespace WarehouseRESTfulAPI.Controllers
                 return Problem(e.Message.ToString(), null, 500);
             }
 
-            await companyService.UpdateCompanyAsync(model);
+            await _companyService.UpdateCompanyAsync(model);
             return NoContent();
         }
     }
